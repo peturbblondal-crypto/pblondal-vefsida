@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="is">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>P. Blöndal ehf. | Gröfuþjónusta og jarðvinna</title>
+<meta name="description" content="P. Blöndal ehf. býður gröfuþjónustu og jarðvinnu á höfuðborgarsvæðinu: gröfuvinnu, veituframkvæmdir, lagnaskurði, grunnvinnu og almenna verktöku. Sími 773-3363.">
+<meta name="keywords" content="gröfuþjónusta, jarðvinna, gröfuvinna, veituframkvæmdir, verktaki, lagnaskurðir, höfuðborgarsvæðið">
+<meta property="og:title" content="P. Blöndal ehf. | Gröfuþjónusta og jarðvinna">
+<meta property="og:description" content="Gröfuvinna, veituframkvæmdir og lagnaskurðir á höfuðborgarsvæðinu. Sími 773-3363.">
+<meta property="og:locale" content="is_IS">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"GeneralContractor","name":"P. Blöndal ehf.","telephone":"+354 773-3363","email":"petur@pblondal.is","taxID":"570125-0950","areaServed":{"@type":"Place","name":"Höfuðborgarsvæðið"},"knowsLanguage":"is","description":"Gröfuþjónusta, jarðvinna, veituframkvæmdir, lagnaskurðir og grunnvinna."}
+</script>
+<style>
+/* Layout: type-only page on a 12-col measure. Big headline + a contact card you can act on immediately; everything below is short, scannable blocks separated by hairlines. Pink appears only on small markers and the main button. */
+:root{
+  --bg:#f5f5f2;
+  --surface:#ffffff;
+  --fg:#121316;
+  --mute:#5c5f66;
+  --line:#e0e0db;
+  --line-strong:#121316;
+  --accent:#d6005a;
+  --accent-ink:#ffffff;
+  --chip:#ecece7;
+  --display:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --ease:cubic-bezier(.2,.75,.2,1);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111214;--surface:#18191c;--fg:#f2f2ef;--mute:#9a9ca3;--line:#2a2c30;--line-strong:#f2f2ef;--accent:#ff2e7a;--accent-ink:#111214;--chip:#212226;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#111214;--surface:#18191c;--fg:#f2f2ef;--mute:#9a9ca3;--line:#2a2c30;--line-strong:#f2f2ef;--accent:#ff2e7a;--accent-ink:#111214;--chip:#212226;color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+html{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--display);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+::selection{background:var(--accent);color:var(--accent-ink)}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3{margin:0;letter-spacing:-.03em;line-height:1.02;text-wrap:balance}
+.label{font-family:var(--mono);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);display:flex;align-items:center;gap:10px}
+.label::before{content:"";width:8px;height:8px;background:var(--accent)}
+
+/* logo per theme */
+.logo-dark{display:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo-light{display:none}:root:not([data-theme="light"]) .logo-dark{display:block}}
+:root[data-theme="dark"] .logo-light{display:none}
+:root[data-theme="dark"] .logo-dark{display:block}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;font:inherit;font-weight:700;font-size:1rem;text-decoration:none;padding:15px 24px;border:1px solid transparent;cursor:pointer;transition:background .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease),transform .25s var(--ease)}
+.btn svg{width:18px;height:18px;transition:transform .3s var(--ease)}
+.btn:hover svg{transform:translateX(4px)}
+.btn-main{background:var(--fg);color:var(--bg)}
+.btn-main:hover{background:var(--accent);color:var(--accent-ink)}
+.btn-line{border-color:var(--line);color:var(--fg);background:transparent}
+.btn-line:hover{border-color:var(--fg)}
+
+/* header */
+.head{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--bg);border-bottom:1px solid transparent;transition:border-color .3s}
+.head.lined{border-color:var(--line)}
+.head-row{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:16px}
+.brand img{height:32px;width:auto}
+.nav{display:flex;align-items:center;gap:30px}
+.nav a{text-decoration:none;font-weight:500;font-size:.96rem;color:var(--mute);transition:color .2s}
+.nav a:hover{color:var(--fg)}
+.phone{display:inline-flex;align-items:center;gap:10px;font-weight:700;color:var(--fg)!important;padding:9px 16px;border:1px solid var(--line);font-variant-numeric:tabular-nums;transition:border-color .2s}
+.phone:hover{border-color:var(--fg)}
+.phone svg{width:16px;height:16px;color:var(--accent)}
+@media (max-width:820px){.nav a:not(.phone){display:none}.brand img{height:26px}}
+
+/* hero */
+.hero{padding-block:clamp(56px,9vw,120px) clamp(56px,8vw,100px)}
+.hero-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:40px 24px;align-items:end}
+.hero-text{grid-column:1/8;display:grid;gap:28px}
+.hero h1{font-size:clamp(3rem,8vw,6.6rem);font-weight:900;letter-spacing:-.05em;line-height:.94}
+.hero h1 span{color:var(--accent)}
+.hero p{margin:0;font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--mute);max-width:46ch}
+.hero .actions{display:flex;flex-wrap:wrap;gap:10px}
+.card{grid-column:9/13;background:var(--surface);border:1px solid var(--line);display:grid}
+.card-row{display:grid;gap:2px;padding:18px 22px;border-bottom:1px solid var(--line)}
+.card-row small{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.card-row b{font-size:1.25rem;font-weight:700;letter-spacing:-.01em;font-variant-numeric:tabular-nums;user-select:all;overflow-wrap:anywhere}
+.card-row.big b{font-size:clamp(1.8rem,3vw,2.3rem);font-weight:800;letter-spacing:-.03em}
+.card .copy{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.copy-btn{font:inherit;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);background:var(--chip);border:0;padding:7px 10px;cursor:pointer;flex:0 0 auto}
+.copy-btn:hover{color:var(--fg)}
+.card .btn{margin:18px 22px 22px}
+@media (max-width:900px){.hero-text,.card{grid-column:1/-1}}
+
+.facts{border-top:1px solid var(--line-strong);display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.fact{padding:22px 24px 4px 0;display:grid;gap:4px;align-content:start}
+.fact+.fact{padding-left:24px;border-left:1px solid var(--line)}
+.fact b{font-size:1.15rem;font-weight:700;letter-spacing:-.01em}
+.fact span{color:var(--mute);font-size:.95rem}
+@media (max-width:700px){.facts{grid-template-columns:1fr}.fact+.fact{padding-left:0;border-left:0;border-top:1px solid var(--line);margin-top:18px}}
+
+/* sections */
+.sec{padding-block:clamp(72px,9vw,120px);border-top:1px solid var(--line)}
+.sec-head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:20px 24px;align-items:end;margin-bottom:clamp(36px,5vw,56px)}
+.sec-head>div{grid-column:1/7;display:grid;gap:16px}
+.sec-head h2{font-size:clamp(2.1rem,4.6vw,3.6rem);font-weight:800}
+.sec-head p{grid-column:8/13;margin:0;color:var(--mute)}
+@media (max-width:860px){.sec-head>div,.sec-head p{grid-column:1/-1}}
+
+/* services */
+.services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.svc{background:var(--surface);border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:30px 28px 32px;display:grid;gap:14px;align-content:start;position:relative;transition:background .3s var(--ease)}
+.svc::after{content:"";position:absolute;left:0;top:0;height:3px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.svc:hover::after{transform:scaleX(1)}
+.svc svg{width:34px;height:34px;color:var(--fg)}
+.svc h3{font-size:1.4rem;font-weight:800}
+.svc p{margin:0;color:var(--mute);font-size:.98rem}
+.svc ul{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.svc li{font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;background:var(--chip);color:var(--mute);padding:5px 8px}
+.svc.cta{background:var(--fg);color:var(--bg)}
+.svc.cta p{color:var(--bg);opacity:.75}
+.svc.cta .btn{background:var(--bg);color:var(--fg);justify-self:start;margin-top:6px}
+.svc.cta .btn:hover{background:var(--accent);color:var(--accent-ink)}
+.svc.cta::after{display:none}
+@media (max-width:960px){.services{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.services{grid-template-columns:1fr}}
+
+/* process */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;counter-reset:s}
+.steps li{display:grid;gap:10px;align-content:start;padding-top:20px;border-top:2px solid var(--line-strong)}
+.steps li::before{counter-increment:s;content:counter(s,decimal-leading-zero);font-family:var(--mono);font-size:.8rem;color:var(--accent)}
+.steps h3{font-size:1.3rem;font-weight:800}
+.steps p{margin:0;color:var(--mute);font-size:.98rem}
+@media (max-width:900px){.steps{grid-template-columns:1fr 1fr;row-gap:36px}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px}
+.about-intro{grid-column:1/6;display:grid;gap:18px;align-content:start}
+.about-intro h2{font-size:clamp(2.1rem,4.6vw,3.6rem);font-weight:800}
+.about-intro p{margin:0;color:var(--mute);max-width:42ch}
+.exp{display:flex;align-items:flex-end;gap:16px;margin-top:10px}
+.exp b{font-size:clamp(4rem,9vw,6rem);font-weight:900;letter-spacing:-.06em;line-height:.8}
+.exp span{color:var(--mute);font-size:.95rem;line-height:1.4;max-width:24ch}
+.values{grid-column:7/13;display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line)}
+.value{padding:22px 22px 22px 0;border-bottom:1px solid var(--line);display:grid;gap:6px;align-content:start}
+.value:nth-child(even){padding-left:22px;border-left:1px solid var(--line)}
+.value h3{font-size:1.15rem;font-weight:800;letter-spacing:-.015em}
+.value p{margin:0;color:var(--mute);font-size:.95rem}
+@media (max-width:900px){.about-intro,.values{grid-column:1/-1}}
+@media (max-width:520px){.values{grid-template-columns:1fr}.value:nth-child(even){padding-left:0;border-left:0}}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px}
+.contact-side{grid-column:1/6;display:grid;gap:26px;align-content:start}
+.contact-side h2{font-size:clamp(2.4rem,5.4vw,4.2rem);font-weight:900;letter-spacing:-.045em}
+.contact-side p{margin:0;color:var(--mute);max-width:40ch}
+.info{display:grid;border-top:1px solid var(--line)}
+.info div{display:grid;gap:2px;padding-block:14px;border-bottom:1px solid var(--line)}
+.info small{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.info span{font-size:1.2rem;font-weight:700;user-select:all;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+form{grid-column:7/13;background:var(--surface);border:1px solid var(--line);padding:clamp(22px,3vw,34px);display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field{display:grid;gap:7px}
+.field.full{grid-column:1/-1}
+.field label,.field .lbl{font-size:.88rem;font-weight:600}
+.field label em{font-style:normal;font-weight:400;color:var(--mute)}
+.field input,.field select,.field textarea{font:inherit;font-size:1rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);padding:12px 14px;border-radius:0;width:100%;transition:border-color .2s,background .2s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--fg);background:var(--surface)}
+.field textarea{min-height:120px;resize:vertical}
+.field input::placeholder,.field textarea::placeholder{color:var(--mute);opacity:.7}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;pointer-events:none}
+.chip span{display:inline-block;padding:9px 13px;border:1px solid var(--line);background:var(--bg);font-size:.9rem;cursor:pointer;transition:all .2s var(--ease)}
+.chip span:hover{border-color:var(--mute)}
+.chip input:checked+span{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.chip input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.form-foot{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-top:4px}
+.form-foot small{color:var(--mute);font-size:.84rem;max-width:36ch}
+.msg{grid-column:1/-1;margin:0;padding:14px 16px;background:var(--chip);border-left:3px solid var(--fg);font-size:.95rem}
+.msg.err{border-left-color:var(--accent)}
+@media (max-width:900px){.contact-side,form{grid-column:1/-1}}
+@media (max-width:560px){form{grid-template-columns:1fr}}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding-block:40px 28px;color:var(--mute);font-size:.9rem}
+.foot{display:flex;flex-wrap:wrap;gap:20px 40px;justify-content:space-between;align-items:center}
+.foot img{height:24px;width:auto}
+.foot-info{display:flex;flex-wrap:wrap;gap:8px 24px;font-variant-numeric:tabular-nums}
+
+/* phone call bar */
+.callbar{display:none}
+@media (max-width:700px){
+  .callbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:55;gap:10px;background:var(--bg);border-top:1px solid var(--line);padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+  .callbar .btn{flex:1;padding:13px 14px}
+  footer{padding-bottom:100px}
+}
+
+/* motion */
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.hero-text>*{animation:up .8s var(--ease) both}
+.hero-text>*:nth-child(2){animation-delay:.08s}.hero-text>*:nth-child(3){animation-delay:.16s}.hero-text>*:nth-child(4){animation-delay:.24s}
+.card{animation:up .8s .3s var(--ease) both}
+@supports (animation-timeline:view()){
+  .rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% entry 45%}
+  @keyframes rv{from{transform:translateY(36px)}to{transform:none}}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="head" id="head">
+  <div class="wrap head-row">
+    <a class="brand" href="#top" aria-label="P. Blöndal ehf., forsíða">
+      <img class="logo-light" src="logo.png" alt="P. Blöndal ehf.">
+      <img class="logo-dark" src="logo-ljost.png" alt="P. Blöndal ehf.">
+    </a>
+    <nav class="nav" aria-label="Aðalvalmynd">
+      <a href="#thjonusta">Þjónusta</a>
+      <a href="#ferli">Verkferli</a>
+      <a href="#um-okkur">Um okkur</a>
+      <a href="#hafa-samband">Hafa samband</a>
+      <a class="phone" href="tel:+3547733363"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>773-3363</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <div class="label">Gröfuþjónusta á höfuðborgarsvæðinu</div>
+          <h1 id="hero-title">Öflug lausn í jarðvinnu<span>.</span></h1>
+          <p>Gröfuvinna, veituframkvæmdir, lagnaskurðir og grunnvinna. Fyrir einstaklinga, húsfélög og verktaka.</p>
+          <div class="actions">
+            <a class="btn btn-main" href="#hafa-samband">Fá tilboð <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn btn-line" href="#thjonusta">Sjá þjónustu</a>
+          </div>
+        </div>
+        <aside class="card" aria-label="Samskiptaupplýsingar">
+          <div class="card-row big"><small>Sími</small><div class="copy"><b id="tel">773-3363</b><button class="copy-btn" type="button" data-copy="773-3363">Afrita</button></div></div>
+          <div class="card-row"><small>Netfang</small><div class="copy"><b>petur@pblondal.is</b><button class="copy-btn" type="button" data-copy="petur@pblondal.is">Afrita</button></div></div>
+          <div class="card-row"><small>Starfssvæði</small><b>Höfuðborgarsvæðið</b></div>
+          <a class="btn btn-main" href="#hafa-samband">Senda fyrirspurn</a>
+        </aside>
+      </div>
+    </div>
+    <div class="wrap" style="margin-top:clamp(56px,7vw,88px)">
+      <div class="facts">
+        <div class="fact"><b>5+ ára reynsla</b><span>í faginu</span></div>
+        <div class="fact"><b>Skýrt verð</b><span>tilboð eða tímavinna, ákveðið áður en hafist er handa</span></div>
+        <div class="fact"><b>Lítil verk og stór</b><span>frá heimtaug við einbýlishús að stærri framkvæmdum</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="thjonusta" aria-labelledby="svc-title">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div><div class="label">Þjónusta</div><h2 id="svc-title">Það sem við gerum</h2></div>
+        <p>Við tökum að okkur afmarkaða verkþætti eða sjáum um jarðvinnuna í heild sinni, í samstarfi við aðalverktaka, hönnuði og veitufyrirtæki.</p>
+      </div>
+      <div class="services rv">
+        <article class="svc">
+          <svg viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 27h28"/><path d="M8 27c2-6 6-9 9-9s7 3 9 9"/><path d="M14 13l3-8 3 8"/></svg>
+          <h3>Gröftur og jarðvinna</h3>
+          <p>Uppgröftur, jarðvegsskipti og fyllingar, þjappaðar í lögum svo undirstaðan haldi.</p>
+          <ul><li>Uppgröftur</li><li>Jarðvegsskipti</li><li>Fyllingar</li></ul>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h28M3 22h28"/><circle cx="10" cy="17" r="2"/><circle cx="24" cy="17" r="2"/></svg>
+          <h3>Veituframkvæmdir</h3>
+          <p>Lagning og endurnýjun vatnsveitu, fráveitu, hitaveitu, rafstrengja og fjarskiptalagna.</p>
+          <ul><li>Vatn</li><li>Fráveita</li><li>Hitaveita</li><li>Strengir</li></ul>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9h7l3 18h8l3-18h7"/><path d="M14 22h6"/></svg>
+          <h3>Lagnaskurðir</h3>
+          <p>Skurðir að réttri dýpt og halla, með söndun og frágangi yfir lögnum.</p>
+          <ul><li>Heimtaugar</li><li>Drenlagnir</li><li>Tengingar</li></ul>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="14" width="24" height="13"/><path d="M5 20h24M13 14v13M21 14v13"/><path d="M3 27h28"/></svg>
+          <h3>Grunnvinna og lóðir</h3>
+          <p>Gröftur fyrir sökkla og grunna, jöfnun lóða og undirvinna fyrir hellur, malbik og þökur.</p>
+          <ul><li>Sökklar</li><li>Lóðajöfnun</li><li>Undirvinna</li></ul>
+        </article>
+        <article class="svc">
+          <svg viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="22" height="24"/><path d="M12 4h10v5H12zM11 16l3 3 6-6M11 25h12"/></svg>
+          <h3>Almenn verktaka</h3>
+          <p>Verkstjórn og framkvæmd minni og meðalstórra verka, í samvinnu við aðra iðnaðarmenn.</p>
+          <ul><li>Verkstjórn</li><li>Undirverktaka</li></ul>
+        </article>
+        <article class="svc cta">
+          <h3>Ekki viss um hvað þarf?</h3>
+          <p>Lýstu verkinu fyrir okkur og við förum yfir hvaða leið hentar best.</p>
+          <a class="btn" href="#hafa-samband">Hafa samband <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="ferli" aria-labelledby="proc-title">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div><div class="label">Verkferli</div><h2 id="proc-title">Svona gengur þetta fyrir sig</h2></div>
+        <p>Einfalt ferli og skýr samskipti frá fyrsta símtali. Þú veist alltaf hvar verkið stendur.</p>
+      </div>
+      <ol class="steps">
+        <li class="rv"><h3>Fyrirspurn</h3><p>Þú hringir eða sendir línu með staðsetningu og stuttri lýsingu.</p></li>
+        <li class="rv"><h3>Skoðun</h3><p>Við skoðum aðstæður, aðkomu og umfang verksins.</p></li>
+        <li class="rv"><h3>Tilboð</h3><p>Þú færð skýrt verð, fast tilboð eða tímavinnu.</p></li>
+        <li class="rv"><h3>Framkvæmd</h3><p>Verkið unnið á umsömdum tíma og skilað snyrtilegu.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="um-okkur" aria-labelledby="about-title">
+    <div class="wrap about-grid">
+      <div class="about-intro rv">
+        <div class="label">Um okkur</div>
+        <h2 id="about-title">Reynsla úr verki</h2>
+        <p>Íslenskt verktakafyrirtæki í jarðvinnu og gröfuþjónustu þar sem áreiðanleiki, gæði og skilvirk framkvæmd eru í fyrirrúmi.</p>
+        <div class="exp"><b>5+</b><span>ára reynsla</span></div>
+      </div>
+      <div class="values rv">
+        <div class="value"><h3>Reynsla</h3><p>Hagnýt þekking af vinnusvæðinu sem skilar sér í réttum ákvörðunum.</p></div>
+        <div class="value"><h3>Áreiðanleiki</h3><p>Við mætum á réttum tíma og látum vita strax ef eitthvað breytist.</p></div>
+        <div class="value"><h3>Gæði</h3><p>Rétt dýpt, réttur halli og vandaður frágangur.</p></div>
+        <div class="value"><h3>Skilvirkni</h3><p>Gott skipulag heldur kostnaði niðri og verkinu á áætlun.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="hafa-samband" aria-labelledby="contact-title">
+    <div class="wrap contact-grid">
+      <div class="contact-side rv">
+        <div class="label">Hafa samband</div>
+        <h2 id="contact-title">Ræðum næsta verk</h2>
+        <p>Hringdu, sendu póst eða fylltu út formið. Við svörum með verði eða símtali.</p>
+        <div class="info">
+          <div><small>Sími</small><span>773-3363</span></div>
+          <div><small>Netfang</small><span>petur@pblondal.is</span></div>
+          <div><small>Starfssvæði</small><span>Höfuðborgarsvæðið</span></div>
+          <div><small>Kennitala</small><span>570125-0950</span></div>
+        </div>
+      </div>
+      <form id="quote" novalidate aria-label="Beiðni um tilboð">
+        <div class="field full">
+          <span class="lbl" id="typeLbl">Hvað þarf að gera?</span>
+          <div class="chips" role="radiogroup" aria-labelledby="typeLbl">
+            <label class="chip"><input type="radio" name="tegund" id="c1" value="Gröftur og jarðvinna" checked><span>Gröftur</span></label>
+            <label class="chip"><input type="radio" name="tegund" id="c2" value="Veituframkvæmdir"><span>Veitur</span></label>
+            <label class="chip"><input type="radio" name="tegund" id="c3" value="Lagnaskurður"><span>Lagnaskurður</span></label>
+            <label class="chip"><input type="radio" name="tegund" id="c4" value="Grunnur eða lóð"><span>Grunnur eða lóð</span></label>
+            <label class="chip"><input type="radio" name="tegund" id="c5" value="Annað"><span>Annað</span></label>
+          </div>
+        </div>
+        <div class="field"><label for="nafn">Nafn</label><input id="nafn" name="nafn" autocomplete="name"></div>
+        <div class="field"><label for="simi">Sími</label><input id="simi" name="simi" type="tel" autocomplete="tel"></div>
+        <div class="field full"><label for="netfang">Netfang <em>(valfrjálst)</em></label><input id="netfang" name="netfang" type="email" autocomplete="email"></div>
+        <div class="field"><label for="stadur">Staðsetning</label><input id="stadur" name="stadur" placeholder="t.d. Kópavogur"></div>
+        <div class="field"><label for="hvenaer">Hvenær?</label><select id="hvenaer" name="hvenaer"><option>Sem fyrst</option><option>Innan mánaðar</option><option>Á næstu mánuðum</option><option>Óákveðið</option></select></div>
+        <div class="field full"><label for="lysing">Stutt lýsing</label><textarea id="lysing" name="lysing" placeholder="Umfang, aðgengi og annað sem gott er að vita"></textarea></div>
+        <div class="form-foot">
+          <small>Við notum upplýsingarnar eingöngu til að svara fyrirspurninni.</small>
+          <button class="btn btn-main" type="submit">Senda <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+        <p class="msg" id="msg" role="status" hidden></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <img class="logo-light" src="logo.png" alt="P. Blöndal ehf.">
+    <img class="logo-dark" src="logo-ljost.png" alt="P. Blöndal ehf.">
+    <div class="foot-info"><span>773-3363</span><span>petur@pblondal.is</span><span>Kt. 570125-0950</span><span>© 2026 P. Blöndal ehf.</span></div>
+  </div>
+</footer>
+
+<div class="callbar" aria-label="Flýtileiðir">
+  <a class="btn btn-main" href="tel:+3547733363">Hringja 773-3363</a>
+  <a class="btn btn-line" href="#hafa-samband">Tilboð</a>
+</div>
+
+<script>
+(function(){
+  var head=document.getElementById('head');
+  function s(){head.classList.toggle('lined',window.scrollY>8)}
+  window.addEventListener('scroll',s,{passive:true});s();
+
+  document.querySelectorAll('.copy-btn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var txt=b.dataset.copy;
+      function done(){b.textContent='Afritað';setTimeout(function(){b.textContent='Afrita'},1600)}
+      function fallback(){var r=document.createRange();r.selectNodeContents(b.previousElementSibling);var sel=getSelection();sel.removeAllRanges();sel.addRange(r);b.textContent='Valið'}
+      try{navigator.clipboard.writeText(txt).then(done,fallback)}catch(e){fallback()}
+    });
+  });
+
+  var f=document.getElementById('quote'),m=document.getElementById('msg');
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var n=f.nafn.value.trim(),p=f.simi.value.trim(),em=f.netfang.value.trim();
+    m.hidden=false;
+    if(!n){m.className='msg err';m.textContent='Vinsamlegast skráðu nafn.';f.nafn.focus();return}
+    if(!p&&!em){m.className='msg err';m.textContent='Skráðu síma eða netfang svo við getum svarað þér.';f.simi.focus();return}
+    if(em&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){m.className='msg err';m.textContent='Netfangið virðist ekki rétt slegið inn.';f.netfang.focus();return}
+    m.className='msg';
+    m.textContent='Takk, '+n.split(' ')[0]+'. Formið á eftir að tengja við netfang fyrirtækisins. Þangað til er best að hringja í 773-3363 eða senda póst á petur@pblondal.is.';
+  });
+})();
+</script>
+
+</body>
+</html>
