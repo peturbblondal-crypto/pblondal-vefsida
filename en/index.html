@@ -30,7 +30,7 @@
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@type": "GeneralContractor", "@id": "https://pblondal.is/#fyrirtaeki", "name": "P. Blöndal ehf.", "url": "https://pblondal.is/en/", "logo": "https://pblondal.is/logo.png", "image": "https://pblondal.is/og.png", "telephone": "+354 773-3363", "email": "petur@pblondal.is", "taxID": "570125-0950", "vatID": "155759", "address": {"@type": "PostalAddress", "postalCode": "210", "addressLocality": "Garðabær", "addressCountry": "IS"}, "areaServed": {"@type": "Place", "name": "Greater Reykjavík area"}, "knowsLanguage": ["is", "en"], "description": "Excavation and groundwork in the Reykjavík area: utility trenches, foundation drainage, paving, foundations and utility work.", "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Services", "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Excavation and groundwork", "url": "https://pblondal.is/en/services/graftur-og-jardvinna/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Utility work", "url": "https://pblondal.is/en/services/veituframkvaemdir/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Trenching", "url": "https://pblondal.is/en/services/lagnaskurdir/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Foundation drainage", "url": "https://pblondal.is/en/services/drenlogn/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Paving and driveways", "url": "https://pblondal.is/en/services/hellulogn/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Foundations and gardens", "url": "https://pblondal.is/en/services/grunnar-og-lodir/"}}]}}
 </script>
-<link rel="stylesheet" href="../css/site.css">
+<link rel="stylesheet" href="css/site.css?v=20261026c">
 </head>
 <body>
 <a class="skip" href="#top">Skip to content</a>
@@ -66,7 +66,7 @@
 <script>
 (function(){
   var intro=document.getElementById('intro'),seen=false;
-  try{seen=sessionStorage.getItem('pb-intro')==='1';sessionStorage.setItem('pb-intro','1')}catch(e){}
+  try{seen=!!document.referrer&&new URL(document.referrer).origin===location.origin}catch(e){}
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   var deep=location.hash||/[?&]verk=/.test(location.search);
   if(seen||reduce||deep||!intro.animate){intro.hidden=true;return}
