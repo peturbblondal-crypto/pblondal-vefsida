@@ -23,7 +23,6 @@ Verðhugmyndin er sýnd sem bil frá 90% upp í 130% af útreiknuðu verði.
 Fyrirspurnir eru sendar á petur@pblondal.is í gegnum FormSubmit (formsubmit.co).
 Viðskiptavinur fær sjálfvirkan staðfestingarpóst.
 
-## Eigið lén
+## Lén
 
-Þegar pblondal.is er tengt þarf að skipta `https://peturbblondal-crypto.github.io/pblondal-vefsida/`
-út fyrir `https://pblondal.is/` í öllum `.html` skrám, `sitemap.xml` og `robots.txt`.
+Síðan er á https://pblondal.is. DNS er hjá ISNIC: fjórar A-færslur á IP-tölur GitHub Pages og CNAME fyrir www á peturbblondal-crypto.github.io. Skráin `CNAME` segir GitHub hvaða lén síðan notar.
