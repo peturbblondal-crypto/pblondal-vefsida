@@ -228,15 +228,24 @@
                 <label><input type="radio" name="acc" value="1" checked><span>Good access</span></label>
                 <label><input type="radio" name="acc" value="0.8"><span>Tight, e.g. a back garden</span></label>
               </div></div>
+              <div class="of"><span class="l">Materials</span><div class="seg" id="g-mat">
+                <label><input type="radio" name="mat" value="1" checked><span>We bring the materials</span></label>
+                <label><input type="radio" name="mat" value="0"><span>I will supply materials</span></label>
+              </div></div>
+              <div class="of"><span class="l">Excavated soil</span><div class="seg" id="g-haul">
+                <label><input type="radio" name="haul" value="0" checked><span>Can stay on site</span></label>
+                <label><input type="radio" name="haul" value="1"><span>Take it away</span></label>
+              </div></div>
             </div>
           </div>
           <details class="how">
             <summary>How is this calculated?</summary>
             <div>
-              <p>The calculator estimates how long the excavator and operator need, based on volume and the output of a mini excavator, and adds transport of the machine to the site.</p>
+              <p>The calculator estimates how long the excavator and operator need, based on volume and the output of a mini excavator, and adds machine transport, materials and truck trips.</p>
               <p>Output is based on general figures for a 3-tonne excavator: the bucket holds about 0.06–0.09 m³, one cycle takes 12–18 seconds and real working time is about 45–50 minutes per hour. For trenching we assume about 5–6 m³ per hour in normal soil, and slower when working close to a house.</p>
               <p>Soil and access change the output. Clay and rock slow the work down, and tight access means more repositioning of the machine.</p>
-              <p>The estimate is shown as a range from 90% to 130% of the calculated price, because conditions are never exactly as on paper. Materials, disposal and removal of excavated soil are not included unless stated.</p>
+              <p>Materials are calculated in tonnes from volume: sand under pipes and pavers, base course for fill and drainage gravel for drains. Material prices are based on P. Blöndal's rates and Steypustöðin's list prices. Each truck trip carries up to 15 tonnes of material or 10 m³ of excavated soil.</p>
+              <p>The estimate is shown as a range from 90% to 130% of the calculated price, because conditions are never exactly as on paper. Disposal fees, pipes and pavers are not included.</p>
             </div>
           </details>
         </div>
@@ -246,7 +255,7 @@
           <div class="calc-range" id="calcRange">Choose a job</div>
           <div class="calc-sub" id="calcVat">Your estimate appears here as soon as you choose a job.</div>
           <div class="calc-lines" id="calcLines" hidden></div>
-          <p class="calc-note">Estimate based on typical output and P. Blöndal's rates. Materials, disposal and removal of soil not included. We confirm the price after a site visit.</p>
+          <p class="calc-note">Estimate based on typical output and P. Blöndal's rates. Materials and haulage are calculated from your choices. Disposal fees are not included. We confirm the price after a site visit.</p>
           <a class="btn" id="calcCta" href="#hafa-samband" aria-disabled="true">Get an exact quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </aside>
       </div>
@@ -365,30 +374,34 @@
      Prices are P. Blöndal's own (ISK, ex VAT). Hours come from typical 3 t mini excavator output.
      Change the numbers in P and RATE to update every estimate. */
   (function(){
-    var P={grafa:11900,madur:12990,flutningur:25900,hola:12500,sogun:7500,hellur:8500};
+    var P={grafa:11900,madur:12990,ferd:25900,hola:12500,sogun:7500,hellur:8500,sandur:2700,burdarlag:1953,drenmol:1372};
+    /* efni á tonn án VSK: sandur = verð P. Blöndal, burðarlag og drenmöl = listaverð Steypustöðvar með kolefnisgjaldi */
+    var DENS={sandur:1.6,burdarlag:2.0,drenmol:1.27};   /* tonn á m³ */
+    var TRUCK_T=15,TRUCK_M3=10,SWELL=1.25;              /* hámark í hverri ferð vörubíls, losun uppgraftar */
+    var MATN={sandur:'Sand',burdarlag:'Base course',drenmol:'Drainage gravel'};
     var RATE=P.grafa+P.madur;            /* grafa + gröfumaður á klst. */
-    var FLUTNINGUR=P.flutningur;         /* flutningur tækja á staðinn (vörubíll) */
+    var FLUTNINGUR=P.ferd;               /* flutningur tækja á staðinn (ein ferð vörubíls) */
     var LOW=0.9,HIGH=1.3,VSK=0.24;
     var DIG_TRENCH=5.5,DIG_HOUSE=4.5,DIG_BULK=8,FILL=12,GRADE=60,LEVEL=40;   /* m³ eða m² á klst. */
     var JOBS={
       skurdur:{n:'Utility trench',f:[['L','Trench length','m',1,10],['d','Depth',[[0.6,'About 60 cm'],[1,'About 1 m'],[1.5,'About 1.5 m']],1],['b','Backfill the trench?',[[1,'Yes'],[0,'No']],1]],
-        c:function(v,s,a){var w=v.d<=0.6?0.4:v.d<=1?0.5:0.7,V=v.L*w*v.d;return {h:V/(DIG_TRENCH*s*a)+(v.b?V/(FILL*a):0),t:fq(v.L)+' m, '+fq(v.d)+' m deep'}},
-        note:'Pipes and bedding sand not included.'},
+        c:function(v,s,a){var w=v.d<=0.6?0.4:v.d<=1?0.5:0.7,V=v.L*w*v.d,sd=v.L*w*0.3;return {h:V/(DIG_TRENCH*s*a)+(v.b?V/(FILL*a):0),mat:{sandur:sd},out:v.b?sd:V,t:fq(v.L)+' m, '+fq(v.d)+' m deep'}},
+        note:'Sand bedding under and over the pipe is included if you choose materials. Pipes not included.'},
       dren:{n:'Foundation drainage',f:[['L','Perimeter of the house','m',1,40],['d','Depth to the footing',[[1,'About 1 m'],[1.5,'About 1.5 m'],[2,'About 2 m']],1.5]],
-        c:function(v,s,a){var V=v.L*0.8*v.d;return {h:V/(DIG_HOUSE*s*a)+V/(10*a),t:fq(v.L)+' m, '+fq(v.d)+' m deep'}},
-        note:'Careful work along the footing. Drain pipe, drainage gravel and membrane not included.'},
+        c:function(v,s,a){var V=v.L*0.8*v.d,dm=v.L*0.15;return {h:V/(DIG_HOUSE*s*a)+V/(10*a),mat:{drenmol:dm},out:dm,t:fq(v.L)+' m, '+fq(v.d)+' m deep'}},
+        note:'Careful work along the footing. Drainage gravel is included if you choose materials. Drain pipe and membrane not included.'},
       plan:{n:'Driveway, parking area or patio',f:[['A','Area','m²',5,40],['d','Type',[[0.3,'Patio or path'],[0.5,'Driveway or parking area']],0.5],['hl','Paving as well?',[[1,'Yes, paving too'],[0,'No, groundwork only']],1]],
-        c:function(v,s,a){var V=v.A*v.d;return {h:V/(DIG_BULK*s*a)+V/(FILL*a)+v.A/(LEVEL*a),fast:v.hl?v.A*P.hellur:0,t:fq(v.A)+' m²'+(v.hl?' with paving':' groundwork only')}},
-        note:'Included: excavation, fill and levelling'+'. Fill material, sand, pavers and removal of soil not included.'},
+        c:function(v,s,a){var V=v.A*v.d;return {h:V/(DIG_BULK*s*a)+V/(FILL*a)+v.A/(LEVEL*a),fast:v.hl?v.A*P.hellur:0,mat:{burdarlag:v.A*(v.d-0.05),sandur:v.hl?v.A*0.05:0},out:V,t:fq(v.A)+' m²'+(v.hl?' with paving':' groundwork only')}},
+        note:'Included: excavation, fill and levelling. Base course and bedding sand are included if you choose materials. Pavers not included.'},
       holur:{n:'Deck or fence supports',f:[['n','Number of holes','pcs',1,8]],
-        c:function(v){return {h:0,fast:v.n*P.hola,t:fq(v.n)+' holes'}},
+        c:function(v){return {h:0,fast:v.n*P.hola,out:v.n*0.1,t:fq(v.n)+' holes'}},
         note:'Digging in simple conditions. Concrete and finishing not included.'},
       pottur:{n:'Hot tub',f:[['n','Number of tubs','pcs',1,1]],
-        c:function(v,s,a){return {h:v.n*(1.5/s+0.5)/a,t:fq(v.n)+' pcs'}},
-        note:'Digging and levelling for a standard hot tub. Gravel and pipework not included.'},
+        c:function(v,s,a){return {h:v.n*(1.5/s+0.5)/a,mat:{burdarlag:v.n*1.25},out:v.n*3.75,t:fq(v.n)+' pcs'}},
+        note:'Digging and levelling for a standard hot tub. Gravel under the tub is included if you choose materials. Pipework not included.'},
       grunnur:{n:'Foundation for a small building',f:[['A','Footprint','m²',5,20],['d','Depth',[[0.6,'About 60 cm, light footings'],[1.2,'About 1.2 m, frost-free']],1.2]],
-        c:function(v,s,a){var sd=Math.sqrt(v.A)+1,V=sd*sd*v.d;return {h:V/(DIG_BULK*s*a)+v.A/(30*a),t:fq(v.A)+' m², '+fq(v.d)+' m'}},
-        note:'Assumes digging about 50 cm beyond the footprint. Fill and removal not included.'},
+        c:function(v,s,a){var sd=Math.sqrt(v.A)+1,V=sd*sd*v.d;return {h:V/(DIG_BULK*s*a)+v.A/(30*a),out:V,t:fq(v.A)+' m², '+fq(v.d)+' m'}},
+        note:'Assumes digging about 50 cm beyond the footprint. Fill not included.'},
       jofnun:{n:'Garden levelling',f:[['A','Area','m²',10,100]],
         c:function(v,s,a){return {h:v.A/(GRADE*a)*(s<0.8?1.3:1),t:fq(v.A)+' m²'}},
         note:'Levelling and shaping on site. Topsoil and turf not included.'},
@@ -428,9 +441,11 @@
       var R=document.getElementById('calcRange'),T=document.getElementById('calcVat'),L=document.getElementById('calcLines'),C=document.getElementById('calcCta');
       var M=document.getElementById('calcMini');
       if(!ids.length){M.dataset.on='';showMini();R.textContent='Choose a job';T.textContent='Your estimate appears here as soon as you choose a job.';L.hidden=true;C.setAttribute('aria-disabled','true');calcText='';return}
-      var tot=0,hrs=0,rows=[],txt=[];
+      var tot=0,hrs=0,rows=[],txt=[],mt={},outM3=0,wantMat=radio('mat')===1,wantHaul=radio('haul')===1;
       ids.forEach(function(id){
         var r=JOBS[id].c(V[id],s,a),h=Math.ceil((r.h||0)*4)/4,cost=h*RATE+(r.fast||0);
+        if(r.mat)Object.keys(r.mat).forEach(function(k){mt[k]=(mt[k]||0)+r.mat[k]*DENS[k]});
+        outM3+=r.out||0;
         tot+=cost;hrs+=h;
         var lo=r1000(cost*LOW),hi=r1000(cost*HIGH),el=document.getElementById('cr-'+id);
         if(el)el.textContent=cost?fmt(lo)+' – '+fmt(hi):'';
@@ -439,14 +454,21 @@
       });
       tot+=FLUTNINGUR;
       rows.push('<div><span>Machine transport to site</span><span>'+fmt(r1000(FLUTNINGUR*LOW))+' – '+fmt(r1000(FLUTNINGUR*HIGH))+'</span></div>');
+      function line(label,cost,extra){tot+=cost;rows.push('<div><span>'+label+'</span><span>'+fmt(r1000(cost*LOW))+' – '+fmt(r1000(cost*HIGH))+'</span></div>');txt.push('- '+label+(extra||'')+' (approx. '+fmt(r1000(cost*LOW))+' – '+fmt(r1000(cost*HIGH))+')')}
+      if(wantMat){
+        var tons=0,mcost=0,parts=[];
+        Object.keys(mt).forEach(function(k){var tn=Math.ceil(mt[k]*2)/2;if(!tn)return;tons+=tn;mcost+=tn*P[k];parts.push(MATN[k]+' '+fq(tn)+' t')});
+        if(tons){line('Materials: '+parts.join(', '),mcost);var trips=Math.ceil(tons/TRUCK_T);line('Material delivery, '+trips+(trips===1?' trip':' trips'),trips*P.ferd)}
+      }
+      if(wantHaul&&outM3>0.2){var ht=Math.ceil(outM3*SWELL/TRUCK_M3);line('Soil removal, '+ht+(ht===1?' trip':' trips'),ht*P.ferd,', approx. '+fq(outM3*SWELL)+' m³')}
       var lo=r1000(tot*LOW),hi=r1000(tot*HIGH);
       R.textContent=fmt(lo)+' – '+fmt(hi);
       document.getElementById('calcMiniV').textContent=fmt(lo)+' – '+fmt(hi);M.dataset.on='1';showMini();
       T.textContent='Incl. VAT: '+fmt(r1000(lo*(1+VSK)))+' – '+fmt(r1000(hi*(1+VSK)));
-      if(hrs)rows.push('<div style="font-weight:700"><span>Estimated excavator time</span><span>'+fq(Math.max(0.5,hrs*LOW))+' – '+fq(hrs*HIGH)+' klst.</span></div>');
+      if(hrs)rows.push('<div style="font-weight:700"><span>Estimated excavator time</span><span>'+fq(Math.max(0.5,hrs*LOW))+' – '+fq(hrs*HIGH)+' hrs</span></div>');
       L.innerHTML=rows.join('');L.hidden=false;C.setAttribute('aria-disabled','false');
       var soilL=(document.querySelector('input[name="soil"]:checked')||{}).parentNode,accL=(document.querySelector('input[name="acc"]:checked')||{}).parentNode;
-      calcText='Estimate from the price calculator:\n'+txt.join('\n')+'\n- Soil: '+(soilL?soilL.textContent:'')+', access: '+(accL?accL.textContent:'')+'\nTotal excl. VAT: '+fmt(lo)+' – '+fmt(hi)+' (incl. VAT: '+fmt(r1000(lo*(1+VSK)))+' – '+fmt(r1000(hi*(1+VSK)))+')';
+      calcText='Estimate from the price calculator:\n'+txt.join('\n')+'\n- Soil: '+(soilL?soilL.textContent:'')+', access: '+(accL?accL.textContent:'')+(wantMat?'':', customer supplies materials')+'\nTotal excl. VAT: '+fmt(lo)+' – '+fmt(hi)+' (incl. VAT: '+fmt(r1000(lo*(1+VSK)))+' – '+fmt(r1000(hi*(1+VSK)))+')';
     }
     var inSec=false,sumVis=false;
     function showMini(){var M=document.getElementById('calcMini');M.hidden=!(M.dataset.on&&inSec&&!sumVis)}
@@ -461,6 +483,8 @@
     document.getElementById('g-soil').addEventListener('change',calc);
     try{var pv=new URLSearchParams(location.search).get('verk');if(pv&&JOBS[pv]){var cb=document.querySelector('#jobs input[value="'+pv+'"]');if(cb){cb.checked=true;sel[pv]=true;drawPanels()}}}catch(e){}
     document.getElementById('g-acc').addEventListener('change',calc);
+    document.getElementById('g-mat').addEventListener('change',calc);
+    document.getElementById('g-haul').addEventListener('change',calc);
     document.getElementById('calcCta').addEventListener('click',function(){
       if(!calcText)return;
       var ly=document.getElementById('lysing');

@@ -15,8 +15,16 @@ Vefsíða P. Blöndal ehf., gröfuþjónusta og jarðvinna á höfuðborgarsvæ�
 ## Verð í reiknivélinni
 
 Verðin eru efst í reiknivélarkóðanum í `index.html` (leitaðu að `var P=`), öll án VSK:
-grafa og gröfumaður á klst., flutningur tækja, undirstöðuhola, sögun á lm og hellulögn á m².
+
+- `grafa`, `madur`: 3 tonna grafa og gröfumaður á klst. (11.900 + 12.990)
+- `ferd`: ein ferð vörubíls (25.900), notuð fyrir flutning tækja, akstur efnis og brottflutning uppgraftar
+- `hola`, `sogun`, `hellur`: undirstöðuhola á stk., sögun á lm, hellulögn á m²
+- `sandur`: 2.700 kr./t (verð P. Blöndal)
+- `burdarlag`, `drenmol`: listaverð Steypustöðvarinnar á tonn með kolefnisgjaldi, án VSK (1.953 og 1.372)
+
+`TRUCK_T` og `TRUCK_M3` segja hve mikið vörubíllinn tekur í ferð (15 t af efni eða 10 m³ af uppgreftri).
 Verðhugmyndin er sýnd sem bil frá 90% upp í 130% af útreiknuðu verði.
+Eftir breytingu á `index.html` þarf að endurgera ensku síðuna `en/index.html` svo verðin séu þau sömu.
 
 ## Tilboðsform
 
