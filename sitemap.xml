@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://pblondal.is/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://pblondal.is/en/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://pblondal.is/thjonusta/graftur-og-jardvinna/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://pblondal.is/thjonusta/veituframkvaemdir/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://pblondal.is/thjonusta/lagnaskurdir/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://pblondal.is/thjonusta/drenlogn/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://pblondal.is/thjonusta/hellulogn/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://pblondal.is/thjonusta/grunnar-og-lodir/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://pblondal.is/en/services/graftur-og-jardvinna/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://pblondal.is/en/services/veituframkvaemdir/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://pblondal.is/en/services/lagnaskurdir/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://pblondal.is/en/services/drenlogn/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://pblondal.is/en/services/hellulogn/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://pblondal.is/en/services/grunnar-og-lodir/</loc><lastmod>2026-10-26</lastmod></url>
 </urlset>

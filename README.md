@@ -26,3 +26,10 @@ Viðskiptavinur fær sjálfvirkan staðfestingarpóst.
 ## Lén
 
 Síðan er á https://pblondal.is. DNS er hjá ISNIC: fjórar A-færslur á IP-tölur GitHub Pages og CNAME fyrir www á peturbblondal-crypto.github.io. Skráin `CNAME` segir GitHub hvaða lén síðan notar.
+
+## Tungumál og útlit
+
+- Ensk útgáfa er á `/en/` (forsíða) og `/en/services/<heiti>/` (þjónustusíður).
+- Hnappurinn „EN / IS“ efst skiptir á milli samsvarandi síðna á hvoru tungumáli.
+- Hnappurinn með tungli/sól skiptir á milli ljóss og dökks útlits. Valið er munað í vafranum.
+- Fyrirspurnir af ensku síðunni berast á petur@pblondal.is merktar „Tungumál: Enska“.
