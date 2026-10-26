@@ -128,6 +128,35 @@ h1,h2,h3{margin:0;letter-spacing:-.03em;line-height:1.02;text-wrap:balance}
 @media (max-width:960px){.services{grid-template-columns:1fr 1fr}}
 @media (max-width:620px){.services{grid-template-columns:1fr}}
 
+/* calculator */
+.calc{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:start}
+.calc-items{grid-column:1/8;display:grid;border-top:1px solid var(--line)}
+.ci{display:grid;grid-template-columns:minmax(0,1fr) 170px;gap:8px 20px;align-items:center;padding:20px 0;border-bottom:1px solid var(--line)}
+.ci h3{font-size:1.15rem;font-weight:800;letter-spacing:-.015em}
+.ci .price{font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-top:4px}
+.ci p{margin:4px 0 0;color:var(--mute);font-size:.92rem;max-width:52ch}
+.qty{display:flex;align-items:stretch;border:1px solid var(--line);background:var(--surface)}
+.qty button{font:inherit;font-size:1.2rem;font-weight:600;width:42px;border:0;background:none;color:var(--fg);cursor:pointer}
+.qty button:hover{background:var(--chip)}
+.qty input{width:100%;min-width:0;border:0;border-left:1px solid var(--line);border-right:1px solid var(--line);background:transparent;color:var(--fg);font:inherit;font-weight:700;font-size:1.05rem;text-align:center;padding:10px 4px;font-variant-numeric:tabular-nums}
+.qty input:focus{outline:none;background:var(--bg)}
+.qty-wrap{display:grid;gap:4px;justify-items:end}
+.qty-wrap small{font-size:.78rem;color:var(--mute)}
+.calc-sum{grid-column:9/13;position:sticky;top:90px;background:var(--fg);color:var(--bg);padding:26px;display:grid;gap:16px}
+.calc-sum .label{color:var(--bg);opacity:.7}
+.calc-sum .label::before{background:var(--accent)}
+.calc-range{font-size:clamp(1.7rem,3vw,2.2rem);font-weight:900;letter-spacing:-.035em;line-height:1.05;font-variant-numeric:tabular-nums}
+.calc-sub{font-size:.9rem;opacity:.75;font-variant-numeric:tabular-nums}
+.calc-lines{display:grid;gap:6px;font-size:.9rem;border-top:1px solid rgba(127,127,127,.35);padding-top:14px;font-variant-numeric:tabular-nums}
+.calc-lines div{display:flex;justify-content:space-between;gap:12px}
+.calc-lines span:first-child{opacity:.8}
+.calc-note{font-size:.8rem;opacity:.7;margin:0}
+.calc-sum .btn{background:var(--bg);color:var(--fg);justify-content:center}
+.calc-sum .btn:hover{background:var(--accent);color:var(--accent-ink)}
+.calc-sum .btn[aria-disabled="true"]{opacity:.5;pointer-events:none}
+@media (max-width:900px){.calc-items,.calc-sum{grid-column:1/-1}.calc-sum{position:static}}
+@media (max-width:520px){.ci{grid-template-columns:1fr}.qty-wrap{justify-items:stretch}}
+
 /* process */
 .steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;counter-reset:s}
 .steps li{display:grid;gap:10px;align-content:start;padding-top:20px;border-top:2px solid var(--line-strong)}
@@ -222,6 +251,7 @@ footer{border-top:1px solid var(--line);padding-block:40px 28px;color:var(--mute
     </a>
     <nav class="nav" aria-label="Aðalvalmynd">
       <a href="#thjonusta">Þjónusta</a>
+      <a href="#reiknivel">Verðreiknivél</a>
       <a href="#ferli">Verkferli</a>
       <a href="#um-okkur">Um okkur</a>
       <a href="#hafa-samband">Hafa samband</a>
@@ -240,7 +270,7 @@ footer{border-top:1px solid var(--line);padding-block:40px 28px;color:var(--mute
           <p>Gröfuvinna, veituframkvæmdir, lagnaskurðir og grunnvinna. Fyrir einstaklinga, húsfélög og verktaka.</p>
           <div class="actions">
             <a class="btn btn-main" href="#hafa-samband">Fá tilboð <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-            <a class="btn btn-line" href="#thjonusta">Sjá þjónustu</a>
+            <a class="btn btn-line" href="#reiknivel">Áætla kostnað</a>
           </div>
         </div>
         <aside class="card" aria-label="Samskiptaupplýsingar">
@@ -302,6 +332,39 @@ footer{border-top:1px solid var(--line);padding-block:40px 28px;color:var(--mute
           <p>Lýstu verkinu fyrir okkur og við förum yfir hvaða leið hentar best.</p>
           <a class="btn" href="#hafa-samband">Hafa samband <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="reiknivel" aria-labelledby="calc-title">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div><div class="label">Verðreiknivél</div><h2 id="calc-title">Áætlaðu kostnaðinn</h2></div>
+        <p>Settu inn umfang verksins og fáðu verðhugmynd strax. Þetta er gróf áætlun en ekki bindandi tilboð. Endanlegt verð fer eftir aðstæðum á staðnum.</p>
+      </div>
+      <div class="calc">
+        <div class="calc-items rv" id="calcItems">
+          <div class="ci" data-id="hola" data-price="12500" data-low="9375" data-high="15625" data-unit="stk." data-name="Gröftur á undirstöðuholu">
+            <div><h3>Gröftur á undirstöðuholu</h3><div class="price">12.500 kr. / stk. án VSK</div><p>Gröftur við einfaldar aðstæður, t.d. fyrir palla- eða girðingarundirstöður. Steypa, sögun, förgun og frágangur ekki innifalin.</p></div>
+            <div class="qty-wrap"><div class="qty"><button type="button" data-step="-1" aria-label="Fækka holum">−</button><input id="q-hola" inputmode="numeric" value="0" aria-label="Fjöldi undirstöðuhola"><button type="button" data-step="1" aria-label="Fjölga holum">+</button></div><small>fjöldi hola</small></div>
+          </div>
+          <div class="ci" data-id="sogun" data-price="7500" data-low="5625" data-high="9375" data-unit="lm" data-name="Sögun steypu">
+            <div><h3>Sögun steypu</h3><div class="price">7.500 kr. / lengdarmetra án VSK</div><p>Sögun í steypta veggi eða plötur, t.d. fyrir lagnir eða nýjar opnanir.</p></div>
+            <div class="qty-wrap"><div class="qty"><button type="button" data-step="-1" aria-label="Minnka">−</button><input id="q-sogun" inputmode="decimal" value="0" aria-label="Lengdarmetrar sögunar"><button type="button" data-step="1" aria-label="Auka">+</button></div><small>lengdarmetrar</small></div>
+          </div>
+          <div class="ci" data-id="hellur" data-price="8500" data-low="7500" data-high="9500" data-unit="m²" data-name="Hellulögn" data-stepsize="5">
+            <div><h3>Hellulögn</h3><div class="price">7.500 – 9.500 kr. / m² án VSK</div><p>Vinna við hellulögn á tilbúnu undirlagi. Helluefni og undirbúningur undirlags ekki innifalin.</p></div>
+            <div class="qty-wrap"><div class="qty"><button type="button" data-step="-1" aria-label="Minnka">−</button><input id="q-hellur" inputmode="decimal" value="0" aria-label="Fermetrar hellulagnar"><button type="button" data-step="1" aria-label="Auka">+</button></div><small>fermetrar</small></div>
+          </div>
+        </div>
+        <aside class="calc-sum rv" aria-live="polite">
+          <div class="label">Verðhugmynd án VSK</div>
+          <div class="calc-range" id="calcRange">0 kr.</div>
+          <div class="calc-sub" id="calcVat">Settu inn magn til að sjá verðhugmynd.</div>
+          <div class="calc-lines" id="calcLines" hidden></div>
+          <p class="calc-note">Verðin eru viðmið. Aðgengi, jarðvegur, fjarlægð og lágmarksgjald geta haft áhrif á endanlegt verð.</p>
+          <a class="btn" id="calcCta" href="#hafa-samband" aria-disabled="true">Fá nákvæmt tilboð <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </aside>
       </div>
     </div>
   </section>
@@ -405,6 +468,35 @@ footer{border-top:1px solid var(--line);padding-block:40px 28px;color:var(--mute
       function fallback(){var r=document.createRange();r.selectNodeContents(b.previousElementSibling);var sel=getSelection();sel.removeAllRanges();sel.addRange(r);b.textContent='Valið'}
       try{navigator.clipboard.writeText(txt).then(done,fallback)}catch(e){fallback()}
     });
+  });
+
+  /* price calculator */
+  var VSK=0.24,items=Array.prototype.slice.call(document.querySelectorAll('#calcItems .ci')),calcText='';
+  function n(v){v=String(v).replace(/\s/g,'').replace(',','.');var x=parseFloat(v);return isFinite(x)&&x>0?x:0}
+  function fmt(x){return String(Math.round(x)).replace(/\B(?=(\d{3})+(?!\d))/g,'.')+' kr.'}
+  function fq(x){return String(Math.round(x*10)/10).replace('.',',')}
+  function calc(){
+    var lo=0,hi=0,mid=0,lines=[],txt=[];
+    items.forEach(function(it){var q=n(it.querySelector('input').value);if(!q)return;var d=it.dataset;lo+=q*d.low;hi+=q*d.high;mid+=q*d.price;lines.push('<div><span>'+d.name+' · '+fq(q)+' '+d.unit+'</span><span>'+fmt(q*d.price)+'</span></div>');txt.push(d.name+': '+fq(q)+' '+d.unit+' (u.þ.b. '+fmt(q*d.low)+' – '+fmt(q*d.high)+')')});
+    var r=document.getElementById('calcRange'),v=document.getElementById('calcVat'),L=document.getElementById('calcLines'),c=document.getElementById('calcCta');
+    if(!lines.length){r.textContent='0 kr.';v.textContent='Settu inn magn til að sjá verðhugmynd.';L.hidden=true;c.setAttribute('aria-disabled','true');calcText='';return}
+    r.textContent=fmt(lo)+' – '+fmt(hi);
+    v.textContent='Með VSK: '+fmt(lo*(1+VSK))+' – '+fmt(hi*(1+VSK));
+    L.innerHTML=lines.join('')+'<div style="font-weight:700"><span>Miðgildi án VSK</span><span>'+fmt(mid)+'</span></div>';L.hidden=false;
+    c.setAttribute('aria-disabled','false');
+    calcText='Verðhugmynd úr reiknivél:\n'+txt.join('\n')+'\nSamtals án VSK: '+fmt(lo)+' – '+fmt(hi)+' (með VSK: '+fmt(lo*(1+VSK))+' – '+fmt(hi*(1+VSK))+')';
+  }
+  items.forEach(function(it){
+    var inp=it.querySelector('input'),step=+(it.dataset.stepsize||1);
+    inp.addEventListener('input',calc);
+    inp.addEventListener('blur',function(){inp.value=fq(n(inp.value))});
+    it.querySelectorAll('[data-step]').forEach(function(b){b.addEventListener('click',function(){inp.value=fq(Math.max(0,n(inp.value)+(+b.dataset.step)*step));calc()})});
+  });
+  document.getElementById('calcCta').addEventListener('click',function(){
+    if(!calcText)return;
+    var ly=document.getElementById('lysing');
+    if(ly.value.indexOf('Verðhugmynd úr reiknivél:')<0)ly.value=(ly.value?ly.value.trim()+'\n\n':'')+calcText;
+    var g=document.getElementById('c4');if(g&&document.getElementById('q-hellur')&&n(document.getElementById('q-hellur').value))g.checked=true;
   });
 
   var f=document.getElementById('quote'),m=document.getElementById('msg');
