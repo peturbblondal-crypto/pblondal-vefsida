@@ -23,7 +23,7 @@ Verðin eru efst í reiknivélarkóðanum í `index.html` (leitaðu að `var P=`
 - `burdarlag`, `drenmol`: listaverð Steypustöðvarinnar á tonn með kolefnisgjaldi, án VSK (1.953 og 1.372)
 
 `TRUCK_T` og `TRUCK_M3` segja hve mikið vörubíllinn tekur í ferð (15 t af efni eða 10 m³ af uppgreftri).
-Verðhugmyndin er sýnd sem bil frá 90% upp í 130% af útreiknuðu verði.
+Verðhugmyndin er sýnd sem bil frá 90% upp í 130% af útreiknuðu verði. Hámark í hverjum reit er í `var MAX=` (500 m, 2.000 m², 50 stk.) svo innsláttarvilla gefi ekki fráleitt verð.
 Eftir breytingu á `index.html` þarf að endurgera ensku síðuna `en/index.html` svo verðin séu þau sömu.
 
 ## Tilboðsform

@@ -428,3 +428,14 @@ html.intro-on body{overflow:hidden}
 :root[data-theme="dark"] .brand .logo-light,:root[data-theme="dark"] .foot .logo-light{display:none}
 :root[data-theme="dark"] .brand .logo-dark,:root[data-theme="dark"] .foot .logo-dark{display:block}
 .tbtn .i-moon,.tbtn .i-sun{flex:0 0 auto}
+/* proofing pass: long words, clickable contact details */
+.phero-text,.hero-text{min-width:0}
+.phero h1,.hero h1,.sec-head h2{overflow-wrap:break-word}
+@media (max-width:700px){.phero h1{font-size:clamp(2rem,9.6vw,3rem)}}
+.info a{font-size:1.2rem;font-weight:700;text-decoration:none;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.info a:hover{color:var(--accent)}
+@media (max-width:700px){.info a{font-size:1rem}}
+.foot-info a{text-decoration:none}
+.foot-info a:hover{color:var(--fg)}
+.pbox-tel{font-size:1.6rem;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;text-decoration:none}
+.pbox a{color:inherit}
