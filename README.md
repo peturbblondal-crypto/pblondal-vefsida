@@ -11,4 +11,5 @@ Settings → Pages → Source: *Deploy from a branch*, branch `main`, mappa `/ (
 
 ## Tilboðsform
 
-Formið sendir ekki enn. Til að fá fyrirspurnir í tölvupóst má tengja það við þjónustu á borð við Formspree.
+Fyrirspurnir úr forminu eru sendar á petur@pblondal.is í gegnum FormSubmit (formsubmit.co).
+Við fyrstu sendingu kemur staðfestingarpóstur á petur@pblondal.is sem þarf að smella á einu sinni áður en fyrirspurnir fara að berast.

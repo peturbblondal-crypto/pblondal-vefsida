@@ -162,7 +162,7 @@ h1,h2,h3{margin:0;letter-spacing:-.03em;line-height:1.02;text-wrap:balance}
 .info div{display:grid;gap:2px;padding-block:14px;border-bottom:1px solid var(--line)}
 .info small{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
 .info span{font-size:1.2rem;font-weight:700;user-select:all;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
-form{grid-column:7/13;background:var(--surface);border:1px solid var(--line);padding:clamp(22px,3vw,34px);display:grid;grid-template-columns:1fr 1fr;gap:18px}
+form{position:relative;grid-column:7/13;background:var(--surface);border:1px solid var(--line);padding:clamp(22px,3vw,34px);display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .field{display:grid;gap:7px}
 .field.full{grid-column:1/-1}
 .field label,.field .lbl{font-size:.88rem;font-weight:600}
@@ -372,6 +372,7 @@ footer{border-top:1px solid var(--line);padding-block:40px 28px;color:var(--mute
           <button class="btn btn-main" type="submit">Senda <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
         <p class="msg" id="msg" role="status" hidden></p>
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       </form>
     </div>
   </section>
@@ -413,8 +414,35 @@ footer{border-top:1px solid var(--line);padding-block:40px 28px;color:var(--mute
     if(!n){m.className='msg err';m.textContent='Vinsamlegast skráðu nafn.';f.nafn.focus();return}
     if(!p&&!em){m.className='msg err';m.textContent='Skráðu síma eða netfang svo við getum svarað þér.';f.simi.focus();return}
     if(em&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){m.className='msg err';m.textContent='Netfangið virðist ekki rétt slegið inn.';f.netfang.focus();return}
-    m.className='msg';
-    m.textContent='Takk, '+n.split(' ')[0]+'. Formið á eftir að tengja við netfang fyrirtækisins. Þangað til er best að hringja í 773-3363 eða senda póst á petur@pblondal.is.';
+    if(f._honey.value){return}
+    var tegund=(f.querySelector('input[name="tegund"]:checked')||{}).value||'';
+    var data={
+      'Nafn':n,
+      'Sími':p||'(ekki gefið upp)',
+      'email':em||'(ekki gefið upp)',
+      'Tegund verks':tegund,
+      'Staðsetning':f.stadur.value.trim()||'(ekki gefið upp)',
+      'Hvenær':f.hvenaer.value,
+      'Lýsing':f.lysing.value.trim()||'(engin lýsing)',
+      '_subject':'Ný fyrirspurn af vefnum: '+tegund+' ('+n+')',
+      '_template':'table',
+      '_captcha':'false'
+    };
+    var btn=f.querySelector('button[type="submit"]');
+    btn.disabled=true;btn.style.opacity='.6';
+    m.className='msg';m.textContent='Sendi fyrirspurn…';
+    fetch('https://formsubmit.co/ajax/petur@pblondal.is',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
+      .then(function(r){return r.json().catch(function(){return {}}).then(function(j){if(!r.ok||String(j.success)!=='true')throw new Error(j.message||r.status);return j})})
+      .then(function(){
+        m.className='msg';
+        m.textContent='Takk, '+n.split(' ')[0]+'. Fyrirspurnin er komin til okkar og við höfum samband fljótlega.';
+        f.reset();
+      })
+      .catch(function(){
+        m.className='msg err';
+        m.textContent='Ekki tókst að senda fyrirspurnina. Reyndu aftur eða hringdu í 773-3363, eða sendu póst á petur@pblondal.is.';
+      })
+      .finally(function(){btn.disabled=false;btn.style.opacity=''});
   });
 })();
 </script>
