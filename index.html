@@ -169,6 +169,7 @@ form{position:relative;grid-column:7/13;background:var(--surface);border:1px sol
 .field label em{font-style:normal;font-weight:400;color:var(--mute)}
 .field input,.field select,.field textarea{font:inherit;font-size:1rem;color:var(--fg);background:var(--bg);border:1px solid var(--line);padding:12px 14px;border-radius:0;width:100%;transition:border-color .2s,background .2s}
 .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--fg);background:var(--surface)}
+.field .bad{border-color:var(--accent)}
 .field textarea{min-height:120px;resize:vertical}
 .field input::placeholder,.field textarea::placeholder{color:var(--mute);opacity:.7}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
@@ -361,14 +362,14 @@ footer{border-top:1px solid var(--line);padding-block:40px 28px;color:var(--mute
             <label class="chip"><input type="radio" name="tegund" id="c5" value="Annað"><span>Annað</span></label>
           </div>
         </div>
-        <div class="field"><label for="nafn">Nafn</label><input id="nafn" name="nafn" autocomplete="name"></div>
-        <div class="field"><label for="simi">Sími</label><input id="simi" name="simi" type="tel" autocomplete="tel"></div>
-        <div class="field full"><label for="netfang">Netfang <em>(valfrjálst)</em></label><input id="netfang" name="netfang" type="email" autocomplete="email"></div>
-        <div class="field"><label for="stadur">Staðsetning</label><input id="stadur" name="stadur" placeholder="t.d. Kópavogur"></div>
+        <div class="field"><label for="nafn">Nafn</label><input id="nafn" name="nafn" autocomplete="name" required></div>
+        <div class="field"><label for="simi">Sími</label><input id="simi" name="simi" type="tel" autocomplete="tel" required></div>
+        <div class="field full"><label for="netfang">Netfang</label><input id="netfang" name="netfang" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="stadur">Staðsetning</label><input id="stadur" name="stadur" placeholder="t.d. Kópavogur" required></div>
         <div class="field"><label for="hvenaer">Hvenær?</label><select id="hvenaer" name="hvenaer"><option>Sem fyrst</option><option>Innan mánaðar</option><option>Á næstu mánuðum</option><option>Óákveðið</option></select></div>
-        <div class="field full"><label for="lysing">Stutt lýsing</label><textarea id="lysing" name="lysing" placeholder="Umfang, aðgengi og annað sem gott er að vita"></textarea></div>
+        <div class="field full"><label for="lysing">Stutt lýsing</label><textarea id="lysing" name="lysing" placeholder="Umfang, aðgengi og annað sem gott er að vita" required></textarea></div>
         <div class="form-foot">
-          <small>Við notum upplýsingarnar eingöngu til að svara fyrirspurninni.</small>
+          <small>Fylla þarf út alla reiti. Við notum upplýsingarnar eingöngu til að svara fyrirspurninni.</small>
           <button class="btn btn-main" type="submit">Senda <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
         <p class="msg" id="msg" role="status" hidden></p>
@@ -407,23 +408,32 @@ footer{border-top:1px solid var(--line);padding-block:40px 28px;color:var(--mute
   });
 
   var f=document.getElementById('quote'),m=document.getElementById('msg');
+  f.addEventListener('input',function(e){e.target.classList.remove('bad')});
   f.addEventListener('submit',function(e){
     e.preventDefault();
     var n=f.nafn.value.trim(),p=f.simi.value.trim(),em=f.netfang.value.trim();
     m.hidden=false;
-    if(!n){m.className='msg err';m.textContent='Vinsamlegast skráðu nafn.';f.nafn.focus();return}
-    if(!p&&!em){m.className='msg err';m.textContent='Skráðu síma eða netfang svo við getum svarað þér.';f.simi.focus();return}
-    if(em&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){m.className='msg err';m.textContent='Netfangið virðist ekki rétt slegið inn.';f.netfang.focus();return}
+    var checks=[
+      [f.nafn,!n,'Vinsamlegast skráðu nafn.'],
+      [f.simi,!p,'Vinsamlegast skráðu símanúmer.'],
+      [f.simi,p&&p.replace(/\D/g,'').length<7,'Símanúmerið virðist ekki rétt slegið inn.'],
+      [f.netfang,!em,'Vinsamlegast skráðu netfang.'],
+      [f.netfang,em&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em),'Netfangið virðist ekki rétt slegið inn.'],
+      [f.stadur,!f.stadur.value.trim(),'Vinsamlegast skráðu staðsetningu verksins.'],
+      [f.lysing,!f.lysing.value.trim(),'Vinsamlegast lýstu verkinu í stuttu máli.']
+    ];
+    f.querySelectorAll('.bad').forEach(function(x){x.classList.remove('bad')});
+    for(var i=0;i<checks.length;i++){if(checks[i][1]){var el=checks[i][0];el.classList.add('bad');m.className='msg err';m.textContent=checks[i][2];el.focus();return}}
     if(f._honey.value){return}
     var tegund=(f.querySelector('input[name="tegund"]:checked')||{}).value||'';
     var data={
       'Nafn':n,
-      'Sími':p||'(ekki gefið upp)',
-      'email':em||'(ekki gefið upp)',
+      'Sími':p,
+      'email':em,
       'Tegund verks':tegund,
-      'Staðsetning':f.stadur.value.trim()||'(ekki gefið upp)',
+      'Staðsetning':f.stadur.value.trim(),
       'Hvenær':f.hvenaer.value,
-      'Lýsing':f.lysing.value.trim()||'(engin lýsing)',
+      'Lýsing':f.lysing.value.trim(),
       '_subject':'Ný fyrirspurn af vefnum: '+tegund+' ('+n+')',
       '_template':'table',
       '_captcha':'false'
