@@ -56,6 +56,45 @@
     <a href="tel:+3547733363">Hringja 773-3363</a>
   </nav>
 </header>
+<div class="intro" id="intro" aria-hidden="true"><div class="intro-bg"></div><img class="intro-logo" id="introLogo" alt="" src="logo.png" width="400" height="99"><button class="intro-skip" type="button" tabindex="-1">Sleppa</button></div>
+<noscript><style>.intro{display:none}</style></noscript>
+<script>
+(function(){
+  var intro=document.getElementById('intro'),seen=false;
+  try{seen=sessionStorage.getItem('pb-intro')==='1';sessionStorage.setItem('pb-intro','1')}catch(e){}
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var deep=location.hash||/[?&]verk=/.test(location.search);
+  if(seen||reduce||deep||!intro.animate){intro.hidden=true;return}
+  document.documentElement.classList.add('intro-on');
+  var dark=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches;
+  var lg=document.getElementById('introLogo');if(dark)lg.src='logo-ljost.png';
+  var done=false,E='cubic-bezier(.2,.75,.2,1)';
+  function headerLogo(){var a=document.querySelectorAll('.brand img');for(var i=0;i<a.length;i++){if(getComputedStyle(a[i]).display!=='none')return a[i]}return a[0]}
+  function finish(){if(done)return;done=true;intro.getAnimations({subtree:true}).forEach(function(a){a.cancel()});intro.hidden=true;document.documentElement.classList.remove('intro-on');var h=headerLogo();if(h)h.style.opacity=''}
+  function anim(el,k,o){return el.animate(k,Object.assign({fill:'forwards',easing:E},o)).finished}
+  function wait(ms){return new Promise(function(r){setTimeout(r,ms)})}
+  intro.addEventListener('click',finish);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')finish()});
+  setTimeout(finish,4500);
+  async function run(){
+    var h=headerLogo();if(h)h.style.opacity='0';
+    try{await lg.decode()}catch(e){}
+    await anim(lg,[{opacity:0,transform:'translate(-50%,-50%) scale(.92)',filter:'blur(6px)'},{opacity:1,transform:'translate(-50%,-50%) scale(1)',filter:'blur(0)'}],{duration:650});
+    await wait(350);
+    if(done)return;
+    var a=lg.getBoundingClientRect(),b=h.getBoundingClientRect();
+    var s=b.width/a.width,dx=(b.left+b.width/2)-(a.left+a.width/2),dy=(b.top+b.height/2)-(a.top+a.height/2);
+    anim(intro.querySelector('.intro-bg'),[{opacity:1},{opacity:0}],{duration:700,delay:120});
+    anim(intro.querySelector('.intro-skip'),[{opacity:1},{opacity:0}],{duration:200});
+    await anim(lg,[{transform:'translate(-50%,-50%) scale(1)'},{transform:'translate(calc(-50% + '+dx+'px),calc(-50% + '+dy+'px)) scale('+s+')'}],{duration:800,easing:'cubic-bezier(.7,0,.2,1)'});
+    if(h)h.style.opacity='';
+    await anim(lg,[{opacity:1},{opacity:0}],{duration:120});
+    finish();
+  }
+  run().catch(finish);
+})();
+</script>
+
 
 <main id="top">
   <section class="hero" aria-labelledby="hero-title">

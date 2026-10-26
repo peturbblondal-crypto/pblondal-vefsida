@@ -399,3 +399,12 @@ footer{border-top:1px solid var(--line);padding-block:40px 28px;color:var(--mute
 .foot-links a:hover{color:var(--fg);text-decoration:underline}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (min-width:621px){.svc.cta{grid-column:span 2;align-content:center}}
+
+/* ---------- intro (forsíða, einu sinni í heimsókn) ---------- */
+.intro{position:fixed;inset:0;z-index:200;cursor:pointer;animation:intro-safe 0s 5s forwards}
+.intro[hidden]{display:none}
+.intro-bg{position:absolute;inset:0;background:var(--bg)}
+.intro-logo{position:absolute;left:50%;top:50%;width:min(76vw,560px);height:auto;transform:translate(-50%,-50%);opacity:0;will-change:transform,opacity}
+.intro-skip{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,calc(env(safe-area-inset-bottom,0px) + 12px));font:inherit;font-size:.82rem;background:none;border:0;color:var(--mute);cursor:pointer;padding:10px}
+html.intro-on body{overflow:hidden}
+@keyframes intro-safe{to{visibility:hidden;pointer-events:none}}
