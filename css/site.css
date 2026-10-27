@@ -583,3 +583,7 @@ main{position:relative}
 @keyframes seep{0%{opacity:0;transform:translateY(0)}20%{opacity:.9}100%{opacity:0;transform:translateY(80px)}}
 @media (prefers-reduced-motion:reduce){.scene *{animation:none!important}.scene .grow,.scene .pour,.scene .spread,.scene .drop,.scene .pop,.scene .strip{transform:none;opacity:1}.scene .rl,.scene .sc-drop{display:none}}
 .sc-win{fill:var(--bg);opacity:.85}
+:root{--wood:#a8743f;--wood2:#c08a52}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--wood:#8e6033;--wood2:#a87545}}
+:root[data-theme="dark"]{--wood:#8e6033;--wood2:#a87545}
+.sc-wood{fill:var(--wood)}.sc-board{fill:var(--wood2);stroke:var(--bg);stroke-width:1}
