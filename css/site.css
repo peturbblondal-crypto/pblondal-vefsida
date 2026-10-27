@@ -492,3 +492,12 @@ html.intro-on body{overflow:hidden}
 @media print{.head,.callbar,footer,.doc-toc,.doc-pager,.doc-head .actions,.crumbs{display:none!important}.doc-body{grid-column:1/-1}}
 .phero p.doc-ver{font-size:.74rem;letter-spacing:.12em;max-width:none}
 .doc-head>*{min-width:0}.doc-head h1{hyphens:manual}
+/* medium screens: keep the phone button, move the links into the menu so nothing wraps */
+.nav a{white-space:nowrap}
+@media (min-width:821px) and (max-width:1100px){
+  .nav a:not(.phone){display:none}.menu-btn{display:inline-flex}
+  .mnav{display:grid;border-top:1px solid var(--line);background:var(--bg);padding:6px max(20px,env(safe-area-inset-right,0px)) 18px max(20px,env(safe-area-inset-left,0px))}
+  .mnav[hidden]{display:none}
+  .mnav a{display:flex;justify-content:space-between;align-items:center;text-decoration:none;font-weight:700;font-size:1.25rem;letter-spacing:-.02em;padding:14px 0;border-bottom:1px solid var(--line)}
+  .mnav a::after{content:"→";color:var(--mute);font-weight:400}
+}

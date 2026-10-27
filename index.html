@@ -30,7 +30,7 @@
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@type": "GeneralContractor", "@id": "https://pblondal.is/#fyrirtaeki", "name": "P. Blöndal ehf.", "url": "https://pblondal.is/", "logo": "https://pblondal.is/logo.png", "image": "https://pblondal.is/og.png", "telephone": "+354 773-3363", "email": "petur@pblondal.is", "taxID": "570125-0950", "vatID": "155759", "address": {"@type": "PostalAddress", "postalCode": "210", "addressLocality": "Garðabær", "addressCountry": "IS"}, "areaServed": {"@type": "Place", "name": "Höfuðborgarsvæðið"}, "knowsLanguage": "is", "description": "Gröfuþjónusta og jarðvinna á höfuðborgarsvæðinu: lagnaskurðir, drenlögn, hellulögn, grunnar og veituframkvæmdir.", "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Þjónusta", "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Gröftur og jarðvinna", "url": "https://pblondal.is/thjonusta/graftur-og-jardvinna/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Veituframkvæmdir", "url": "https://pblondal.is/thjonusta/veituframkvaemdir/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Lagnaskurðir", "url": "https://pblondal.is/thjonusta/lagnaskurdir/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Drenlögn kringum hús", "url": "https://pblondal.is/thjonusta/drenlogn/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Hellulögn og innkeyrslur", "url": "https://pblondal.is/thjonusta/hellulogn/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Grunnar og lóðir", "url": "https://pblondal.is/thjonusta/grunnar-og-lodir/"}}]}}
 </script>
-<link rel="stylesheet" href="css/site.css?v=20261027a">
+<link rel="stylesheet" href="css/site.css?v=20261027b">
 </head>
 <body>
 <a class="skip" href="#top">Fara beint í efni</a>
@@ -46,6 +46,7 @@
       <a href="#reiknivel">Verðreiknivél</a>
       <a href="#ferli">Verkferli</a>
       <a href="#um-okkur">Um okkur</a>
+      <a href="stefnur/">Stefnur</a>
       <a href="#hafa-samband">Hafa samband</a>
       <a class="phone" href="tel:+3547733363"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>773-3363</a>
     </nav>
@@ -57,6 +58,7 @@
     <a href="#reiknivel">Verðreiknivél</a>
     <a href="#ferli">Verkferli</a>
     <a href="#um-okkur">Um okkur</a>
+    <a href="stefnur/">Stefnur</a>
     <a href="#hafa-samband">Hafa samband</a>
     <a href="tel:+3547733363">Hringja 773-3363</a>
   </nav>
@@ -353,7 +355,7 @@
   function setMenu(o){mn.hidden=!o;mb.setAttribute('aria-expanded',o);document.getElementById('menuTxt').textContent=o?'Loka':'Valmynd';document.getElementById('menuIco').setAttribute('d',o?'M6 6l12 12M18 6L6 18':'M4 7h16M4 12h16M4 17h16')}
   mb.addEventListener('click',function(){setMenu(mn.hidden)});
   mn.addEventListener('click',function(e){if(e.target.closest('a'))setMenu(false)});
-  window.addEventListener('resize',function(){if(window.innerWidth>820)setMenu(false)});
+  window.addEventListener('resize',function(){if(window.innerWidth>1100)setMenu(false)});
 
   document.querySelectorAll('.copy-btn').forEach(function(b){
     b.addEventListener('click',function(){

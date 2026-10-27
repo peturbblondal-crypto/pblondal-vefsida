@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../../../css/site.css?v=20261027a">
+<link rel="stylesheet" href="../../../css/site.css?v=20261027b">
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@graph": [{"@type": "Service", "name": "Foundations, footings and gardens", "serviceType": "Foundations, footings and gardens", "description": "Digging for footings and foundations, holes for deck and fence supports, and levelling gardens for turf or planting.", "url": "https://pblondal.is/en/services/grunnar-og-lodir/", "inLanguage": "en", "areaServed": {"@type": "Place", "name": "Greater Reykjavík area"}, "provider": {"@type": "GeneralContractor", "name": "P. Blöndal ehf.", "telephone": "+354 773-3363", "email": "petur@pblondal.is", "url": "https://pblondal.is/"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Do I need a permit for a foundation or small building?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on the size and type of structure. Some small buildings are exempt from a building permit and others are not. The building officer in your municipality can tell you what applies to you."}}, {"@type": "Question", "name": "How deep does a foundation need to be?", "acceptedAnswer": {"@type": "Answer", "text": "Footings must reach below frost depth or sit on frost-free ground. The designer specifies the depth. The calculator offers light footings, about 60 cm, and frost-free, about 1.2 m."}}, {"@type": "Question", "name": "Do you dig for hot tubs?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. We dig and level for the tub so it sits correctly. Gravel and pipework are not included."}}]}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://pblondal.is/en/"}, {"@type": "ListItem", "position": 2, "name": "Services", "item": "https://pblondal.is/en/#thjonusta"}, {"@type": "ListItem", "position": 3, "name": "Foundations and gardens", "item": "https://pblondal.is/en/services/grunnar-og-lodir/"}]}]}
 </script>
@@ -44,6 +44,7 @@
       <a href="../../#reiknivel">Price calculator</a>
       <a href="../../#ferli">How it works</a>
       <a href="../../#um-okkur">About</a>
+      <a href="../../policies/">Policies</a>
       <a href="../../#hafa-samband">Contact</a>
       <a class="phone" href="tel:+3547733363"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>773-3363</a>
     </nav>
@@ -55,6 +56,7 @@
     <a href="../../#reiknivel">Price calculator</a>
     <a href="../../#ferli">How it works</a>
     <a href="../../#um-okkur">About</a>
+    <a href="../../policies/">Policies</a>
     <a href="../../#hafa-samband">Contact</a>
     <a href="tel:+3547733363">Call 773-3363</a>
   </nav>
@@ -140,7 +142,7 @@
   function setMenu(o){mn.hidden=!o;mb.setAttribute('aria-expanded',o);document.getElementById('menuTxt').textContent=o?'Close':'Menu';document.getElementById('menuIco').setAttribute('d',o?'M6 6l12 12M18 6L6 18':'M4 7h16M4 12h16M4 17h16')}
   mb.addEventListener('click',function(){setMenu(mn.hidden)});
   mn.addEventListener('click',function(e){if(e.target.closest('a'))setMenu(false)});
-  window.addEventListener('resize',function(){if(window.innerWidth>820)setMenu(false)});
+  window.addEventListener('resize',function(){if(window.innerWidth>1100)setMenu(false)});
 })();
 (function(){var b=document.getElementById('themeBtn');if(!b)return;function eff(){var a=document.documentElement.getAttribute('data-theme');return a?a==='dark':!!(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)}b.addEventListener('click',function(){var n=eff()?'light':'dark';document.documentElement.setAttribute('data-theme',n);try{localStorage.setItem('pb-theme',n)}catch(e){}})})();
 </script>
