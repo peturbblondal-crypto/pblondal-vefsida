@@ -28,7 +28,7 @@
 {"@context": "https://schema.org", "@type": "GeneralContractor", "@id": "https://pblondal.is/#fyrirtaeki", "name": "P. Blöndal ehf.", "url": "https://pblondal.is/en/", "logo": "https://pblondal.is/logo.png", "image": "https://pblondal.is/og.png", "telephone": "+354 773-3363", "email": "petur@pblondal.is", "taxID": "570125-0950", "vatID": "155759", "address": {"@type": "PostalAddress", "postalCode": "210", "addressLocality": "Garðabær", "addressCountry": "IS"}, "areaServed": {"@type": "Place", "name": "Greater Reykjavík area"}, "knowsLanguage": ["is", "en"], "description": "Excavation and groundwork in the Reykjavík area: utility trenches, foundation drainage, paving, foundations and utility work.", "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Services", "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Excavation and groundwork", "url": "https://pblondal.is/en/services/graftur-og-jardvinna/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Utility work", "url": "https://pblondal.is/en/services/veituframkvaemdir/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Trenching", "url": "https://pblondal.is/en/services/lagnaskurdir/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Foundation drainage", "url": "https://pblondal.is/en/services/drenlogn/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Paving and driveways", "url": "https://pblondal.is/en/services/hellulogn/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Foundations and gardens", "url": "https://pblondal.is/en/services/grunnar-og-lodir/"}}]}}
 </script>
 <link rel="preload" href="../fonts/schibsted-grotesk-var.woff" as="font" type="font/woff" crossorigin>
-<link rel="stylesheet" href="../css/site.css?v=20261027e">
+<link rel="stylesheet" href="../css/site.css?v=20261027g">
 </head>
 <body>
 <a class="skip" href="#top">Skip to content</a>
@@ -584,7 +584,7 @@
   el('path',{class:'wall',d:'M150 52 L170 172 L1270 172 L1290 52',fill:'none',pathLength:1},fs);
   el('line',{class:'dimln',x1:1320,y1:52,x2:1320,y2:172},fs);el('line',{class:'dimln',x1:1312,y1:52,x2:1328,y2:52},fs);el('line',{class:'dimln',x1:1312,y1:172,x2:1328,y2:172},fs);
   var t1=el('text',{class:'dim',x:1336,y:118},fs);t1.textContent=T('1,2 m','1.2 m');
-  var t2=el('text',{class:'dim',x:190,y:110},fs);t2.textContent=T('LAGNASKURÐUR · Ø110','UTILITY TRENCH · Ø110');
+  var t2=el('text',{class:'dim',x:520,y:110},fs);t2.textContent=T('LAGNASKURÐUR · Ø110','UTILITY TRENCH · Ø110');
   hero.appendChild(f);
   var pl=document.createElement('div');pl.className='pipeline';pl.setAttribute('aria-hidden','true');pl.innerHTML='<div class="tube"></div><div class="flow"></div>';
   main.appendChild(pl);var nodes=[];
@@ -607,7 +607,7 @@
     el('rect',{class:'sc-soil',x:0,y:44,width:1440,height:26},s);el('rect',{class:'sc-deep',x:0,y:70,width:1440,height:120},s);
     build(s);
     el('line',{class:'sc-surf',x1:0,y1:44,x2:1440,y2:44},s);
-    var t=el('text',{class:'sc-lbl',x:120,y:20},s);t.textContent=label;
+    var cap=document.createElement('div');cap.className='wrap sc-cap';cap.textContent=label;w.appendChild(cap);
     sec.parentNode.insertBefore(w,sec);
     return w;
   }
@@ -619,7 +619,7 @@
     var base=el('rect',{class:'sc-gravel grow',x:150,y:84,width:1140,height:56},s);base.style.setProperty('--dl','0s');
     var sand=el('rect',{class:'sc-sand grow',x:150,y:68,width:1140,height:16},s);sand.style.setProperty('--dl','.45s');
     for(var i=0;i<19;i++){var p=el('rect',{class:'sc-paver drop',x:152+i*60,y:46,width:57,height:22},s);p.style.setProperty('--dl',(0.8+i*.07).toFixed(2)+'s')}
-    dim(s,1320,44,68,'8 cm');dim(s,1320,68,140,'40 cm');var bl=el('text',{class:'sc-dim',x:180,y:118},s);bl.textContent=T('BURÐARLAG','BASE COURSE');
+    dim(s,1320,44,68,'8 cm');dim(s,1320,68,140,'40 cm');var bl=el('text',{class:'sc-dim',x:517,y:118},s);bl.textContent=T('BURÐARLAG','BASE COURSE');var hl=el('text',{class:'sc-in drop',x:517,y:61},s);hl.textContent=T('HELLUR','PAVERS');hl.style.setProperty('--dl','2.2s');var sl=el('text',{class:'sc-in2 grow',x:517,y:79},s);sl.textContent=T('SANDUR','SAND');sl.style.setProperty('--dl','.6s');
   });
 
   /* 3. Undirstöður fyrir pall: holes dug, concrete posts poured, beam laid, then the deck boards */

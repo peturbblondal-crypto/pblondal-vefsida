@@ -513,7 +513,7 @@ html.js-rv .services.pre{opacity:1;transform:none}
 .hero{position:relative;isolation:isolate}
 /* ---------- F: Lagnaskurður ---------- */
 
-.hero{padding-bottom:calc(var(--th) + 24px);--th:clamp(120px,14vw,190px)}
+.hero{padding-bottom:calc(var(--th) + 24px);--th:clamp(120px,13.2vw,260px)}
 .bgv-f{position:absolute;left:0;right:0;bottom:0;height:var(--th);z-index:-1;pointer-events:none;overflow:hidden}
 .bgv-f svg{width:100%;height:100%}
 .bgv-f .soil{fill:var(--chip)}
@@ -548,7 +548,7 @@ main{position:relative}
 :root{--grass:#5f8f3e;--mold:#4a3b30;--sandc:#e2c48a;--gravelc:#a8a59c;--conc:#b9b8b2;--water:#5aa3c8}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--grass:#6aa047;--mold:#3a2f27;--sandc:#b89a62;--gravelc:#6c6a64;--conc:#8d8c87;--water:#6fb4d8}}
 :root[data-theme="dark"]{--grass:#6aa047;--mold:#3a2f27;--sandc:#b89a62;--gravelc:#6c6a64;--conc:#8d8c87;--water:#6fb4d8}
-.scene{display:block;height:clamp(120px,13vw,180px);overflow:hidden;position:relative;z-index:1}
+.scene{display:block;height:clamp(120px,12.5vw,250px);overflow:hidden;position:relative;z-index:1}
 .scene+.sec{border-top:0}
 .scene svg{width:100%;height:100%;display:block}
 .scene .grow,.scene .pour,.scene .spread,.scene .drop,.scene .pop,.scene .sc-drop{transform-box:fill-box}
@@ -587,3 +587,5 @@ main{position:relative}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--wood:#8e6033;--wood2:#a87545}}
 :root[data-theme="dark"]{--wood:#8e6033;--wood2:#a87545}
 .sc-wood{fill:var(--wood)}.sc-board{fill:var(--wood2);stroke:var(--bg);stroke-width:1}
+.sc-in{font-family:var(--mono);font-size:11px;letter-spacing:.14em;fill:var(--bg)}.sc-in2{font-family:var(--mono);font-size:10px;letter-spacing:.14em;fill:color-mix(in srgb,var(--fg) 70%,var(--sandc))}
+.sc-cap{position:absolute;left:0;right:0;bottom:8px;font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;color:var(--mute);pointer-events:none;z-index:1}
