@@ -6,8 +6,9 @@ Vefsíða P. Blöndal ehf., gröfuþjónusta og jarðvinna á höfuðborgarsvæ�
 
 - `index.html`: forsíða með verðreiknivél og tilboðsformi
 - `thjonusta/<heiti>/index.html`: sérsíða fyrir hverja þjónustu
-- `stefnur/`: 17 stefnur og verklagsreglur (útgáfa 1.0, samþykkt 27. október 2026), hver á sinni síðu, með PDF í `stefnur/pdf/` og öll skjölin saman í `stefnur/pdf/p-blondal-stefnur-og-verklag.pdf`. Ensk yfirlitssíða er í `en/policies/`.
+- `stefnur/`: 17 stefnur og verklagsreglur (útgáfa 1.0, samþykkt 27. október 2026), hver á sinni síðu, með PDF í `stefnur/pdf/` og öll skjölin saman í `stefnur/pdf/p-blondal-stefnur-og-verklag.pdf`. Ensk þýðing allra skjalanna er í `en/policies/` með PDF í `en/policies/pdf/`.
 - `css/site.css`: sameiginlegt útlit fyrir allar síður
+- `fonts/`: leturgerðirnar Schibsted Grotesk og IBM Plex Mono (OFL-leyfi), hýstar á vefnum sjálfum
 - `404.html`: síða sem birtist ef slóð finnst ekki
 - `sitemap.xml`, `robots.txt`: fyrir leitarvélar
 - `og.png`: myndin sem birtist þegar síðunni er deilt
