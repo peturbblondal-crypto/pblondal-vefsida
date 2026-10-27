@@ -19,6 +19,7 @@ Vefsíða P. Blöndal ehf., gröfuþjónusta og jarðvinna á höfuðborgarsvæ�
 Verðin eru efst í reiknivélarkóðanum í `index.html` (leitaðu að `var P=`), öll án VSK:
 
 - `grafa`, `madur`: 3 tonna grafa og gröfumaður á klst. (11.900 + 12.990)
+- `verkamadur`: aðstoðarmaður (skóflumaður) á klst. (9.500). Í `CREW` er stillt hvaða verk fá aðstoðarmann og hve stóran hluta vélartímans (lagnaskurður, drenlögn og plön 100%, heitur pottur og grunnur 50%)
 - `ferd`: ein ferð vörubíls (25.900), notuð fyrir flutning tækja, akstur efnis og brottflutning uppgraftar
 - `hola`, `sogun`, `hellur`: undirstöðuhola á stk., sögun á lm, hellulögn á m²
 - `sandur`: 2.700 kr./t (verð P. Blöndal)
