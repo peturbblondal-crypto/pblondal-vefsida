@@ -28,7 +28,7 @@
 {"@context": "https://schema.org", "@type": "GeneralContractor", "@id": "https://pblondal.is/#fyrirtaeki", "name": "P. Blöndal ehf.", "url": "https://pblondal.is/", "logo": "https://pblondal.is/logo.png", "image": "https://pblondal.is/og.png", "telephone": "+354 773-3363", "email": "petur@pblondal.is", "taxID": "570125-0950", "vatID": "155759", "address": {"@type": "PostalAddress", "postalCode": "210", "addressLocality": "Garðabær", "addressCountry": "IS"}, "areaServed": {"@type": "Place", "name": "Höfuðborgarsvæðið"}, "knowsLanguage": "is", "description": "Gröfuþjónusta og jarðvinna á höfuðborgarsvæðinu: lagnaskurðir, drenlögn, hellulögn, grunnar og veituframkvæmdir.", "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Þjónusta", "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Gröftur og jarðvinna", "url": "https://pblondal.is/thjonusta/graftur-og-jardvinna/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Veituframkvæmdir", "url": "https://pblondal.is/thjonusta/veituframkvaemdir/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Lagnaskurðir", "url": "https://pblondal.is/thjonusta/lagnaskurdir/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Drenlögn kringum hús", "url": "https://pblondal.is/thjonusta/drenlogn/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Hellulögn og innkeyrslur", "url": "https://pblondal.is/thjonusta/hellulogn/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Grunnar og lóðir", "url": "https://pblondal.is/thjonusta/grunnar-og-lodir/"}}]}}
 </script>
 <link rel="preload" href="fonts/schibsted-grotesk-var.woff" as="font" type="font/woff" crossorigin>
-<link rel="stylesheet" href="css/site.css?v=20261027c">
+<link rel="stylesheet" href="css/site.css?v=20261027d">
 </head>
 <body>
 <a class="skip" href="#top">Fara beint í efni</a>
@@ -544,5 +544,131 @@
 </script>
 
 <script>(function(){var b=document.getElementById('themeBtn');if(!b)return;function eff(){var a=document.documentElement.getAttribute('data-theme');return a?a==='dark':!!(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)}b.addEventListener('click',function(){var n=eff()?'light':'dark';document.documentElement.setAttribute('data-theme',n);try{localStorage.setItem('pb-theme',n)}catch(e){}})})();</script>
+<script>
+/* Jarðvinnusenur á forsíðu: lagnaskurður í haus, senur milli kafla og lögn niður síðuna */
+(function(){
+  var root=document.documentElement,hero=document.querySelector('.hero'),main=document.querySelector('main');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var NS='http://www.w3.org/2000/svg';
+  function el(tag,attrs,parent){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
+  function clamp(x,a,b){return Math.max(a,Math.min(b,x))}
+  var listeners=[];
+  var EN=root.lang==='en';function T(a,b){return EN?b:a}
+  if(!hero||!main)return;
+
+  /* ---- scroll variables, one write per frame ---- */
+  var ticking=false,lastY=window.scrollY;
+  function upd(){ticking=false;var y=window.scrollY,max=Math.max(1,document.documentElement.scrollHeight-innerHeight);
+    root.style.setProperty('--sy',y.toFixed(1));root.style.setProperty('--sp',Math.min(1,y/max).toFixed(4));
+    var dy=y-lastY;lastY=y;listeners.forEach(function(f){f(y,dy)})}
+  window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(upd)}},{passive:true});
+
+  /* ---- reveal on scroll, only below the first screen ---- */
+  root.classList.add('js-rv');
+  document.querySelectorAll('.services').forEach(function(s){[].forEach.call(s.children,function(c,i){c.style.setProperty('--i',i)})});
+  if('IntersectionObserver' in window&&!reduce){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.remove('pre');io.unobserve(e.target)}})},{rootMargin:'0px 0px -12% 0px'});
+    document.querySelectorAll('.rv').forEach(function(it){if(it.getBoundingClientRect().top>innerHeight*.92){it.classList.add('pre');io.observe(it)}});
+  }
+
+  /* ---- F: Lagnaskurður ---- */
+  var f=document.createElement('div');f.className='bgv-f';f.setAttribute('aria-hidden','true');
+  var fs=el('svg',{viewBox:'0 0 1440 190',preserveAspectRatio:'xMidYMax slice'},f);
+  el('rect',{class:'soil',x:0,y:52,width:1440,height:34},fs);el('rect',{class:'deep',x:0,y:86,width:1440,height:110},fs);
+  el('path',{class:'cut',d:'M150 52 L170 172 L1270 172 L1290 52 Z'},fs);
+  el('rect',{class:'sand',x:170,y:138,width:1100,height:34},fs);
+  var pg_=el('g',{class:'pipeGrp'},fs);el('rect',{class:'pipe',x:170,y:126,width:1100,height:16,rx:2},pg_);
+  for(var j=0;j<6;j++)el('rect',{class:'pipe',x:300+j*190,y:122,width:14,height:24,rx:2},pg_);
+  el('line',{class:'surf',x1:0,y1:52,x2:1440,y2:52},fs);
+  el('path',{class:'wall',d:'M150 52 L170 172 L1270 172 L1290 52',fill:'none',pathLength:1},fs);
+  el('line',{class:'dimln',x1:1320,y1:52,x2:1320,y2:172},fs);el('line',{class:'dimln',x1:1312,y1:52,x2:1328,y2:52},fs);el('line',{class:'dimln',x1:1312,y1:172,x2:1328,y2:172},fs);
+  var t1=el('text',{class:'dim',x:1336,y:118},fs);t1.textContent=T('1,2 m','1.2 m');
+  var t2=el('text',{class:'dim',x:190,y:110},fs);t2.textContent=T('LAGNASKURÐUR · Ø110','UTILITY TRENCH · Ø110');
+  hero.appendChild(f);
+  var pl=document.createElement('div');pl.className='pipeline';pl.setAttribute('aria-hidden','true');pl.innerHTML='<div class="tube"></div><div class="flow"></div>';
+  main.appendChild(pl);var nodes=[];
+  function layoutPipe(){
+    var mt=main.getBoundingClientRect().top+scrollY,top=hero.offsetTop+hero.offsetHeight,h=main.offsetHeight-top;
+    pl.style.top=top+'px';pl.style.height=h+'px';
+    nodes.forEach(function(n){n.el.remove()});nodes=[];
+    document.querySelectorAll('main .sec .label').forEach(function(lb){var y=lb.getBoundingClientRect().top+scrollY-mt-top+lb.offsetHeight/2;if(y<0||y>h)return;var n=document.createElement('div');n.className='node';n.style.top=y+'px';var em=document.createElement('em');em.textContent=lb.textContent;n.appendChild(em);pl.appendChild(n);nodes.push({el:n,y:y})});
+    pipeFill(scrollY)}
+  function pipeFill(y){var mt=main.getBoundingClientRect().top+scrollY,top=parseFloat(pl.style.top)||0,h=parseFloat(pl.style.height)||0;
+    var fill=clamp(y+innerHeight*.55-(mt+top),0,h);pl.style.setProperty('--fill',fill+'px');nodes.forEach(function(n){n.el.classList.toggle('on',fill>=n.y)})}
+  listeners.push(function(y){pipeFill(y)});
+  window.addEventListener('resize',function(){layoutPipe()});
+
+  /* ---- F+: a groundwork scene between the sections, each plays when it scrolls into view ---- */
+  function scene(beforeSel,cls,label,build){
+    var sec=document.querySelector(beforeSel);if(!sec)return;
+    var w=document.createElement('div');w.className='scene '+cls;w.setAttribute('aria-hidden','true');
+    var s=el('svg',{viewBox:'0 0 1440 180',preserveAspectRatio:'xMidYMax slice'},w);
+    el('rect',{class:'sc-soil',x:0,y:44,width:1440,height:26},s);el('rect',{class:'sc-deep',x:0,y:70,width:1440,height:120},s);
+    build(s);
+    el('line',{class:'sc-surf',x1:0,y1:44,x2:1440,y2:44},s);
+    var t=el('text',{class:'sc-lbl',x:120,y:20},s);t.textContent=label;
+    sec.parentNode.insertBefore(w,sec);
+    return w;
+  }
+  function dim(s,x,y1,y2,txt){el('line',{class:'sc-dimln',x1:x,y1:y1,x2:x,y2:y2},s);el('line',{class:'sc-dimln',x1:x-7,y1:y1,x2:x+7,y2:y1},s);el('line',{class:'sc-dimln',x1:x-7,y1:y2,x2:x+7,y2:y2},s);var t=el('text',{class:'sc-dim',x:x+14,y:(y1+y2)/2+4},s);t.textContent=txt}
+
+  /* 2. Hellulögn: dig out, base course, sand bed, then the pavers drop in one by one */
+  scene('#reiknivel','sc-hellur',T('HELLULÖGN · INNKEYRSLA','PAVING · DRIVEWAY'),function(s){
+    el('rect',{class:'sc-cut',x:150,y:44,width:1140,height:96},s);
+    var base=el('rect',{class:'sc-gravel grow',x:150,y:84,width:1140,height:56},s);base.style.setProperty('--dl','0s');
+    var sand=el('rect',{class:'sc-sand grow',x:150,y:68,width:1140,height:16},s);sand.style.setProperty('--dl','.45s');
+    for(var i=0;i<19;i++){var p=el('rect',{class:'sc-paver drop',x:152+i*60,y:46,width:57,height:22},s);p.style.setProperty('--dl',(0.8+i*.07).toFixed(2)+'s')}
+    dim(s,1320,44,68,'8 cm');dim(s,1320,68,140,'40 cm');var bl=el('text',{class:'sc-dim',x:180,y:118},s);bl.textContent=T('BURÐARLAG','BASE COURSE');
+  });
+
+  /* 3. Torf: levelled topsoil, turf rolls unrolled left to right */
+  scene('#ferli','sc-torf',T('TÚNÞÖKUR · LÓÐ','TURF · GARDEN'),function(s){
+    el('rect',{class:'sc-mold',x:0,y:44,width:1440,height:30},s);
+    for(var i=0;i<4;i++){
+      var x0=150+i*290,len=280,g=el('g',{class:'roll'},s);g.style.setProperty('--dl',(i*.45).toFixed(2)+'s');g.style.setProperty('--len',len+'px');
+      var strip=el('g',{class:'strip'},g);strip.style.transformOrigin=x0+'px 40px';
+      el('rect',{class:'sc-turf',x:x0,y:34,width:len,height:11},strip);
+      for(var b=0;b<len;b+=7)el('line',{class:'sc-blade',x1:x0+b+2,y1:34,x2:x0+b+(b%14?4:0),y2:29-(b%3)},strip);
+      var r=el('g',{class:'rl'},g);el('circle',{class:'sc-turf',cx:x0,cy:28,r:13},r);el('circle',{class:'sc-mold',cx:x0,cy:28,r:6},r);
+    }
+  });
+
+  /* 4. Drenlögn: dig along the footing, drain pipe at the bottom, drain gravel fills up */
+  scene('#um-okkur','sc-dren',T('DRENLÖGN · SÖKKULL','FOUNDATION DRAIN · FOOTING'),function(s){
+    el('rect',{class:'sc-wall',x:1010,y:0,width:70,height:150},s);
+    el('rect',{class:'sc-wall',x:970,y:150,width:150,height:22},s);
+    el('rect',{class:'sc-house',x:1080,y:0,width:360,height:44},s);el('rect',{class:'sc-win',x:1150,y:8,width:60,height:28},s);el('rect',{class:'sc-win',x:1260,y:8,width:60,height:28},s);
+    el('path',{class:'sc-cut',d:'M780 44 L860 160 L1010 160 L1010 44 Z'},s);
+    var gr=el('path',{class:'sc-drenmol grow',d:'M846 140 L860 160 L1010 160 L1010 100 L818 100 Z'},s);gr.style.setProperty('--dl','.6s');
+    el('line',{class:'sc-membrane',x1:1006,y1:44,x2:1006,y2:160},s);
+    var p=el('circle',{class:'sc-pipe pop',cx:950,cy:146,r:12},s);p.style.setProperty('--dl','.2s');
+    el('circle',{class:'sc-pipein',cx:950,cy:146,r:5},s);
+    for(var i=0;i<5;i++){var d=el('circle',{class:'sc-drop',cx:860+i*30,cy:52,r:3},s);d.style.setProperty('--dl',(1.2+i*.25).toFixed(2)+'s')}
+    dim(s,1160,44,172,T('2,0 m','2.0 m'));
+  });
+
+  /* 5. Grunnur: pit with sloped sides, footings and slab poured */
+  scene('#hafa-samband','sc-grunnur',T('GRUNNUR · FROSTFRÍTT','FOUNDATION · FROST-FREE'),function(s){
+    el('path',{class:'sc-cut',d:'M300 44 L360 150 L1080 150 L1140 44 Z'},s);
+    var f1=el('rect',{class:'sc-conc pour',x:380,y:112,width:70,height:38},s);f1.style.setProperty('--dl','.3s');
+    var f2=el('rect',{class:'sc-conc pour',x:990,y:112,width:70,height:38},s);f2.style.setProperty('--dl','.5s');
+    var sl=el('rect',{class:'sc-conc spread',x:380,y:100,width:680,height:12},s);sl.style.setProperty('--dl','1s');
+    for(var i=0;i<12;i++)el('circle',{class:'sc-rebar',cx:400+i*57,cy:106,r:2.2},s);
+    dim(s,1320,44,150,T('1,2 m','1.2 m'));
+    
+  });
+
+  var io2='IntersectionObserver' in window?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('go');io2.unobserve(e.target)}})},{threshold:.45}):null;
+  document.querySelectorAll('.scene').forEach(function(sc){if(reduce||!io2)sc.classList.add('go');else io2.observe(sc)});
+
+
+  /* keep the pipe and its joints in place when the page height changes (calculator panels, fonts) */
+  var rt=null;function relayout(){clearTimeout(rt);rt=setTimeout(layoutPipe,120)}
+  if('ResizeObserver' in window)new ResizeObserver(relayout).observe(main);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(relayout);
+  window.addEventListener('load',relayout);
+  layoutPipe();upd();
+})();
+</script>
 </body>
 </html>
