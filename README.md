@@ -4,11 +4,17 @@ Vefsíða P. Blöndal ehf., gröfuþjónusta og jarðvinna á höfuðborgarsvæ�
 
 ## Skrár
 
-- `index.html`: forsíða með verðreiknivél og tilboðsformi
+- `index.html`: forsíða með þrívíddarsenu af lóð, verðreiknivél og tilboðsformi
+- `css/forsida.css`: útlit forsíðunnar (dökkt)
+- `js/forsida/scene.js`: þrívíddarsenan á forsíðunni (three.js): húsið, lóðin, lögin undir stétt, garði og hellum, grunnurinn og lagnirnar
+- `js/forsida/page.js`: hreyfingar á forsíðu: mjúkt skrun (Lenis), ScrollTrigger og SplitText (GSAP), myndir á þjónustuspjöldum
+- `js/forsida/reiknivel.js`: verðreiknivél og tilboðsform
+- `js/vendor/`: three.js r170, GSAP 3.13.0 og Lenis 1.3.24, hýst á vefnum sjálfum eins og letrið
+- `img/lod/`: áferðir (gras, hellur, steypa, timbur, jarðlög) sem senan notar
 - `thjonusta/<heiti>/index.html`: sérsíða fyrir hverja þjónustu
 - `stefnur/`: 17 stefnur og verklagsreglur (útgáfa 1.0, samþykkt 27. október 2026), hver á sinni síðu, með PDF í `stefnur/pdf/` og öll skjölin saman í `stefnur/pdf/p-blondal-stefnur-og-verklag.pdf`. Ensk þýðing allra skjalanna er í `en/policies/` með PDF í `en/policies/pdf/`.
-- `css/site.css`: sameiginlegt útlit fyrir allar síður
-- `fonts/`: leturgerðirnar Schibsted Grotesk og IBM Plex Mono (OFL-leyfi), hýstar á vefnum sjálfum
+- `css/site.css`: sameiginlegt útlit fyrir aðrar síður en forsíðuna
+- `fonts/`: leturgerðirnar Schibsted Grotesk og IBM Plex Mono á undirsíðum og Archivo og Instrument Serif á forsíðu (allar OFL-leyfi), hýstar á vefnum sjálfum
 - `404.html`: síða sem birtist ef slóð finnst ekki
 - `sitemap.xml`, `robots.txt`: fyrir leitarvélar
 - `og.png`: myndin sem birtist þegar síðunni er deilt
@@ -16,7 +22,7 @@ Vefsíða P. Blöndal ehf., gröfuþjónusta og jarðvinna á höfuðborgarsvæ�
 
 ## Verð í reiknivélinni
 
-Verðin eru efst í reiknivélarkóðanum í `index.html` (leitaðu að `var P=`), öll án VSK:
+Verðin eru efst í `js/forsida/reiknivel.js` (leitaðu að `var P=`), öll án VSK:
 
 - `grafa`, `madur`: 3 tonna grafa og gröfumaður á klst. (11.900 + 12.990)
 - `verkamadur`: skóflumaður (skóflumaður) á klst. (9.500). Í `CREW` er stillt hvaða verk fá skóflumann og hve stóran hluta vélartímans (lagnaskurður, drenlögn og plön 100%, heitur pottur og grunnur 50%)
@@ -27,7 +33,7 @@ Verðin eru efst í reiknivélarkóðanum í `index.html` (leitaðu að `var P=`
 
 `TRUCK_T` og `TRUCK_M3` segja hve mikið vörubíllinn tekur í ferð (15 t af efni eða 10 m³ af uppgreftri).
 Verðhugmyndin er sýnd sem bil frá 90% upp í 130% af útreiknuðu verði. Hámark í hverjum reit er í `var MAX=` (500 m, 2.000 m², 50 stk.) svo innsláttarvilla gefi ekki fráleitt verð.
-Eftir breytingu á `index.html` þarf að endurgera ensku síðuna `en/index.html` svo verðin séu þau sömu.
+Enska síðan `en/index.html` er með eigið afrit af reiknivélinni, svo ef verði er breytt þarf að breyta því þar líka.
 
 ## Tilboðsform
 
