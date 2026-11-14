@@ -10,7 +10,8 @@
   if (gsap && ST) gsap.registerPlugin(ST);
   if (gsap && Split) gsap.registerPlugin(Split); else root.classList.add('no-split');
   var story = document.getElementById('story');
-  function storyHeight() { if (gl2 && story) story.style.height = (innerHeight + 6 * Math.round(innerHeight * 1.25)) + 'px'; }
+  var NCH = Math.max(1, document.querySelectorAll('.ch').length - 1);
+  function storyHeight() { if (gl2 && story) story.style.height = (innerHeight + NCH * Math.round(innerHeight * 1.25)) + 'px'; }
   storyHeight();
   var hd = document.getElementById('hd');
   var prog = hd.querySelector('.prog');
@@ -141,11 +142,13 @@
   syncTheme();
 
   /* ---------- snapshots of the same lot for the service cards ---------- */
+  // each card's picture is the same lot at the stage that shows the job (t), from its own camera
   var SNAP = {
-    stett:{t:0.98,eye:[13.2,3.0,10.8],tgt:[5.9,1.4,1.6],fov:30}, gras:{t:1.98,eye:[-46.6,3.2,-0.5],tgt:[-39.0,1.1,-15.5],fov:30},
-    hellur:{t:2.98,eye:[-20.6,3.6,20.85],tgt:[-28.8,1.3,10.45],fov:30}, graftur:{t:3.79,eye:[48.5,37.8,29.5],tgt:[6,-1.2,-18],fov:40},
-    grunnur:{t:4.04,eye:[18,6,-10],tgt:[6,-0.5,-21],fov:36}, skurdir:{t:5.0,eye:[40,12,31],tgt:[19.5,-1.4,6],fov:32},
-    veitur:{t:5.0,eye:[34,7,40],tgt:[14,-1.6,20],fov:34}, dren:{t:5.0,eye:[-50,9,10],tgt:[-30,-1.6,-10],fov:32}};
+    graftur:{t:0.35,eye:[27,3.5,4],tgt:[19.5,1.2,9.5],fov:34}, skurdir:{t:0.75,eye:[23.5,5.5,-2],tgt:[19.5,-1.2,6],fov:34},
+    veitur:{t:1.12,eye:[36,14,-8],tgt:[17,-1.6,10],fov:36}, fylling:{t:2.1,eye:[34,10,2],tgt:[8,-0.5,-18],fov:34},
+    grunnur:{t:2.75,eye:[16,6.5,-6],tgt:[5,-0.6,-21],fov:34}, dren:{t:3.92,eye:[40,7,-12],tgt:[33,-1.3,-24],fov:34},
+    fragangur:{t:5.12,eye:[40,3.5,17],tgt:[28,0,4],fov:34}, hellur:{t:7.0,eye:[-22,3.2,12.6],tgt:[-30,0.3,5.5],fov:34},
+    girding:{t:7.0,eye:[12,3.2,24],tgt:[12,1.2,12],fov:34}};
   var shotsDone = false;
   function shots() {
     if (shotsDone || !S || !S.snapshots) return; shotsDone = true;

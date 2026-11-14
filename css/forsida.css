@@ -18,7 +18,7 @@
   --line:rgba(var(--fgc),.13);--line2:rgba(var(--fgc),.26);
   --pinkt:#c9004c;--sandt:#7d5d24;
   --glass:rgba(248,245,239,.86);--stage-bg:#c9d2da;--pic-a:#e3e8ec;--pic-b:#cfd7de;
-  --scrim-a:.84;--scrim-b:.5;--scrim-c:.62;--scrim-d:.5;
+  --scrim-a:.76;--scrim-b:.38;--scrim-c:.52;--scrim-d:.44;
   color-scheme:light
 }
 :root[data-theme="dark"]{
@@ -63,6 +63,8 @@ a{color:inherit}
 /* type */
 .eyebrow{margin:0 0 18px;font-size:.78rem;font-weight:700;font-stretch:72%;letter-spacing:.16em;text-transform:uppercase;color:var(--pinkt);display:flex;align-items:center;gap:12px}
 .eyebrow::before{content:"";width:26px;height:2px;background:currentColor}
+/* the hero eyebrow sits on the horizon, which glows at golden hour: a soft halo in the page colour keeps it legible */
+.story-on .ch-hero .eyebrow{text-shadow:0 0 14px rgba(var(--bgc),.95),0 0 3px rgba(var(--bgc),.7)}
 .disp{margin:0;font-weight:850;font-stretch:68%;text-transform:uppercase;line-height:.88;letter-spacing:-.005em;font-size:clamp(2.7rem,6.4vw,6.4rem);text-wrap:balance}
 .disp em{display:block;font-family:var(--serif);font-style:italic;font-weight:400;font-stretch:100%;text-transform:none;color:var(--pink);font-size:1.04em;line-height:.95;letter-spacing:-.015em;margin-top:.04em}
 .disp.inline em{display:inline}
@@ -166,17 +168,23 @@ html.lenis,html.lenis body{height:auto}
 .minimap figcaption{margin-top:10px;font-size:.7rem;font-weight:650;font-stretch:78%;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);min-height:2.4em;line-height:1.25}
 .m-lot{fill:rgba(95,148,66,.16);stroke:var(--line2);stroke-width:.12}
 .m-street{fill:rgba(var(--fgc),.06)}
-.m-a{fill:rgba(var(--fgc),.16);stroke:none;transition:fill .4s}
-.m-house{fill:rgba(var(--fgc),.32);transition:fill .4s}
+.m-a{fill:rgba(var(--fgc),.14);stroke:none;transition:fill .4s}
+.m-pad{fill:rgba(var(--fgc),.1);transition:fill .4s}
+.m-house{fill:rgba(var(--fgc),.32);stroke:none;transition:fill .4s,stroke .4s}
 .m-pit{fill:none;stroke:transparent;stroke-width:.18;stroke-dasharray:.5 .35;transition:stroke .4s}
-.m-pipe{fill:none;stroke:rgba(var(--fgc),0);stroke-width:.28;transition:stroke .4s}
-[data-ch="0"] .m-house,[data-ch="6"] .m-house{fill:var(--pink)}
-[data-ch="1"] .m-stett,[data-ch="2"] .m-gras,[data-ch="3"] .m-drive{fill:var(--pink)}
-[data-ch="2"] .m-lot{fill:rgba(95,148,66,.34)}
-[data-ch="4"] .m-pit{stroke:var(--pink)}
-[data-ch="4"] .m-house{fill:rgba(var(--fgc),.12)}
-[data-ch="5"] .m-pipe{stroke:var(--pink)}
-[data-ch="5"] .m-house{fill:rgba(var(--fgc),.1)}
+.m-trench{fill:rgba(var(--fgc),.12);transition:fill .4s}
+.m-pipe,.m-drain{fill:none;stroke:rgba(var(--fgc),0);stroke-width:.28;transition:stroke .4s}
+.m-fence{fill:none;stroke:rgba(var(--fgc),0);stroke-width:.4;transition:stroke .4s}
+/* the building is not there until stage 5: only the ground work shows before that */
+[data-ch="0"] .m-house,[data-ch="1"] .m-house,[data-ch="2"] .m-house{fill:transparent}
+[data-ch="0"] .m-trench{fill:var(--pink)}[data-ch="0"] .m-pit{stroke:var(--pink)}
+[data-ch="1"] .m-pipe{stroke:var(--pink)}[data-ch="1"] .m-trench{fill:rgba(249,1,96,.35)}
+[data-ch="2"] .m-pad{fill:var(--pink)}
+[data-ch="3"] .m-pad{fill:rgba(249,1,96,.3)}[data-ch="3"] .m-house{fill:transparent;stroke:var(--pink);stroke-width:.3;stroke-dasharray:.6 .4}
+[data-ch="4"] .m-drain{stroke:var(--pink)}[data-ch="4"] .m-house{fill:rgba(var(--fgc),.2)}
+[data-ch="5"] .m-a{fill:var(--pink)}
+[data-ch="6"] .m-fence{stroke:var(--pink)}
+[data-ch="7"] .m-house{fill:var(--pink)}[data-ch="7"] .m-fence{stroke:rgba(var(--fgc),.5)}
 .story-on .hint{display:flex;position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:5;flex-direction:column;align-items:center;gap:8px;font-size:.7rem;font-weight:650;font-stretch:78%;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
 .hint i{width:1px;height:38px;background:linear-gradient(var(--fg),transparent);animation:drip 1.8s var(--ease) infinite}
 @keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
