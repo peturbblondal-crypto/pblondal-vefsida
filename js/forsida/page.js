@@ -124,15 +124,10 @@
 
   /* ---------- snapshots of the same lot for the service cards ---------- */
   var SNAP = {
-    stett: { t: 0.98, eye: [12.4, 2.7, 8.6], tgt: [6.8, 1.25, 1.2], fov: 30 },
-    gras: { t: 1.98, eye: [15.0, 3.0, 14.4], tgt: [8.6, 1.05, 6.4], fov: 30 },
-    hellur: { t: 2.98, eye: [-1.0, 3.4, 15.0], tgt: [-6.6, 1.2, 6.5], fov: 30 },
-    graftur: { t: 3.79, eye: [15.5, 19.5, 14.5], tgt: [1.5, -1.2, -5.0], fov: 40 },
-    grunnur: { t: 4.04, eye: [15.5, 5.2, 4.5], tgt: [8.8, -0.7, -3.6], fov: 34 },
-    skurdir: { t: 5.0, eye: [18.5, 7.5, 24.0], tgt: [8.2, -1.3, 7.0], fov: 32 },
-    veitur: { t: 5.0, eye: [14.0, 4.5, 31.0], tgt: [6.0, -1.6, 16.6], fov: 34 },
-    dren: { t: 5.0, eye: [-21.0, 8.5, 9.0], tgt: [-6.5, -1.6, -5.0], fov: 34 }
-  };
+    stett:{t:0.98,eye:[13.2,3.0,10.8],tgt:[5.9,1.4,1.6],fov:30}, gras:{t:1.98,eye:[-46.6,3.2,-0.5],tgt:[-39.0,1.1,-15.5],fov:30},
+    hellur:{t:2.98,eye:[-20.6,3.6,20.85],tgt:[-28.8,1.3,10.45],fov:30}, graftur:{t:3.79,eye:[48.5,37.8,29.5],tgt:[6,-1.2,-18],fov:40},
+    grunnur:{t:4.04,eye:[18,6,-10],tgt:[6,-0.5,-21],fov:36}, skurdir:{t:5.0,eye:[40,12,31],tgt:[19.5,-1.4,6],fov:32},
+    veitur:{t:5.0,eye:[34,7,40],tgt:[14,-1.6,20],fov:34}, dren:{t:5.0,eye:[-50,9,10],tgt:[-30,-1.6,-10],fov:32}};
   var shotsDone = false;
   function shots() {
     if (shotsDone || !S || !S.snapshots) return; shotsDone = true;
