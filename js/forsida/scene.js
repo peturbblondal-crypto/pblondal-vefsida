@@ -21,6 +21,11 @@ const labelsEl = document.getElementById('labels');
 const reduce = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
 const N = 6;
 const TEXBASE = (document.querySelector('meta[name="pb-tex"]') || {}).content || 'tex/';
+// language from <html lang>: the labels in the scene come in Icelandic and English
+const EN = (root.lang || '').slice(0, 2) === 'en';
+const loc = (is, en) => (EN ? en : is);
+// light theme = daylight (afternoon at the ends), dark theme = golden hour at the start and the end
+const isDark = () => root.getAttribute('data-theme') === 'dark';
 
 function fail(e) {
   if (e) console.warn('3D off:', e);
@@ -1133,6 +1138,10 @@ async function build() {
   let lampOn = 1;   // the intro turns the lights on
   const ssOn = (k) => sm(0.25, 0.85, k) * lampOn;
   let expo = 1;
+  // the theme sets the time of day at the ends of the story: 1 = golden hour with the lights on (dark), LIGHTK = afternoon (light)
+  const LIGHTK = 0.4;   // light theme: late afternoon at the ends instead of golden hour
+  let themeTarget = isDark() ? 1 : LIGHTK, themeK = themeTarget;
+  const EXPO0 = () => (themeTarget > 0.5 ? 0.35 : 1.7);   // the intro fades the scene in from black (dark) or from white (light)
 
   /* ---------- post-processing ---------- */
   const rt = new THREE.WebGLRenderTarget(4, 4, { type: THREE.HalfFloatType, samples: small ? 0 : 4 });
@@ -1177,20 +1186,20 @@ async function build() {
   }
   const ST = {};
   const lay = (c, i, text, which) => label(text, () => { const L = c.layers[i]; return [c.r.x1, L.y1 + (L.lift || 0), c.r.z0]; }, () => ramp(0.55, 0.9, ST[which]));
-  lay(colS, 0, 'Steypa 20 cm, járnbent', 'eS');
-  label('Snjóbræðsla', () => [SAMPLE.stett.x1 - 0.3, snow.position.y, SAMPLE.stett.z0 + 0.25], () => ramp(0.55, 0.9, ST.eS));
-  lay(colS, 1, 'Burðarlag 50 cm', 'eS'); lay(colS, 2, 'Frostfrí fylling', 'eS');
-  lay(colG, 0, 'Túnþökur', 'eG'); lay(colG, 1, 'Gróðurmold 25 cm', 'eG'); lay(colG, 2, 'Fylling', 'eG');
-  lay(colH, 0, 'Hellur 8 cm', 'eH'); lay(colH, 1, 'Sandur 3 cm', 'eH'); lay(colH, 2, 'Burðarlag 50 cm', 'eH'); lay(colH, 3, 'Frostfrí fylling', 'eH');
-  label('Grafið niður á 1,6 m', () => [12, -1.6, HALL.z1 + 1.1], () => ST.lblDig);
-  label('Sökklar', () => [-30, 0.3 + ST.footY, HALL.z0], () => ST.lblFoot);
-  label('Súlufætur', () => [-24, 0.3 + ST.footY, (HALL.z0 + HALL.z1) / 2], () => ST.lblFoot);
-  label('Púði, þjappaður í lögum', () => [0, ST.padTop, -14], () => ST.lblPad);
-  label('Stofnlagnir í götu', () => [-2, -2.4, 21.8], () => ST.lblP);
-  label('Heimæðar', () => [19.3, -0.6, 4], () => ST.lblP);
-  label('Fráveita', () => [21.0, -2.3, 10], () => ST.lblP);
-  label('Ofanvatn', () => [2, -0.7, 3.4], () => ST.lblP);
-  label('Drenlögn', () => [-32.5, -1.6, -20], () => ST.lblP);
+  lay(colS, 0, loc('Steypa 20 cm, járnbent', 'Reinforced concrete 20 cm'), 'eS');
+  label(loc('Snjóbræðsla', 'Snow-melt pipes'), () => [SAMPLE.stett.x1 - 0.3, snow.position.y, SAMPLE.stett.z0 + 0.25], () => ramp(0.55, 0.9, ST.eS));
+  lay(colS, 1, loc('Burðarlag 50 cm', 'Base course 50 cm'), 'eS'); lay(colS, 2, loc('Frostfrí fylling', 'Frost-free fill'), 'eS');
+  lay(colG, 0, loc('Túnþökur', 'Turf'), 'eG'); lay(colG, 1, loc('Gróðurmold 25 cm', 'Topsoil 25 cm'), 'eG'); lay(colG, 2, loc('Fylling', 'Fill'), 'eG');
+  lay(colH, 0, loc('Hellur 8 cm', 'Pavers 8 cm'), 'eH'); lay(colH, 1, loc('Sandur 3 cm', 'Bedding sand 3 cm'), 'eH'); lay(colH, 2, loc('Burðarlag 50 cm', 'Base course 50 cm'), 'eH'); lay(colH, 3, loc('Frostfrí fylling', 'Frost-free fill'), 'eH');
+  label(loc('Grafið niður á 1,6 m', 'Dug down to 1.6 m'), () => [12, -1.6, HALL.z1 + 1.1], () => ST.lblDig);
+  label(loc('Sökklar', 'Foundation walls'), () => [-30, 0.3 + ST.footY, HALL.z0], () => ST.lblFoot);
+  label(loc('Súlufætur', 'Column footings'), () => [-24, 0.3 + ST.footY, (HALL.z0 + HALL.z1) / 2], () => ST.lblFoot);
+  label(loc('Púði, þjappaður í lögum', 'Compacted fill pad'), () => [0, ST.padTop, -14], () => ST.lblPad);
+  label(loc('Stofnlagnir í götu', 'Street mains'), () => [-2, -2.4, 21.8], () => ST.lblP);
+  label(loc('Heimæðar', 'Service lines'), () => [19.3, -0.6, 4], () => ST.lblP);
+  label(loc('Fráveita', 'Sewer'), () => [21.0, -2.3, 10], () => ST.lblP);
+  label(loc('Ofanvatn', 'Stormwater'), () => [2, -0.7, 3.4], () => ST.lblP);
+  label(loc('Drenlögn', 'Perimeter drain'), () => [-32.5, -1.6, -20], () => ST.lblP);
 
   /* ---------- camera keyframes: eye, target, lens; desktop pushes the subject right of the text ---------- */
   const K = [
@@ -1238,7 +1247,7 @@ async function build() {
 
   /* ---------- the whole state for a given t ---------- */
   function apply(t) {
-    const duskK = clamp(1 - sm(0.1, 0.75, t) + sm(5.3, 5.95, t), 0, 1);
+    const duskK = clamp(1 - sm(0.1, 0.75, t) + sm(5.3, 5.95, t), 0, 1) * themeK;
     lighting(duskK);
     const eS = bump(0.4, 0.9, 1.1, 1.5, t), sS = t > 1.0 && t < 1.6 ? ramp(1.1, 1.5, t) : 0;
     const eG = bump(1.45, 1.92, 2.1, 2.5, t), sG = t > 2.0 && t < 2.6 ? ramp(2.1, 2.5, t) : 0;
@@ -1374,21 +1383,25 @@ async function build() {
     raf = 0;
     const rawDt = ((now - last) || 16) / 1000;
     const dt = clamp(rawDt, 0.004, 0.05); last = now;
+    const theming = Math.abs(themeTarget - themeK) > 0.002;
+    if (theming) themeK += (themeTarget - themeK) * (reduce ? 1 : 1 - Math.exp(-dt * 2.6)); else themeK = themeTarget;
     target = readTarget();
     const moving = Math.abs(target - T) > 0.0004;
     if (moving) T = clamp(T + (target - T) * (reduce ? 1 : 1 - Math.exp(-dt * 7)), 0, N); else T = target;
     sway.x += (sway.tx - sway.x) * (1 - Math.exp(-dt * 3)); sway.y += (sway.ty - sway.y) * (1 - Math.exp(-dt * 3));
     const swaying = Math.abs(sway.tx - sway.x) + Math.abs(sway.ty - sway.y) > 0.002;
     const r = story.getBoundingClientRect(), onScreen = r.bottom > 0 && r.top < innerHeight;
-    if (onScreen && (moving || swaying || building || dirty)) {
+    if (onScreen && (moving || swaying || building || theming || dirty)) {
       render(); dirty = false;
       if (moving && rawDt < 0.5 && level < 3 && !/nosnap/.test(location.search)) { slowEma += (rawDt - slowEma) * 0.08; if (slowEma > 0.036) { if (++slowN > 45) degrade(); } else slowN = Math.max(0, slowN - 1); }
     }
-    if (moving || swaying || building) raf = requestAnimationFrame(frame);
+    if (moving || swaying || building || theming) raf = requestAnimationFrame(frame);
   }
   function kick() { if (!raf) { last = performance.now(); raf = requestAnimationFrame(frame); } }
   addEventListener('scroll', kick, { passive: true });
   addEventListener('resize', size);
+  // switching between light and dark eases the sky between daylight and golden hour
+  new MutationObserver(() => { const d = isDark() ? 1 : LIGHTK; if (d !== themeTarget) { themeTarget = d; dirty = true; kick(); } }).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
   if (window.matchMedia && matchMedia('(hover: hover)').matches && !reduce) {
     addEventListener('pointermove', (e) => { sway.tx = (e.clientX / innerWidth - 0.5); sway.ty = (e.clientY / innerHeight - 0.5); kick(); }, { passive: true });
   }
@@ -1423,10 +1436,10 @@ async function build() {
   function buildIntro(ms) {
     return new Promise((res) => {
       if (reduce || !ms) { intro = 1; lampOn = 1; expo = 1; dirty = true; kick(); res(); return; }
-      building = true; const t0 = performance.now();
+      building = true; const t0 = performance.now(), e0 = EXPO0();
       (function step(now) {
         const k = clamp((now - t0) / ms, 0, 1);
-        intro = k; lampOn = sm(0.35, 0.95, k); expo = lerp(0.35, 1, easeOutCubic(clamp(k * 1.6, 0, 1)));
+        intro = k; lampOn = sm(0.35, 0.95, k); expo = lerp(e0, 1, easeOutCubic(clamp(k * 1.6, 0, 1)));
         if (k < 1) requestAnimationFrame(step); else { building = false; res(); }
         dirty = true; kick();
       })(t0);
@@ -1434,7 +1447,7 @@ async function build() {
   }
 
   size();
-  intro = 0; lampOn = 0; expo = 0.35;
+  intro = 0; lampOn = 0; expo = EXPO0();
   T = target = readTarget();
   // compile everything before the first visible frame
   try { await renderer.compileAsync(scene, camera); } catch (e) {}

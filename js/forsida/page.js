@@ -46,8 +46,10 @@
 
   /* ---------- intro: logo in the middle flies into the header, then the camera glides in ---------- */
   var intro = document.getElementById('intro');
-  var ilogo = intro.querySelector('img');
-  var hlogo = document.querySelector('.brand img');
+  // two logos (dark letters for the light theme, light letters for the dark theme): use the one that is showing
+  function shown(list) { list = [].slice.call(list); for (var i = 0; i < list.length; i++) if (getComputedStyle(list[i]).display !== 'none') return list[i]; return list[0]; }
+  var brand = document.querySelector('.brand');
+  var ilogo = shown(intro.querySelectorAll('img')), hlogo = shown(brand.querySelectorAll('img'));
   var heroH = document.querySelector('.ch-hero .disp');
   var fontsReady = document.fonts && document.fonts.ready ? document.fonts.ready.catch(function () {}) : Promise.resolve();
   var heroSplit = null, heroShown = false;
@@ -63,7 +65,7 @@
     countStats(document.querySelectorAll('.ch-hero .stats b'), 0.5);
   }
   function afterIntro() {
-    intro.hidden = true; root.classList.remove('intro-on'); hlogo.style.opacity = '';
+    intro.hidden = true; root.classList.remove('intro-on'); brand.style.opacity = '';
     if (lenis) lenis.start();
     if (S) {
       S.build(2600).then(shotsWhenNear);
@@ -86,7 +88,8 @@
     intro.hidden = true;
     sceneReady.then(function () { if (S) S.build(reduce || deep ? 0 : 2200).then(shotsWhenNear); heroIn(); });
   } else {
-    intro.hidden = false; root.classList.add('intro-on'); hlogo.style.opacity = '0';
+    intro.hidden = false; root.classList.add('intro-on'); brand.style.opacity = '0';
+    ilogo = shown(intro.querySelectorAll('img')); hlogo = shown(brand.querySelectorAll('img'));
     if (lenis) lenis.stop();
     intro.addEventListener('click', skip);
     addEventListener('keydown', function (e) { if (e.key === 'Escape') skip(); });
@@ -99,7 +102,8 @@
         intro.classList.remove('wait');
         var a = ilogo.getBoundingClientRect(), b = hlogo.getBoundingClientRect();
         var s = b.width / a.width, dx = (b.left + b.width / 2) - (a.left + a.width / 2), dy = (b.top + b.height / 2) - (a.top + a.height / 2);
-        intro.animate([{ backgroundColor: 'rgba(12,13,15,1)' }, { backgroundColor: 'rgba(12,13,15,0)' }], { duration: 900, delay: 120, easing: E, fill: 'forwards' });
+        var bg = getComputedStyle(intro).backgroundColor, bg0 = bg.replace(/^rgba?\(([^,]+),([^,]+),([^,)]+).*$/, 'rgba($1,$2,$3,0)');
+        intro.animate([{ backgroundColor: bg }, { backgroundColor: bg0 }], { duration: 900, delay: 120, easing: E, fill: 'forwards' });
         return ilogo.animate([{ transform: 'translate(0,0) scale(1)' }, { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(' + s + ')' }], { duration: 820, easing: 'cubic-bezier(.7,0,.2,1)', fill: 'forwards' }).finished;
       })
       .then(function () { logoDone = true; finish(); })
@@ -121,6 +125,20 @@
     mn.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
     addEventListener('resize', function () { if (innerWidth > 980) setMenu(false); });
   }
+
+  /* ---------- light / dark: same switch and the same remembered choice (pb-theme) as the rest of the site ---------- */
+  var tb = document.getElementById('themeBtn'), tmeta = document.querySelector('meta[name="theme-color"]');
+  function isDark() { var a = root.getAttribute('data-theme'); return a ? a === 'dark' : !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches); }
+  function syncTheme() { if (tmeta) tmeta.setAttribute('content', isDark() ? '#0c0d0f' : '#f4f0e8'); if (tb) tb.setAttribute('aria-pressed', isDark() ? 'true' : 'false'); }
+  var themeTimer = 0;
+  if (tb) tb.addEventListener('click', function () {
+    var n = isDark() ? 'light' : 'dark';
+    root.classList.add('theming'); clearTimeout(themeTimer); themeTimer = setTimeout(function () { root.classList.remove('theming'); }, 700);
+    root.setAttribute('data-theme', n);
+    try { localStorage.setItem('pb-theme', n); } catch (e) {}
+    syncTheme();
+  });
+  syncTheme();
 
   /* ---------- snapshots of the same lot for the service cards ---------- */
   var SNAP = {

@@ -5,10 +5,11 @@ Vefsíða P. Blöndal ehf., gröfuþjónusta og jarðvinna á höfuðborgarsvæ�
 ## Skrár
 
 - `index.html`: forsíða með þrívíddarsenu af lóð, verðreiknivél og tilboðsformi
-- `css/forsida.css`: útlit forsíðunnar (dökkt)
-- `js/forsida/scene.js`: þrívíddarsenan á forsíðunni (three.js): húsið, lóðin, lögin undir stétt, garði og hellum, grunnurinn og lagnirnar
+- `en/index.html`: sama forsíða á ensku. Hún notar sömu CSS- og JS-skrár og íslenska forsíðan, svo breyting á útliti, senu eða verðum gildir á báðum
+- `css/forsida.css`: útlit forsíðunnar, ljóst og dökkt (litirnir eru breytur efst í skránni)
+- `js/forsida/scene.js`: þrívíddarsenan á forsíðunni (three.js): vöruhúsið, lóðin, lögin undir plani, lóð og bílaplani, grunnurinn og lagnirnar. Merkingar í senunni eru á íslensku eða ensku eftir `<html lang>`
 - `js/forsida/page.js`: hreyfingar á forsíðu: mjúkt skrun (Lenis), ScrollTrigger og SplitText (GSAP), myndir á þjónustuspjöldum
-- `js/forsida/reiknivel.js`: verðreiknivél og tilboðsform
+- `js/forsida/reiknivel.js`: verðreiknivél og tilboðsform fyrir báðar forsíðurnar. Textar eru í `tr('íslenska', 'English')`
 - `js/vendor/`: three.js r170, GSAP 3.13.0 og Lenis 1.3.24, hýst á vefnum sjálfum eins og letrið
 - `img/lod/`: áferðir (gras, hellur, steypa, timbur, jarðlög) sem senan notar
 - `thjonusta/<heiti>/index.html`: sérsíða fyrir hverja þjónustu
@@ -33,7 +34,7 @@ Verðin eru efst í `js/forsida/reiknivel.js` (leitaðu að `var P=`), öll án 
 
 `TRUCK_T` og `TRUCK_M3` segja hve mikið vörubíllinn tekur í ferð (15 t af efni eða 10 m³ af uppgreftri).
 Verðhugmyndin er sýnd sem bil frá 90% upp í 130% af útreiknuðu verði. Hámark í hverjum reit er í `var MAX=` (500 m, 2.000 m², 50 stk.) svo innsláttarvilla gefi ekki fráleitt verð.
-Enska síðan `en/index.html` er með eigið afrit af reiknivélinni, svo ef verði er breytt þarf að breyta því þar líka.
+Íslenska og enska forsíðan nota sömu skrá, svo verðið þarf bara að breyta á einum stað.
 
 ## Tilboðsform
 
@@ -46,7 +47,8 @@ Síðan er á https://pblondal.is. DNS er hjá ISNIC: fjórar A-færslur á IP-t
 
 ## Tungumál og útlit
 
-- Ensk útgáfa er á `/en/` (forsíða) og `/en/services/<heiti>/` (þjónustusíður).
+- Ensk útgáfa er á `/en/` (forsíða), `/en/services/<heiti>/` (þjónustusíður) og `/en/policies/` (stefnur).
 - Hnappurinn „EN / IS“ efst skiptir á milli samsvarandi síðna á hvoru tungumáli.
-- Hnappurinn með tungli/sól skiptir á milli ljóss og dökks útlits. Valið er munað í vafranum.
+- Hnappurinn með tungli/sól skiptir á milli ljóss og dökks útlits á öllum síðum. Valið er munað í vafranum (`pb-theme`) og gildir á öllum síðum. Síðan opnast í ljósu útliti nema gestur hafi valið dökkt.
+- Á forsíðunni stýrir útlitið líka birtunni í þrívíddarsenunni: síðdegisbirta í ljósu útliti, sólsetur með kveikt ljós í dökku.
 - Fyrirspurnir af ensku síðunni berast á petur@pblondal.is merktar „Tungumál: Enska“.
