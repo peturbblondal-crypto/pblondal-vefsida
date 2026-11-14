@@ -13,7 +13,7 @@ import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 import { FXAAShader } from 'three/addons/shaders/FXAAShader.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import { kitMaterials, excavator, digPose, roller, tipper, fenceMesh, Bag as KBag, box as kbox, cyl as kcyl } from './kit.js?v=20261115a';
+import { kitMaterials, fenceMesh, Bag as KBag, box as kbox, cyl as kcyl } from './kit.js?v=20261115b';
 
 const root = document.documentElement;
 const story = document.getElementById('story');
@@ -113,7 +113,7 @@ async function build() {
   const MASK = (v) => ({ v: { value: v } });
   const RAW_G = MASK(1.04), RAW_D = MASK(0), RAW_W = MASK(1.04);   // grass, raw dirt over the base course, wear
   const SWEEP = (dx, dz, soft) => ({ v: { value: new THREE.Vector4(dx, dz, -1e5, soft) } });
-  const SW_A = SWEEP(-1, 0, 2.4), SW_C = SWEEP(1, 0, 1.0), SW_P = SWEEP(1, 0, 1.2), SW_L = SWEEP(0, -1, 0.3);   // asphalt, paths, pavers, paint
+  const SW_A = SWEEP(-1, 0, 2.4), SW_C = SWEEP(1, 0, 1.0), SW_P = SWEEP(1, 0, 0.35), SW_L = SWEEP(0, -1, 0.3);   // asphalt, paths, pavers, paint
   function patch(mat, o) {
     o = o || {};
     const key = 'pb' + (o.box ? 'B' : '') + (o.scan ? 'S' : '') + (o.mask ? 'M' : '') + (o.sweep ? 'W' : '') + (o.depth ? 'D' : '') + (o.grime ? 'G' : '');
@@ -1063,14 +1063,11 @@ async function build() {
   });
 
 
-  /* ---------- the work: machines, temporary fence, heaps, setting out, kerbs, the fence and gate ---------- */
+  /* ---------- the work: temporary fence, heaps, setting out, kerbs, the fence and gate (no machines: each chapter shows the state of the site) ---------- */
   const KM = kitMaterials();
   lightsDusk.push([KM.lamp, 6], [KM.amber, 3]);
-  // heaps and the bucket load sit on top of the ground, so they stay solid when the ground goes see-through
+  // heaps sit on top of the ground, so they stay solid when the ground goes see-through
   const HM = { mold: std({ map: TX.dirt, n: TX.dirtN, r: 0.97 }), sand: std({ map: TX.sand, n: TX.sandN, r: 0.97 }) };
-  const exc = excavator(KM, HM.mold); world.add(exc.root);
-  const rol = roller(KM); world.add(rol.root);
-  const tip = tipper(KM, padMat); world.add(tip.root);
   // heaps: spoil from the trench, the dig for the building, bedding sand, fill tipped at the pad
   function mound(w, h, d, seed) {
     const g = new THREE.SphereGeometry(1, 30, 12, 0, Math.PI * 2, 0, Math.PI / 2), p = g.attributes.position, r = rnd(seed), ph = r() * 10;
@@ -1357,7 +1354,7 @@ async function build() {
     const el = document.createElement('div'); el.className = 'lbl'; el.innerHTML = '<i></i><span>' + text + '</span>';
     labelsEl.appendChild(el); labels.push({ el, pos, vis, on: false });
   }
-  const ST = { trF: 0, padTop: -1.6, rolX: 0, rolZ: -20, asphX: 20 };
+  const ST = { trF: 0, padTop: -1.6, asphX: 20, pavX: -43 };
   const LB = (is, en, pos, key) => label(loc(is, en), pos, () => ST[key] || 0);
   LB('Lagnaskurður', 'Utility trench', () => [19.6, -0.4, ST.trF - 3.5], 'l1');
   LB('Uppgröftur', 'Excavated soil', () => [15.3, 1.0, ST.trF - 7], 'l1');
@@ -1367,7 +1364,7 @@ async function build() {
   LB('Fráveita', 'Sewer', () => [21.0, -2.3, 10], 'lx');
   LB('Ofanvatn', 'Stormwater', () => [2, -0.7, 3.4], 'lx');
   LB('Fyllingarefni', 'Fill material', () => [8, ST.padTop + 1.0, -10.2], 'l3a');
-  LB('Þjappað í 30 cm lögum', 'Compacted in 30 cm layers', () => [ST.rolX, ST.padTop + 0.1, ST.rolZ + 2.5], 'l3b');
+  LB('Þjappað í 30 cm lögum', 'Compacted in 30 cm layers', () => [14, ST.padTop + 0.1, -16], 'l3b');
   LB('Burðarlag á lóð', 'Base course on the yard', () => [4, -0.1, 9], 'l3c');
   LB('Púði í réttri hæð', 'Pad at final level', () => [-12, 0.15, -14], 'l4');
   LB('Holur fyrir undirstöður', 'Holes for the footings', () => [8, -0.4, CZ0], 'l4b');
@@ -1376,20 +1373,21 @@ async function build() {
   LB('Drenlögn', 'Perimeter drain', () => [32.9, -1.55, -22], 'l5a');
   LB('Fyllt að sökklum', 'Backfilled against the foundations', () => [33, 0, -31], 'l5b');
   LB('Hleðsludokkar', 'Loading docks', () => [6, 5.4, -7.2], 'l5c');
-  LB('Kantsteinar', 'Kerbs', () => [34.08, 0.13, 3], 'l6a');
+  LB('Kantsteinar', 'Kerbs', () => [-24, 0.15, 13.92], 'l6a');
   LB('Malbik á burðarlag', 'Asphalt on the base course', () => [ST.asphX, 0.02, 3], 'l6b');
-  LB('Gras á jöðrum', 'Grass on the verges', () => [39, 0.05, -6], 'l6c');
+  LB('Hellulögn', 'Paving', () => [ST.pavX, 0.1, 8.75], 'l6d');
+  LB('Gras á jöðrum', 'Grass on the verges', () => [-38.5, 0.05, -6], 'l6c');
   LB('Girðing', 'Fence', () => [FX0, 2.25, 2], 'l7a');
   LB('Rennihlið', 'Sliding gate', () => [12, 2.25, FZ], 'l7b');
 
   /* ---------- camera keyframes: eye, target, lens; desktop pushes the subject right of the text ---------- */
   const K = [
-    { eye: [28, 3.4, -8], tgt: [17.5, 1.0, 10], fov: 40, ox: 0.16, oy: 0.06 },          // 0 low by the trench, the excavator against the evening sky
+    { eye: [28, 3.4, -8], tgt: [17.5, 1.0, 10], fov: 40, ox: 0.16, oy: 0.06 },          // 0 low by the trench as it is dug towards the street
     { eye: [33, 14, -9], tgt: [17, -1.5, 9], fov: 36, ox: 0.15, oy: 0.04 },            // 1 above the trench as the ground goes see-through
-    { eye: [40, 15, 6], tgt: [4, -1.0, -20], fov: 36, ox: 0.15, oy: 0.04 },            // 2 the pad filling and the roller
+    { eye: [40, 15, 6], tgt: [4, -1.0, -20], fov: 36, ox: 0.15, oy: 0.04 },            // 2 the pad filling in layers
     { eye: [44, 52, 30], tgt: [-2, -1.0, -22], fov: 38, ox: 0.15, oy: 0.04 },          // 3 high over the pad, ready for the building
     { eye: [58, 13, 8], tgt: [22, 4.0, -20], fov: 36, ox: 0.15, oy: 0.04 },            // 4 along the east side while the building goes up
-    { eye: [40, 3.0, 17], tgt: [18, 0.6, 4], fov: 36, ox: 0.15, oy: 0.04 },            // 5 low along the kerbs and the new asphalt
+    { eye: [6, 9, 28], tgt: [-27, 0.3, 7], fov: 36, ox: 0.15, oy: 0.04 },              // 5 from the street over the car park as the pavers go down
     { eye: [-50, 6.0, 22], tgt: [-42, 1.4, -18], fov: 36, ox: 0.15, oy: 0.04 },        // 6 outside the west fence, looking along it as the posts go in
     { eye: [62, 26, 58], tgt: [2, 0, -6], fov: 34, ox: 0.16, oy: 0.06 }                // 7 the finished site from above the street corner, like the reference photo
   ];
@@ -1410,9 +1408,10 @@ async function build() {
     if (reduce) k = f < 0.5 ? 0 : 1;   // reduced motion: the camera cuts from one chapter's view to the next instead of flying
     for (let j = 0; j < 3; j++) { out.eye[j] = lerp(a.eye[j], b.eye[j], k); out.tgt[j] = lerp(a.tgt[j], b.tgt[j], k); }
     out.fov = lerp(a.fov, b.fov, k); out.ox = lerp(a.ox, b.ox, k); out.oy = lerp(a.oy, b.oy, k);
-    // arcs in the long moves: out over the street on the way along the front to the west fence, and up for the last shot
+    // arcs in the long moves: out over the street along the front, and up for the last shot
     const arcK = Math.sin(Math.PI * k);
-    if (i === 5) { out.eye[2] += arcK * 22; out.eye[1] += arcK * 9; }
+    if (i === 4) { out.eye[2] += arcK * 8; out.eye[1] += arcK * 3; }
+    if (i === 5) { out.eye[2] += arcK * 6; out.eye[1] += arcK * 3; }
     if (i === 6) out.eye[1] += arcK * 16;
     // intro: start higher and further out, glide in
     const q = 1 - easeOutCubic(intro);
@@ -1429,20 +1428,7 @@ async function build() {
   }
 
   /* ---------- the whole state for a given t ---------- */
-  const PS = { x: 0, z: 0, h: 0 }, HP = Math.PI / 2;
-  function along(path, t) {   // [t, x, z, heading] points, eased moves between them
-    let i = 0; while (i < path.length - 2 && t > path[i + 1][0]) i++;
-    const a = path[i], b = path[i + 1], k = ss(ramp(a[0], b[0], t));
-    PS.x = lerp(a[1], b[1], k); PS.z = lerp(a[2], b[2], k); PS.h = lerp(a[3], b[3], k); return PS;
-  }
   function sweepTo(h, a, b, k) { h.v.value.z = k <= 0.0005 ? -1e5 : k >= 0.9995 ? 1e5 : lerp(a, b, k); }
-  const groundY = (x, z, padTop) => (inside(HALL, x, z) || inside(OFFICE, x, z) ? Math.max(padTop, -0.08) : -0.08);
-  // where the excavator goes after the trench: to the pad edge, across the pad, round to the east side, out to the verge
-  const EXC_PATH = [[0.68, 19.7, 18.2, HP], [1.42, 19.7, 18.2, HP], [1.62, 1.5, -2.6, HP], [2.48, 1.5, -2.6, HP], [2.56, -24, -16.6, HP], [2.86, 24, -16.6, HP],
-    [2.95, 24, -16.6, HP], [3.12, 37.6, -24, Math.PI], [4.42, 37.6, -24, Math.PI], [4.56, 38.6, 4.5, HP], [5.6, 38.6, 4.5, HP]];
-  const ROL_PATH = [[2.46, 25, -12.5, 0], [2.6, 38.6, -1.5, -HP], [3.3, 38.6, -1.5, -HP], [3.38, 13, 6, -HP], [3.47, 12, 34, -HP]];
-  const TIP_PATH = [[1.42, 12, 34, -HP], [1.6, 11, 8, -HP], [1.72, 8, -2.0, -HP], [1.98, 8, -2.0, -HP], [2.2, 12, 34, -HP]];
-  const IDLE = { swing: 0, boom: 0.55, arm: -1.55, bucket: -0.95, load: 0 };
   let frameP = -1;
   function apply(t) {
     const duskK = clamp(1 - sm(0.1, 0.75, t) + sm(6.3, 6.95, t), 0, 1) * themeK;
@@ -1479,39 +1465,11 @@ async function build() {
     /* stage 3: fill tipped at the pad, the pad built up in compacted layers, the yard graded with base course */
     const fillP = layers(ramp(1.86, 2.36, t), 5), padTop = lerp(-1.6, 0.15, fillP); ST.padTop = padTop;
     pads.forEach((p) => setBox(p.m, p.r.x0, p.r.x1, -1.6, padTop, p.r.z0, p.r.z1));
-    sizeHeap(gravelHeap, sm(1.79, 1.9, t) * (1 - sm(1.96, 2.3, t))); gravelHeap.position.y = Math.max(-1.6, padTop) - 0.02;
+    sizeHeap(gravelHeap, sm(1.62, 1.86, t) * (1 - sm(1.96, 2.3, t))); gravelHeap.position.y = Math.max(-1.6, padTop) - 0.02;
     RAW_D.v.value = 1.04 * sm(2.14, 2.44, t);
-
-    /* the excavator: digs the trench, spreads fill, digs the footing holes, backfills round the building, grades the verge */
-    let ex, ez, eh, ep;
-    if (t < 0.68) { ex = 19.7; ez = Math.min(18.2, trF + 4.2); eh = HP; ep = digPose(t * 6 + 0.15, 1, 1); }
-    else {
-      along(EXC_PATH, t); ex = PS.x; ez = PS.z; eh = PS.h; ep = IDLE;
-      if (t > 1.64 && t < 2.46) ep = digPose(t * 5, 0.35, 1.1);
-      else if (t > 2.56 && t < 2.86) ep = digPose(t * 20, 1, 0.9);
-      else if (t > 3.95 && t < 4.36) ep = digPose(t * 5, -0.8, 1);
-      else if (t > 4.6 && t < 5.5) ep = digPose(t * 4, 0.25, 1.2);
-    }
-    exc.root.visible = t < 5.56;
-    exc.root.position.set(ex, groundY(ex, ez, padTop), ez); exc.root.rotation.y = eh; exc.pose(ep);
-    const pitDig = (x) => (t < 2.56 ? 0 : t > 2.86 ? 1 : sm(x - 3, x + 1, ex));
+    // the footing holes are dug one after another along the grid line
+    const digX = lerp(-30, 30, ramp(2.56, 2.86, t)), pitDig = (x) => (t < 2.56 ? 0 : t > 2.86 ? 1 : sm(x - 3, x + 1, digX));
     plugs.forEach((pl) => setBox(pl.m, pl.r.x0, pl.r.x1, -1.6, lerp(padTop, -1.6, pitDig(pl.x)), pl.r.z0, pl.r.z1));
-
-    /* the roller compacts the pad in passes, back and forth without turning, then leaves */
-    rol.root.visible = t > 1.86 && t < 3.47;
-    if (rol.root.visible) {
-      let rx, rz, rh = 0, dist;
-      if (t < 2.46) {
-        const sP = ramp(1.86, 2.46, t) * 6, n = Math.min(5, Math.floor(sP)), f = sP - n, lanes = [-30, -24, -18, -12.5];
-        rx = n % 2 ? lerp(25, -25, ss(f)) : lerp(-25, 25, ss(f)); rz = lerp(lanes[n % 4], lanes[(n + 1) % 4], ss(ramp(0.82, 1, f)));
-        dist = rx;
-      } else { along(ROL_PATH, t); rx = PS.x; rz = PS.z; rh = PS.h; dist = 30 + (t - 2.46) * 160; }
-      rol.root.position.set(rx, groundY(rx, rz, padTop), rz); rol.root.rotation.y = rh; rol.roll(dist);
-      ST.rolX = rx; ST.rolZ = rz;
-    }
-    /* the tipper backs in, tips the fill at the pad edge and drives off */
-    tip.root.visible = t > 1.42 && t < 2.2;
-    if (tip.root.visible) { along(TIP_PATH, t); tip.root.position.set(PS.x, -0.08, PS.z); tip.root.rotation.y = PS.h; tip.tip(sm(1.74, 1.86, t) * (1 - sm(1.92, 1.98, t)), 1 - sm(1.78, 1.88, t)); }
 
     /* stage 4: holes for the column footings, setting out, the building to come as a ghost */
     outlineMat.opacity = 0.9 * bump(2.64, 2.8, 3.3, 3.44, t);
@@ -1531,20 +1489,21 @@ async function build() {
     /* stage 6: the site fence comes down, kerbs are set, asphalt, paths, pavers, grass, trees, lights, paint */
     setHeras(ramp(4.44, 4.6, t));
     setKerbs(ramp(4.5, 4.94, t));
-    const ak = ramp(4.78, 5.08, t); sweepTo(SW_A, -36.5, 14.5, ak); ST.asphX = lerp(33, -10, ak);
-    sweepTo(SW_C, -35.5, -10, ramp(4.9, 5.04, t));
-    sweepTo(SW_P, -43.5, -10.5, ramp(4.98, 5.2, t));
-    RAW_G.v.value = 1.04 * (1 - sm(5.04, 5.32, t));
-    land.visible = t > 5.06; TSCAN.cut.value = lerp(-0.4, 9.5, sm(5.06, 5.34, t));
-    poles.visible = t > 5.08; poles.scale.y = Math.max(1e-3, ss(ramp(5.08, 5.24, t)));
-    sweepTo(SW_L, -15, 9.5, ramp(5.22, 5.42, t));
-    finG.visible = t > 5.22; finG.scale.y = Math.max(1e-3, ss(ramp(5.22, 5.36, t)));
+    const ak = ramp(4.55, 4.85, t); sweepTo(SW_A, -36.5, 14.5, ak); ST.asphX = lerp(33, -10, ak);
+    sweepTo(SW_C, -35.5, -10, ramp(4.86, 5.0, t));
+    // pavers go down row by row on the screeded sand, from the far end of the car park towards the camera
+    const pk = ramp(4.96, 5.36, t); sweepTo(SW_P, -43.5, -10.5, pk); ST.pavX = lerp(-43, -11, pk);
+    RAW_G.v.value = 1.04 * (1 - sm(5.18, 5.44, t));
+    land.visible = t > 5.2; TSCAN.cut.value = lerp(-0.4, 9.5, sm(5.2, 5.46, t));
+    poles.visible = t > 5.24; poles.scale.y = Math.max(1e-3, ss(ramp(5.24, 5.38, t)));
+    sweepTo(SW_L, -15, 9.5, ramp(5.36, 5.5, t));
+    finG.visible = t > 5.36; finG.scale.y = Math.max(1e-3, ss(ramp(5.36, 5.48, t)));
 
     /* stage 7: the fence goes up round the lot, the sliding gate closes; at the end the yard is in use */
     // the front west of the gate goes in while the camera glides along the front, the west side while it holds there, the rest as it climbs
     setFence(t < 5.86 ? lerp(0, 0.17, ramp(5.5, 5.86, t)) : t < 6.16 ? lerp(0.17, 0.37, ramp(5.86, 6.16, t)) : lerp(0.37, 1, ramp(6.16, 6.4, t)));
     gatePosts.visible = t > 6.3; gateG.visible = t > 6.34; gateG.position.set(lerp(18.1, 6.1, sm(6.62, 6.92, t)), 0, FZ - 0.22);
-    carsG.visible = t > 5.45; garden.visible = t > 6.3;
+    carsG.visible = t > 6.0; garden.visible = t > 6.3;
     RAW_W.v.value = lerp(1.04, 0.6, sm(6.6, 7.0, t));
 
     /* labels */
@@ -1552,7 +1511,7 @@ async function build() {
     ST.l3a = bump(1.8, 1.88, 2.0, 2.08, t); ST.l3b = bump(1.95, 2.02, 2.38, 2.46, t); ST.l3c = bump(2.3, 2.4, 2.56, 2.64, t);
     ST.l4 = bump(2.66, 2.78, 3.28, 3.4, t); ST.l4b = bump(2.78, 2.9, 3.22, 3.32, t);
     ST.l5a = bump(3.8, 3.9, 4.04, 4.12, t); ST.l5b = bump(4.2, 4.3, 4.44, 4.52, t); ST.l5c = bump(4.22, 4.32, 4.5, 4.6, t);
-    ST.l6a = bump(4.62, 4.72, 5.3, 5.42, t); ST.l6b = bump(4.82, 4.9, 5.06, 5.14, t); ST.l6c = bump(5.18, 5.26, 5.4, 5.5, t);
+    ST.l6a = bump(4.7, 4.8, 5.06, 5.16, t); ST.l6b = bump(4.56, 4.63, 4.8, 4.88, t); ST.l6d = bump(4.98, 5.06, 5.3, 5.38, t); ST.l6c = bump(5.26, 5.33, 5.46, 5.54, t);
     ST.l7a = bump(5.95, 6.02, 6.2, 6.3, t); ST.l7b = bump(6.58, 6.66, 6.88, 6.96, t);
   }
   function setOpacity(m, o) {

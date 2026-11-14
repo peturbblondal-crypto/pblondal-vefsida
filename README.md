@@ -8,7 +8,7 @@ Vefsíða P. Blöndal ehf., gröfuþjónusta og jarðvinna á höfuðborgarsvæ�
 - `en/index.html`: sama forsíða á ensku. Hún notar sömu CSS- og JS-skrár og íslenska forsíðan, svo breyting á útliti, senu eða verðum gildir á báðum
 - `css/forsida.css`: útlit forsíðunnar, ljóst og dökkt (litirnir eru breytur efst í skránni)
 - `js/forsida/scene.js`: þrívíddarsenan á forsíðunni (three.js): framkvæmd við vöruhús frá fyrsta skurði að fullfrágenginni lóð (sjá „Þrívíddarsagan“ hér fyrir neðan). Merkingar í senunni eru á íslensku eða ensku eftir `<html lang>`
-- `js/forsida/kit.js`: vinnuvélar og búnaður á svæðinu (grafa, valtari, vörubíll, girðingarnet), smíðað í kóða svo ekkert þarf að hlaða niður
+- `js/forsida/kit.js`: sameiginleg efni og hjálparföll fyrir senuna og netið í girðingunum
 - `js/forsida/page.js`: hreyfingar á forsíðu: mjúkt skrun (Lenis), ScrollTrigger og SplitText (GSAP), myndir á þjónustuspjöldum
 - `js/forsida/reiknivel.js`: verðreiknivél og tilboðsform fyrir báðar forsíðurnar. Textar eru í `tr('íslenska', 'English')`
 - `js/vendor/`: three.js r170, GSAP 3.13.0 og Lenis 1.3.24, hýst á vefnum sjálfum eins og letrið
@@ -24,15 +24,15 @@ Vefsíða P. Blöndal ehf., gröfuþjónusta og jarðvinna á höfuðborgarsvæ�
 
 ## Þrívíddarsagan á forsíðunni
 
-Sagan sýnir okkar hluta framkvæmdarinnar: allt sem húsið stendur á og allt í kringum það. Húsið sjálft rís aðeins í bakgrunni sem samhengi.
+Sagan sýnir okkar hluta framkvæmdarinnar: allt sem húsið stendur á og allt í kringum það. Húsið sjálft rís aðeins í bakgrunni sem samhengi. Engar vinnuvélar eru í senunni: hver kafli sýnir stöðu verksins.
 Skrunið stýrir einni tölu, `t`, frá 0 upp í 7. Hver heil tala er einn kafli (`.ch` í `index.html`):
 
-0. Framkvæmdasvæði: grafan grefur lagnaskurð, uppgröftur, efni, keilur og vinnusvæðisgirðing
+0. Framkvæmdasvæði: lagnaskurðurinn opnast að götu, uppgröftur, efni, keilur og vinnusvæðisgirðing
 1. Lagnir: sandbeð, lagnirnar lagðar, jörðin verður gegnsæ og sýnir allt lagnakerfið, svo er fyllt yfir
-2. Fyllingar: vörubíll sturtar, grafan dreifir, valtari þjappar púðann í lögum, burðarlag á lóð
+2. Fyllingar: fyllingarefni, púðinn hækkar í þjöppuðum lögum, burðarlag á lóð
 3. Undirbúningur fyrir grunn: púði í réttri hæð, holur fyrir undirstöður, húsið sem útlína
 4. Húsið rís: drenlögn, lagnir inn í húsið, fyllt að sökklum, hleðsludokkar
-5. Lóðarfrágangur: kantsteinar, malbik, stéttar, hellur, gras, tré, ljósastaurar og merkingar
+5. Lóðarfrágangur: kantsteinar og malbik á leiðinni meðfram húsinu, svo hellulögn á bílaplaninu, gras, tré, ljósastaurar og merkingar
 6. Girðingar: staurar og grindverk umhverfis lóðina, rennihlið við aðkomuna
 7. Fullbúin lóð: flutningabílar við dokkana og heildarskot yfir lóðina
 
@@ -42,7 +42,6 @@ Skrunið stýrir einni tölu, `t`, frá 0 upp í 7. Hver heil tala er einn kafli
 - Myndirnar á þjónustuspjöldunum eru teknar úr sömu senu: `SNAP` í `page.js` geymir `t` og sjónarhorn fyrir hvert spjald.
 - `?nosnap` aftan við slóðina sleppir myndunum á spjöldunum og opnar prófunarkrók (`window.__pbDev`) sem er notaður við skjámyndatöku.
 
-Vélarnar eru smíðaðar úr einföldum formum. Til að ná ljósmyndaraunverulegu útliti á þeim þarf glTF/GLB-módel (helst Draco-þjöppuð, um 1–3 MB hvert) af beltagröfu, valtara, vörubíl með palli og flutningabíl með festivagni, og helst HDRI-umhverfismynd (2k) af opnu svæði síðdegis.
 
 ## Verð í reiknivélinni
 
