@@ -865,7 +865,7 @@ async function build() {
   })();
   const fo = new THREE.Object3D();
   function fenceAt(t) {
-    const k = ramp(5.42, 6.0, t);
+    const k = ramp(5.3, 5.86, t);
     fenceG.visible = k > 0;
     if (!fenceG.visible) return;
     // a post drops into its hole, then the panel after it drops onto the posts
@@ -879,7 +879,7 @@ async function build() {
     });
     postMesh.instanceMatrix.needsUpdate = true; bayMesh.instanceMatrix.needsUpdate = true; railMesh.instanceMatrix.needsUpdate = true;
     gate.visible = k > 0.12;
-    gate.position.x = (GATE.x1 - GATE.x0) * (1 - ss(ramp(5.98, 6.32, t)));
+    gate.position.x = (GATE.x1 - GATE.x0) * (1 - ss(ramp(5.8, 6.04, t)));
   }
   // light poles in the yard and the car park
   [[-42.9, 8.5], [-16.5, 13.8], [4.25, 12.8]].forEach(([x, z]) => {
@@ -1351,7 +1351,7 @@ async function build() {
     const eG = bump(4.82, 5.0, 5.3, 5.55, t), sG = ramp(5.0, 5.3, t);
     ST.eA = eA; ST.eS = eS; ST.eH = eH; ST.eG = eG;
     // 6: the fence goes up and the gate slides shut
-    fenceAt(t); ST.lblF = bump(5.8, 6.0, 6.32, 6.52, t);
+    fenceAt(t); ST.lblF = bump(5.78, 5.98, 6.3, 6.5, t);
     // what stands on the lot comes with its chapter: light poles with the asphalt, hedges and trees with the lawn, vehicles at the end
     const poles = ss(ramp(1.84, 2.08, t)); polesG.visible = poles > 0.001; polesG.scale.y = Math.max(0.001, poles);
     const grow = ss(ramp(4.62, 5.08, t)); plantsG.visible = grow > 0.001; plantsG.scale.y = Math.max(0.001, grow);
