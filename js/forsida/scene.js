@@ -1331,7 +1331,7 @@ async function build() {
     lighting(duskK);
     // 0: the pipes, seen through the ground (they are laid while the page opens)
     const xr = 1 - sm(0.2, 0.5, t);
-    ST.lblP = 1 - sm(0.16, 0.34, t);
+    ST.lblP = mobile() ? 0 : 1 - sm(0.16, 0.34, t);   // on a phone the hero text needs the room: no pipe labels
     // 1: the pit is dug, the footings poured, the pad filled in layers and the pit backfilled; then the building rises
     const digP = sm(0.6, 0.82, t), pour = sm(0.84, 0.97, t);
     const fillP = layers(ramp(0.94, 1.2, t), 5);
