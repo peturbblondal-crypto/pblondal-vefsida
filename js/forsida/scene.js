@@ -1286,7 +1286,7 @@ async function build() {
     { eye: [14.5, 3.4, 7.0], tgt: [5.9, 1.3, -3.9], fov: 34, ox: 0.15, oy: 0.04 },         // 3 the concrete sample at a door
     { eye: [-19.5, 3.7, 22.25], tgt: [-28.8, 0.95, 10.45], fov: 34, ox: 0.15, oy: 0.04 },  // 4 the paver sample in the car park
     { eye: [-48.0, 3.4, 2.0], tgt: [-39.0, 0.95, -15.5], fov: 34, ox: 0.15, oy: 0.04 },    // 5 the turf sample on the west lawn
-    { eye: [23, 3.6, 30.5], tgt: [11.5, 1.3, 13.6], fov: 34, ox: 0.15, oy: 0.04 },        // 6 the fence and gate from the street
+    { eye: [0, 3.6, 31], tgt: [11, 1.3, 13.7], fov: 34, ox: 0.15, oy: 0.04 },           // 6 the gate from across the street, the fence running off east
     { eye: [-60, 14, 58], tgt: [-4.0, 5.0, -16.0], fov: 30, ox: 0.16, oy: 0.06 }           // 7 finished
   ];
   function key(i) {
