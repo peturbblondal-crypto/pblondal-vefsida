@@ -1274,7 +1274,7 @@ async function build() {
   label(loc('Heimæðar', 'Service lines'), () => [19.3, -0.6, 4], () => ST.lblP);
   label(loc('Fráveita', 'Sewer'), () => [21.0, -2.7, 17.5], () => ST.lblP);
   label(loc('Ofanvatn', 'Stormwater'), () => [2, -0.7, 3.4], () => ST.lblP);
-  label(loc('Drenlögn', 'Perimeter drain'), () => [6, -1.6, -7.5], () => ST.lblP);
+  label(loc('Drenlögn', 'Perimeter drain'), () => [-4, -1.6, -38.5], () => ST.lblP);
   label(loc('Grindverk 2 m, soðið net', 'Welded mesh fence, 2 m'), () => [35.5, HF, 13.7], () => ST.lblF);
   label(loc('Rennihlið 12 m', 'Sliding gate, 12 m'), () => [GATE.x0 + 2 + gate.position.x, HF, GATE.z], () => ST.lblF);
 
