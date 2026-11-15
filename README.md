@@ -7,8 +7,8 @@ Vefsíða P. Blöndal ehf., gröfuþjónusta og jarðvinna á höfuðborgarsvæ�
 - `index.html`: forsíða með þrívíddarsenu af lóð, verðreiknivél og tilboðsformi
 - `en/index.html`: sama forsíða á ensku. Hún notar sömu CSS- og JS-skrár og íslenska forsíðan, svo breyting á útliti, senu eða verðum gildir á báðum
 - `css/forsida.css`: útlit forsíðunnar, ljóst og dökkt (litirnir eru breytur efst í skránni)
-- `js/forsida/scene.js`: þrívíddarsenan á forsíðunni (three.js): vöruhúsið, lóðin, lögin undir plani, lóð og bílaplani, grunnurinn og lagnirnar. Merkingar í senunni eru á íslensku eða ensku eftir `<html lang>`
-- `js/forsida/page.js`: hreyfingar á forsíðu: mjúkt skrun (Lenis), ScrollTrigger og SplitText (GSAP), myndir á þjónustuspjöldum
+- `js/forsida/scene.js`: þrívíddarsenan á forsíðunni (three.js): vöruhúsið, lóðin, lögin undir yfirborðinu, grunnurinn, lagnirnar og girðingin. Merkingar í senunni eru á íslensku eða ensku eftir `<html lang>`
+- `js/forsida/page.js`: hreyfingar á forsíðu: mjúkt skrun (Lenis), ScrollTrigger og SplitText (GSAP), myndir á þjónustuspjöldum (teknar úr senunni, `SNAP`)
 - `js/forsida/reiknivel.js`: verðreiknivél og tilboðsform fyrir báðar forsíðurnar. Textar eru í `tr('íslenska', 'English')`
 - `js/vendor/`: three.js r170, GSAP 3.13.0 og Lenis 1.3.24, hýst á vefnum sjálfum eins og letrið
 - `img/lod/`: áferðir (gras, hellur, steypa, timbur, jarðlög) sem senan notar
@@ -20,6 +20,21 @@ Vefsíða P. Blöndal ehf., gröfuþjónusta og jarðvinna á höfuðborgarsvæ�
 - `sitemap.xml`, `robots.txt`: fyrir leitarvélar
 - `og.png`: myndin sem birtist þegar síðunni er deilt
 - `logo.png`, `logo-ljost.png`, `favicon-32.png`, `apple-touch-icon.png`: merki og tákn
+
+## Sagan á forsíðunni
+
+Þegar skrunað er byggist lóðin upp í sömu röð og verkið er unnið. Síðan opnast beint á fyrsta kaflanum, án merkis á undan, og lagnirnar eru lagðar á meðan myndavélin rennur inn.
+
+0. Lagnir: séð í gegnum jörðina (stofnlagnir, heimæðar, fráveita, ofanvatn, dren)
+1. Undirstöður: grafið, sökklar og súlufætur steyptir, púðinn fylltur í lögum. Síðan rís byggingin, sem er ekki okkar verk og birtist bara
+2. Malbik: athafnasvæðið fyrir framan dyrnar, með sýnishorni af lögunum undir
+3. Steyptar stéttir og plön: plönin við dyrnar og stéttin við skrifstofuna, með snjóbræðslu
+4. Hellur: bílaplanið, hellurnar á sýnishorninu lagðar ein af annarri
+5. Gras: mold og túnþökur, tré og limgerði vaxa
+6. Girðing: staurarnir fara niður, grindverkið fellur á þá og rennihliðið lokast
+7. Fullbúin lóð með bílum
+
+Tímarnir eru í `apply(t)` í `scene.js` (heila talan er kaflinn) og sjónarhornin í `K`. Kaflatextarnir eru í `index.html` og `en/index.html` (`.ch`), einn á kafla í sömu röð.
 
 ## Verð í reiknivélinni
 

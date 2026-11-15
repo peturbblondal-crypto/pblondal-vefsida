@@ -10,7 +10,8 @@
   if (gsap && ST) gsap.registerPlugin(ST);
   if (gsap && Split) gsap.registerPlugin(Split); else root.classList.add('no-split');
   var story = document.getElementById('story');
-  function storyHeight() { if (gl2 && story) story.style.height = (innerHeight + 6 * Math.round(innerHeight * 1.25)) + 'px'; }
+  var chapters = document.querySelectorAll('.ch').length - 1;
+  function storyHeight() { if (gl2 && story) story.style.height = (innerHeight + chapters * Math.round(innerHeight * 1.25)) + 'px'; }
   storyHeight();
   var hd = document.getElementById('hd');
   var prog = hd.querySelector('.prog');
@@ -44,12 +45,7 @@
     try { return Split.create(el, { type: 'words', wordsClass: 'w', mask: 'words', maskClass: 'wmask' }); } catch (e) { return null; }
   }
 
-  /* ---------- intro: logo in the middle flies into the header, then the camera glides in ---------- */
-  var intro = document.getElementById('intro');
-  // two logos (dark letters for the light theme, light letters for the dark theme): use the one that is showing
-  function shown(list) { list = [].slice.call(list); for (var i = 0; i < list.length; i++) if (getComputedStyle(list[i]).display !== 'none') return list[i]; return list[0]; }
-  var brand = document.querySelector('.brand');
-  var ilogo = shown(intro.querySelectorAll('img')), hlogo = shown(brand.querySelectorAll('img'));
+  /* ---------- start: no logo screen. The hero text rises in straight away; the camera glides in when the scene is ready ---------- */
   var heroH = document.querySelector('.ch-hero .disp');
   var fontsReady = document.fonts && document.fonts.ready ? document.fonts.ready.catch(function () {}) : Promise.resolve();
   var heroSplit = null, heroShown = false;
@@ -64,51 +60,11 @@
     if (heroSplit) gsap.to(heroSplit.words, { yPercent: 0, opacity: 1, duration: 1.1, ease: 'expo.out', stagger: 0.06, delay: 0.05 });
     countStats(document.querySelectorAll('.ch-hero .stats b'), 0.5);
   }
-  function afterIntro() {
-    intro.hidden = true; root.classList.remove('intro-on'); brand.style.opacity = '';
-    if (lenis) lenis.start();
-    if (S) {
-      S.build(2600).then(shotsWhenNear);
-      setTimeout(heroIn, reduce ? 0 : 900);
-    } else heroIn();
-  }
-  var skipped = false, logoDone = false;
-  function finish() {
-    if (skipped) return; skipped = true;
-    sceneReady.then(function () { intro.classList.remove('wait'); afterIntro(); });
-    if (!S) intro.classList.add('wait');
-  }
-  function skip() {
-    if (intro.getAnimations) intro.getAnimations({ subtree: true }).forEach(function (a) { a.finish(); });
-    finish();
-  }
-  var seen = false; try { seen = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch (e) {}
   var deep = !!location.hash || /[?&]verk=/.test(location.search);
-  if (reduce || seen || deep || !ilogo.animate) {
-    intro.hidden = true;
-    sceneReady.then(function () { if (S) S.build(reduce || deep ? 0 : 2200).then(shotsWhenNear); heroIn(); });
-  } else {
-    intro.hidden = false; root.classList.add('intro-on'); brand.style.opacity = '0';
-    ilogo = shown(intro.querySelectorAll('img')); hlogo = shown(brand.querySelectorAll('img'));
-    if (lenis) lenis.stop();
-    intro.addEventListener('click', skip);
-    addEventListener('keydown', function (e) { if (e.key === 'Escape') skip(); });
-    var E = 'cubic-bezier(.2,.75,.2,1)';
-    ilogo.animate([{ opacity: 0, transform: 'scale(.92)', filter: 'blur(6px)' }, { opacity: 1, transform: 'scale(1)', filter: 'blur(0)' }], { duration: 650, easing: E, fill: 'forwards' }).finished
-      .then(function () { return Promise.race([sceneReady, new Promise(function (r) { setTimeout(r, 380); })]); })
-      .then(function () { if (!S && !skipped) { intro.classList.add('wait'); return sceneReady; } })
-      .then(function () {
-        if (skipped) return;
-        intro.classList.remove('wait');
-        var a = ilogo.getBoundingClientRect(), b = hlogo.getBoundingClientRect();
-        var s = b.width / a.width, dx = (b.left + b.width / 2) - (a.left + a.width / 2), dy = (b.top + b.height / 2) - (a.top + a.height / 2);
-        var bg = getComputedStyle(intro).backgroundColor, bg0 = bg.replace(/^rgba?\(([^,]+),([^,]+),([^,)]+).*$/, 'rgba($1,$2,$3,0)');
-        intro.animate([{ backgroundColor: bg }, { backgroundColor: bg0 }], { duration: 900, delay: 120, easing: E, fill: 'forwards' });
-        return ilogo.animate([{ transform: 'translate(0,0) scale(1)' }, { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(' + s + ')' }], { duration: 820, easing: 'cubic-bezier(.7,0,.2,1)', fill: 'forwards' }).finished;
-      })
-      .then(function () { logoDone = true; finish(); })
-      .catch(function () { finish(); });
-  }
+  // the hero does not wait for the 3D: it rises in as soon as the fonts are there (or after a short wait for them)
+  Promise.race([fontsReady, new Promise(function (r) { setTimeout(r, 700); })]).then(function () { if (!heroShown) heroIn(); });
+  // the camera glides in and the pipes are laid while the page opens; straight to the end state for deep links and reduced motion
+  sceneReady.then(function () { if (S) S.build(reduce || deep ? 0 : 2400).then(shotsWhenNear); });
 
   function toHash() {
     if (!location.hash) return;
@@ -141,11 +97,12 @@
   syncTheme();
 
   /* ---------- snapshots of the same lot for the service cards ---------- */
+  // t: the moment in the story (see scene.js), eye/tgt/fov: the camera for the card
   var SNAP = {
-    stett:{t:0.98,eye:[13.2,3.0,10.8],tgt:[5.9,1.4,1.6],fov:30}, gras:{t:1.98,eye:[-46.6,3.2,-0.5],tgt:[-39.0,1.1,-15.5],fov:30},
-    hellur:{t:2.98,eye:[-20.6,3.6,20.85],tgt:[-28.8,1.3,10.45],fov:30}, graftur:{t:3.79,eye:[48.5,37.8,29.5],tgt:[6,-1.2,-18],fov:40},
-    grunnur:{t:4.04,eye:[18,6,-10],tgt:[6,-0.5,-21],fov:36}, skurdir:{t:5.0,eye:[40,12,31],tgt:[19.5,-1.4,6],fov:32},
-    veitur:{t:5.0,eye:[34,7,40],tgt:[14,-1.6,20],fov:34}, dren:{t:5.0,eye:[-50,9,10],tgt:[-30,-1.6,-10],fov:32}};
+    skurdir:{t:0,eye:[40,12,31],tgt:[19.5,-1.4,6],fov:32}, veitur:{t:0,eye:[34,7,40],tgt:[14,-1.6,20],fov:34}, dren:{t:0,eye:[-50,9,10],tgt:[-30,-1.6,-10],fov:32},
+    graftur:{t:0.8,eye:[48.5,37.8,29.5],tgt:[6,-1.2,-18],fov:40}, grunnur:{t:1.05,eye:[18,6,-10],tgt:[6,-0.5,-21],fov:36},
+    stett:{t:3.06,eye:[13.2,3.0,5.3],tgt:[5.9,1.4,-3.9],fov:30}, hellur:{t:4.28,eye:[-20.6,3.6,20.85],tgt:[-28.8,1.3,10.45],fov:30},
+    gras:{t:5.06,eye:[-46.6,3.2,-0.5],tgt:[-39.0,1.1,-15.5],fov:30}, girding:{t:6.45,eye:[26.5,3.4,25.5],tgt:[14.5,1.1,13.4],fov:32}};
   var shotsDone = false;
   function shots() {
     if (shotsDone || !S || !S.snapshots) return; shotsDone = true;

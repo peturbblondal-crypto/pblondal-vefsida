@@ -104,23 +104,14 @@ a{color:inherit}
 @media (max-width:400px){.brand img{height:22px}}
 @media (max-width:352px){.tel{min-width:42px;justify-content:center;border:1px solid var(--line2);padding:0}.tel .tel-n{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}
 
-/* ---------- intro ---------- */
-.intro{position:fixed;inset:0;z-index:80;background:var(--bg);display:grid;place-items:center;cursor:pointer}
-.intro[hidden]{display:none}
-.intro img{grid-area:1/1;width:min(72vw,520px);height:auto;will-change:transform,opacity}
-.intro img.logo-dark{display:none}
-:root[data-theme="dark"] .intro img.logo-light{display:none}
-:root[data-theme="dark"] .intro img.logo-dark{display:block}
-.intro .skip{position:absolute;right:var(--gutr);bottom:max(20px,calc(env(safe-area-inset-bottom,0px) + 14px));font:inherit;font-size:.85rem;background:none;border:0;color:var(--mute);cursor:pointer;padding:10px}
-html.intro-on body{overflow:hidden}
-
 /* ---------- story (fallback first: plain sections; .story-on turns it into the sticky 3D stage) ---------- */
 .story{position:relative}
 .stage{position:relative}
 .stage canvas,.scrim,.labels,.rail,.minimap,.hint{display:none}
 .ch{padding:120px var(--gutr) 40px var(--gut)}
 .story-on .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
-.story-on .stage canvas{display:block;position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.story-on .stage canvas{display:block;position:absolute;inset:0;width:100%;height:100%;z-index:1;opacity:0;transition:opacity .9s var(--ease)}
+.scene-in .stage canvas{opacity:1}
 html.lenis,html.lenis body{height:auto}
 .lenis:not(.lenis-autoToggle).lenis-stopped{overflow:clip}
 .lenis.lenis-smooth iframe{pointer-events:none}
@@ -128,6 +119,7 @@ html.lenis,html.lenis body{height:auto}
 .story-on .scrim{display:block;position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,rgba(var(--bgc),var(--scrim-a)) 0%,rgba(var(--bgc),var(--scrim-b)) 32%,rgba(var(--bgc),0) 58%),linear-gradient(0deg,rgba(var(--bgc),var(--scrim-c)) 0%,rgba(var(--bgc),0) 24%),linear-gradient(180deg,rgba(var(--bgc),var(--scrim-d)) 0%,rgba(var(--bgc),0) 16%)}
 .story-on .chapters{position:absolute;inset:0;z-index:4;pointer-events:none}
 .story-on .ch{position:absolute;left:max(48px,5vw,env(safe-area-inset-left,0px));bottom:clamp(64px,10vh,120px);width:min(600px,44vw);padding:0;opacity:0;visibility:hidden;will-change:opacity,transform}
+.story-on .ch-hero{opacity:1;visibility:visible}   /* shown before the 3D is ready; the scene takes over the chapters once it runs */
 .story-on .ch:not(.ch-hero){padding:30px 32px 32px;background:var(--glass);border:1px solid var(--line);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);width:min(560px,42vw)}
 .story-on .ch:not(.ch-hero) .disp{font-size:clamp(2.4rem,4.6vw,4.6rem)}
 .story-on .ch a,.story-on .ch button{pointer-events:auto}
@@ -139,9 +131,6 @@ html.lenis,html.lenis body{height:auto}
 .story-on .stats{position:absolute;left:0;bottom:-120px;width:max(640px,58vw)}
 .stats li{flex:1;padding:14px 22px 0 0;border-top:1px solid var(--line2);margin-right:22px;font-size:.9rem;color:var(--mute);line-height:1.35}
 .stats b{display:block;font-size:2rem;font-weight:800;font-stretch:70%;color:var(--fg);line-height:1;margin-bottom:6px;font-variant-numeric:tabular-nums}
-.legend{display:grid;grid-template-columns:repeat(3,auto);gap:8px 18px;margin:22px 0 0;padding:0;list-style:none;font-size:.9rem;color:var(--lead-st);justify-content:start}
-.legend li{display:flex;align-items:center;gap:8px;white-space:nowrap}
-.legend i{width:20px;height:6px;border-radius:3px;background:var(--c)}
 /* labels in the scene */
 .story-on .labels{display:block;position:absolute;inset:0;z-index:3;pointer-events:none}
 .labels .lbl{position:absolute;left:0;top:0;opacity:0;white-space:nowrap;will-change:transform,opacity}
@@ -170,13 +159,15 @@ html.lenis,html.lenis body{height:auto}
 .m-house{fill:rgba(var(--fgc),.32);transition:fill .4s}
 .m-pit{fill:none;stroke:transparent;stroke-width:.18;stroke-dasharray:.5 .35;transition:stroke .4s}
 .m-pipe{fill:none;stroke:rgba(var(--fgc),0);stroke-width:.28;transition:stroke .4s}
-[data-ch="0"] .m-house,[data-ch="6"] .m-house{fill:var(--pink)}
-[data-ch="1"] .m-stett,[data-ch="2"] .m-gras,[data-ch="3"] .m-drive{fill:var(--pink)}
-[data-ch="2"] .m-lot{fill:rgba(95,148,66,.34)}
-[data-ch="4"] .m-pit{stroke:var(--pink)}
-[data-ch="4"] .m-house{fill:rgba(var(--fgc),.12)}
-[data-ch="5"] .m-pipe{stroke:var(--pink)}
-[data-ch="5"] .m-house{fill:rgba(var(--fgc),.1)}
+.m-fence{fill:none;stroke:rgba(var(--fgc),.3);stroke-width:.35;transition:stroke .4s}
+.m-gate{fill:none;stroke:rgba(var(--fgc),.3);stroke-width:.35;stroke-dasharray:.6 .4;transition:stroke .4s}
+[data-ch="0"] .m-pipe{stroke:var(--pink)}
+[data-ch="0"] .m-house,[data-ch="1"] .m-house{fill:rgba(var(--fgc),.1)}
+[data-ch="1"] .m-pit{stroke:var(--pink)}
+[data-ch="2"] .m-asph,[data-ch="3"] .m-stett,[data-ch="4"] .m-drive,[data-ch="5"] .m-gras{fill:var(--pink)}
+[data-ch="5"] .m-lot{fill:rgba(95,148,66,.34)}
+[data-ch="6"] .m-fence,[data-ch="6"] .m-gate{stroke:var(--pink)}
+[data-ch="7"] .m-house{fill:var(--pink)}
 .story-on .hint{display:flex;position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:5;flex-direction:column;align-items:center;gap:8px;font-size:.7rem;font-weight:650;font-stretch:78%;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
 .hint i{width:1px;height:38px;background:linear-gradient(var(--fg),transparent);animation:drip 1.8s var(--ease) infinite}
 @keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
@@ -194,7 +185,6 @@ html.lenis,html.lenis body{height:auto}
   .story-on .rail{display:none}
   .story-on .hint{display:none}
   .ch .row{margin-top:20px}
-  .legend{grid-template-columns:repeat(2,auto)}
   .lbl span{font-size:.66rem}
 }
 
@@ -300,15 +290,13 @@ html.lenis,html.lenis body{height:auto}
 .band-row span{font-size:clamp(2.6rem,6.2vw,5.6rem);font-weight:860;font-stretch:66%;text-transform:uppercase;line-height:1;letter-spacing:-.005em;padding-right:.35em}
 .band-row span.o{color:transparent;-webkit-text-stroke:1.4px rgba(var(--fgc),.38)}
 .band-row span i{font-style:normal;color:var(--pink);font-family:var(--serif);font-weight:400;font-stretch:100%;text-transform:none;padding-left:.35em}
-.intro.wait img{animation:pulse 1.4s var(--ease) infinite}
-@keyframes pulse{50%{opacity:.55}}
 /* reveal on scroll (only for things below the first screen) */
 .js .rv.pre{opacity:0;transform:translateY(30px)}
 .js .rv{transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .hero-in .ch-hero .eyebrow,.hero-in .ch-hero .lead,.hero-in .ch-hero .row,.hero-in .ch-hero .stats{animation:rise 1s var(--ease) both}
 .no-split.hero-in .ch-hero .disp{animation:rise 1s var(--ease) both .08s}.hero-in .ch-hero .lead{animation-delay:.2s}.hero-in .ch-hero .row{animation-delay:.3s}.hero-in .ch-hero .stats{animation-delay:.42s}
 @keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.hint i{animation:none}.js .rv.pre{opacity:1;transform:none}.hero-in .ch-hero *{animation:none!important}.intro.wait img{animation:none}}
+@media (prefers-reduced-motion:reduce){.hint i{animation:none}.js .rv.pre{opacity:1;transform:none}.hero-in .ch-hero *{animation:none!important}.story-on .stage canvas{transition:none}}
 
 /* ---------- mobile menu ---------- */
 .menu-btn{display:none;align-items:center;justify-content:center;width:46px;height:42px;border:1px solid var(--line2);background:transparent;color:var(--fg);cursor:pointer;padding:0}
