@@ -832,9 +832,9 @@ async function build() {
   const RUNS = [[GATE.x1, 13.7, 43.2, 13.7], [GATE.x0, 13.7, -12, 13.7], [-12, 13.7, -12, 3.6], [BX0 + 0.4, 13.6, BX0 + 0.4, BZ0 + 0.7]];
   const meshMat = (() => {
     const cv = document.createElement('canvas'); cv.width = 64; cv.height = 128; const g = cv.getContext('2d');
-    g.fillStyle = '#fff'; for (let i = 0; i < 64; i += 16) g.fillRect(i, 0, 3, 128); g.fillRect(0, 0, 64, 3); g.fillRect(0, 7, 64, 3);
+    g.fillStyle = '#fff'; for (let i = 0; i < 64; i += 16) g.fillRect(i, 0, 4, 128); g.fillRect(0, 0, 64, 4); g.fillRect(0, 7, 64, 3);
     const t = new THREE.CanvasTexture(cv); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = maxAniso;
-    return new THREE.MeshStandardMaterial({ map: t, color: 0x46524a, roughness: 0.5, metalness: 0.4, transparent: true, depthWrite: false, side: THREE.DoubleSide });
+    return new THREE.MeshStandardMaterial({ map: t, color: 0x3c4741, roughness: 0.5, metalness: 0.4, transparent: true, depthWrite: false, side: THREE.DoubleSide });
   })();
   const meshPlane = (w, h) => { const g = new THREE.PlaneGeometry(w, h), uv = g.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * w / 0.2, uv.getY(i) * h / 0.4); return g; };
   const posts = [], bays = [];   // posts: [x, z, order]; bays: [x, z, along x?, width, order]
@@ -846,6 +846,8 @@ async function build() {
   const postGeo = new THREE.BoxGeometry(0.06, HF + 0.1, 0.06); postGeo.translate(0, (HF + 0.1) / 2, 0);
   const postMesh = new THREE.InstancedMesh(postGeo, H.fenceP, posts.length); postMesh.castShadow = true; postMesh.receiveShadow = true; fenceG.add(postMesh);
   const bayMesh = new THREE.InstancedMesh(meshPlane(BAY, HF), meshMat, bays.length); bayMesh.receiveShadow = true; bayMesh.layers.set(2); bayMesh.renderOrder = 5; fenceG.add(bayMesh);
+  const railGeo = mergeGeometries([bx(-BAY / 2, BAY / 2, HF / 2 - 0.07, HF / 2 - 0.02, -0.025, 0.025), bx(-BAY / 2, BAY / 2, -HF / 2 + 0.05, -HF / 2 + 0.1, -0.025, 0.025)], false);
+  const railMesh = new THREE.InstancedMesh(railGeo, H.fenceP, bays.length); railMesh.castShadow = true; railMesh.receiveShadow = true; fenceG.add(railMesh);
   // the gate: a steel frame with mesh infill on a guide rail, open (slid along the fence to the east) until the fence is up
   const gate = new THREE.Group(); fenceG.add(gate);
   (function () {
@@ -873,9 +875,9 @@ async function build() {
     });
     bays.forEach(([x, z, ax, w, o], i) => {
       const q = clamp((k - o * 0.78 - 0.05) / 0.08, 0, 1);
-      fo.position.set(x, 0.06 + HF / 2 + 1.6 * (1 - q) * (1 - q), z); fo.rotation.set(0, ax ? 0 : Math.PI / 2, 0); fo.scale.set(q > 0 ? w / BAY : 0.0001, q > 0 ? 1 : 0.0001, 1); fo.updateMatrix(); bayMesh.setMatrixAt(i, fo.matrix);
+      fo.position.set(x, 0.06 + HF / 2 + 1.6 * (1 - q) * (1 - q), z); fo.rotation.set(0, ax ? 0 : Math.PI / 2, 0); fo.scale.set(q > 0 ? w / BAY : 0.0001, q > 0 ? 1 : 0.0001, 1); fo.updateMatrix(); bayMesh.setMatrixAt(i, fo.matrix); railMesh.setMatrixAt(i, fo.matrix);
     });
-    postMesh.instanceMatrix.needsUpdate = true; bayMesh.instanceMatrix.needsUpdate = true;
+    postMesh.instanceMatrix.needsUpdate = true; bayMesh.instanceMatrix.needsUpdate = true; railMesh.instanceMatrix.needsUpdate = true;
     gate.visible = k > 0.12;
     gate.position.x = (GATE.x1 - GATE.x0) * (1 - ss(ramp(5.98, 6.32, t)));
   }
@@ -1027,7 +1029,7 @@ async function build() {
     for (let i = 0; i < 8; i++) pal(zF + 0.95, i * 0.144);
   })();
   [[gb, fleetG], [plb, plantsG], [pob, polesG]].forEach(([b, grp]) => b.build(grp, { depth: depthScan }).forEach((m) => m.layers.set(3)));
-  postMesh.customDepthMaterial = depthScan; postMesh.layers.set(3);
+  [postMesh, railMesh].forEach((m) => { m.customDepthMaterial = depthScan; m.layers.set(3); });
   // birches: a bent trunk, a few branches, leaf cards with normals pointing out of the crown
   (function () {
     const tb = new Bag(), lb = [];
@@ -1270,9 +1272,9 @@ async function build() {
   label(loc('Púði, þjappaður í lögum', 'Compacted fill pad'), () => [0, ST.padTop, -14], () => ST.lblPad);
   label(loc('Stofnlagnir í götu', 'Street mains'), () => [28, -2.4, 21.8], () => ST.lblP);
   label(loc('Heimæðar', 'Service lines'), () => [19.3, -0.6, 4], () => ST.lblP);
-  label(loc('Fráveita', 'Sewer'), () => [21.0, -2.3, 10], () => ST.lblP);
-  label(loc('Ofanvatn', 'Stormwater'), () => [25.5, -0.9, 6.5], () => ST.lblP);
-  label(loc('Drenlögn', 'Perimeter drain'), () => [32.5, -1.6, -26], () => ST.lblP);
+  label(loc('Fráveita', 'Sewer'), () => [21.0, -2.7, 17.5], () => ST.lblP);
+  label(loc('Ofanvatn', 'Stormwater'), () => [2, -0.7, 3.4], () => ST.lblP);
+  label(loc('Drenlögn', 'Perimeter drain'), () => [6, -1.6, -7.5], () => ST.lblP);
   label(loc('Grindverk 2 m, soðið net', 'Welded mesh fence, 2 m'), () => [35.5, HF, 13.7], () => ST.lblF);
   label(loc('Rennihlið 12 m', 'Sliding gate, 12 m'), () => [GATE.x0 + 2 + gate.position.x, HF, GATE.z], () => ST.lblF);
 
@@ -1284,7 +1286,7 @@ async function build() {
     { eye: [14.5, 3.4, 7.0], tgt: [5.9, 1.3, -3.9], fov: 34, ox: 0.15, oy: 0.04 },         // 3 the concrete sample at a door
     { eye: [-19.5, 3.7, 22.25], tgt: [-28.8, 0.95, 10.45], fov: 34, ox: 0.15, oy: 0.04 },  // 4 the paver sample in the car park
     { eye: [-48.0, 3.4, 2.0], tgt: [-39.0, 0.95, -15.5], fov: 34, ox: 0.15, oy: 0.04 },    // 5 the turf sample on the west lawn
-    { eye: [30, 4.2, 31], tgt: [13, 1.0, 13.0], fov: 34, ox: 0.15, oy: 0.04 },             // 6 the fence and gate from the street
+    { eye: [23, 3.6, 30.5], tgt: [11.5, 1.3, 13.6], fov: 34, ox: 0.15, oy: 0.04 },        // 6 the fence and gate from the street
     { eye: [-60, 14, 58], tgt: [-4.0, 5.0, -16.0], fov: 30, ox: 0.16, oy: 0.06 }           // 7 finished
   ];
   function key(i) {

@@ -102,7 +102,7 @@
     skurdir:{t:0,eye:[40,12,31],tgt:[19.5,-1.4,6],fov:32}, veitur:{t:0,eye:[34,7,40],tgt:[14,-1.6,20],fov:34}, dren:{t:0,eye:[-50,9,10],tgt:[-30,-1.6,-10],fov:32},
     graftur:{t:0.8,eye:[48.5,37.8,29.5],tgt:[6,-1.2,-18],fov:40}, grunnur:{t:1.05,eye:[18,6,-10],tgt:[6,-0.5,-21],fov:36},
     stett:{t:3.06,eye:[13.2,3.0,5.3],tgt:[5.9,1.4,-3.9],fov:30}, hellur:{t:4.28,eye:[-20.6,3.6,20.85],tgt:[-28.8,1.3,10.45],fov:30},
-    gras:{t:5.06,eye:[-46.6,3.2,-0.5],tgt:[-39.0,1.1,-15.5],fov:30}, girding:{t:6.45,eye:[26.5,3.4,25.5],tgt:[14.5,1.1,13.4],fov:32}};
+    gras:{t:5.06,eye:[-46.6,3.2,-0.5],tgt:[-39.0,1.1,-15.5],fov:30}, girding:{t:6.45,eye:[22,2.8,25],tgt:[13,1.1,13.6],fov:32}};
   var shotsDone = false;
   function shots() {
     if (shotsDone || !S || !S.snapshots) return; shotsDone = true;
