@@ -28,7 +28,8 @@
   var L = [first];
   for (var k = 1; k <= N; k++) {
     var im = document.createElement('img');
-    im.alt = ''; im.width = 1574; im.height = 484; im.decoding = 'async'; im.style.visibility = 'hidden';
+    im.alt = ''; im.width = +first.getAttribute('width') || 3148; im.height = +first.getAttribute('height') || 968;
+    im.decoding = 'async'; im.style.visibility = 'hidden';
     wrap.appendChild(im); L.push(im);
   }
   var ready = [];

@@ -37,7 +37,8 @@ Sagan sýnir okkar hluta framkvæmdarinnar: allt sem húsið stendur á og allt 
 - Skrunið stýrir einni tölu, `t`, frá 0 upp í 7. Hver heil tala er einn kafli (`.ch` í `index.html`). Hver mynd stendur í sínum kafla og sú næsta strýkst inn yfir hana á milli kafla, frá vinstri til hægri.
 - Myndin er í breiðum borða undir hausnum og textinn hvers kafla er undir henni. Sjónarhornið líður hægt yfir myndina meðan skrunað er; í síma ferðast það yfir alla breiddina. `FOCUS` í `afangar.js` segir hvar verkið er á hverri mynd (hlutfall af breidd).
 - Ef gestur hefur beðið um minni hreyfingu í stýrikerfinu (prefers-reduced-motion) er engin hreyfing á myndunum og þær skiptast í miðju skrefi í stað þess að strjúkast inn.
-- Til að skipta um mynd: settu nýja skrá með sama nafni í `img/afangar/`. Myndirnar eru 1574 × 484 dílar; stærri myndir í sama hlutfalli (t.d. 3148 × 968) verða skarpari á háupplausnarskjám.
+- Myndirnar eru 3148 × 968 dílar. Upphaflegu myndirnar voru 1574 × 484 og nokkuð óskýrar, svo þær voru stækkaðar tvöfalt og skerptar með Real-ESRGAN (meðaltal af `RealESRGAN_x4plus` á hálfstærð og `RealESRGAN_x2plus` á upphaflegu stærðinni). Myndirnar á þjónustuspjöldunum eru skornar úr skerptu myndunum.
+- Til að skipta um mynd: settu nýja skrá með sama nafni í `img/afangar/`, helst 3148 × 968 dílar eða önnur stærð í sama hlutfalli (3,25 : 1).
 - Myndirnar eru tölvugerðar skýringarmyndir, ekki ljósmyndir af verkum P. Blöndal, og það stendur smátt neðst á myndborðanum.
 - `?nosnap` aftan við slóðina opnar prófunarkrók (`window.__pbDev`) sem er notaður við skjámyndatöku.
 

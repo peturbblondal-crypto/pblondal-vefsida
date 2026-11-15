@@ -122,7 +122,8 @@ html.intro-on body{overflow:hidden}
 /* the stage pictures: a wide band under the header, the chapter text as a caption below it; afangar.js wipes one picture into the next */
 .story-on .pics{display:block;position:absolute;left:0;right:0;top:var(--pics-top);bottom:var(--pics-bot);z-index:1;overflow:hidden;opacity:0;transition:opacity 1.2s var(--ease);-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 8%,#000 84%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 8%,#000 84%,transparent 100%)}
 .story-on .pics.in{opacity:1}
-.pics-in{position:absolute;inset:0;will-change:transform}
+/* no will-change here: a layer of its own is scaled after it is drawn, which softens the pictures */
+.pics-in{position:absolute;inset:0}
 .pics img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 50%}
 html[data-theme="dark"] .pics img{filter:brightness(.88) saturate(.94)}
 .story-on .pics-note{display:block;position:absolute;right:max(40px,env(safe-area-inset-right,0px));bottom:calc(var(--pics-bot) + 8px);z-index:5;margin:0;font-size:.66rem;font-weight:650;font-stretch:78%;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
