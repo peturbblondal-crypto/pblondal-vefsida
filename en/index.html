@@ -28,11 +28,11 @@
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@type": "GeneralContractor", "@id": "https://pblondal.is/#fyrirtaeki", "name": "P. Blöndal ehf.", "url": "https://pblondal.is/en/", "logo": "https://pblondal.is/logo.png", "image": "https://pblondal.is/og.png", "telephone": "+354 773-3363", "email": "petur@pblondal.is", "taxID": "570125-0950", "vatID": "155759", "address": {"@type": "PostalAddress", "postalCode": "210", "addressLocality": "Garðabær", "addressCountry": "IS"}, "areaServed": {"@type": "Place", "name": "Greater Reykjavík area"}, "knowsLanguage": ["is", "en"], "description": "Excavation and groundwork in the Reykjavík area: utility trenches, foundation drainage, paving, foundations and utility work.", "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Services", "itemListElement": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Excavation and groundwork", "url": "https://pblondal.is/en/services/graftur-og-jardvinna/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Utility work", "url": "https://pblondal.is/en/services/veituframkvaemdir/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Trenching", "url": "https://pblondal.is/en/services/lagnaskurdir/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Foundation drainage", "url": "https://pblondal.is/en/services/drenlogn/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Paving and driveways", "url": "https://pblondal.is/en/services/hellulogn/"}}, {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Foundations and gardens", "url": "https://pblondal.is/en/services/grunnar-og-lodir/"}}]}}
 </script>
-<meta name="pb-tex" content="../img/lod/">
+<meta name="pb-pics" content="../img/afangar/">
 <link rel="preload" href="../fonts/archivo.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="../fonts/instrument-serif-italic.woff" as="font" type="font/woff" crossorigin>
-<link rel="stylesheet" href="../css/forsida.css?v=20261115b">
-<link rel="modulepreload" href="../js/vendor/three/three.module.min.js">
+<link rel="stylesheet" href="../css/forsida.css?v=20261115c">
+<link rel="preload" as="image" href="../img/afangar/afangi-1.webp" fetchpriority="high">
 </head>
 <body>
 <div class="intro" id="intro" aria-hidden="true" hidden><img class="logo-light" src="../logo.png" alt=""><img class="logo-dark" src="../logo-ljost.png" alt=""><button class="skip" type="button" tabindex="-1">Skip</button></div>
@@ -59,9 +59,7 @@
 <section class="story" id="story" aria-label="The site, layer by layer">
   <span id="top"></span>
   <div class="stage" id="stage">
-    <canvas id="scene" aria-hidden="true"></canvas>
-    <div class="scrim" aria-hidden="true"></div>
-    <div class="labels" id="labels" aria-hidden="true"></div>
+    <div class="pics" id="pics" aria-hidden="true"><img alt="" src="../img/afangar/afangi-1.webp" width="1574" height="484" decoding="async" fetchpriority="high"></div>
     <div class="chapters">
       <article class="ch ch-hero" data-i="0">
         <p class="eyebrow">Groundwork in the Reykjavík area</p>
@@ -78,10 +76,6 @@
         <p class="eyebrow">Pipes in the ground</p>
         <h2 class="disp">What <em>no one sees.</em></h2>
         <p class="lead">Sewer, stormwater, cold water, district heating, power and fibre. We dig the trenches, lay the pipes on a sand bed, cover them with sand and backfill, so everything sits right and stays protected.</p>
-        <ul class="legend" aria-label="Pipe colours">
-          <li><i style="--c:#2f86e0"></i>Cold water</li><li><i style="--c:#e0442f"></i>District heating</li><li><i style="--c:#cf6a2c"></i>Sewer</li><li><i style="--c:#8fa6bb"></i>Stormwater</li>
-          <li><i style="--c:#f2b233"></i>Electricity</li><li><i style="--c:#f90160"></i>Fibre</li><li><i style="--c:#8cc63f"></i>Drainage</li>
-        </ul>
         <div class="row"><a class="arrow" href="#reiknivel" data-verk="skurdur">Estimate a utility trench →</a></div>
       </article>
       <article class="ch" data-i="2">
@@ -124,24 +118,7 @@
     <ul class="rail" aria-label="Chapters">
       <li><button type="button" data-l="Start">Start</button></li><li><button type="button" data-l="Pipes">Pipes</button></li><li><button type="button" data-l="Fill">Fill</button></li><li><button type="button" data-l="Foundation">Foundation</button></li><li><button type="button" data-l="Building">Building</button></li><li><button type="button" data-l="Finishing">Finishing</button></li><li><button type="button" data-l="Fence">Fence</button></li><li><button type="button" data-l="Done">Done</button></li>
     </ul>
-    <figure class="minimap" id="minimap" data-ch="0" aria-hidden="true">
-      <svg viewBox="-45 -44 90 71.4">
-        <rect class="m-street" x="-44" y="14" width="88" height="12.4"/>
-        <rect class="m-lot" x="-44" y="-43" width="88" height="57"/>
-        <rect class="m-a" x="-12" y="-6" width="46" height="20"/>
-        <rect class="m-a" x="-42" y="3.5" width="30" height="10.5"/>
-        <rect class="m-a" x="-34" y="2" width="22" height="1.5"/>
-        <rect class="m-pad" x="-31.65" y="-37.65" width="63.3" height="29.3"/>
-        <rect class="m-house" x="-32" y="-38" width="64" height="30"/>
-        <rect class="m-house" x="-32" y="-8" width="18" height="8"/>
-        <rect class="m-pit" x="-34" y="-40" width="68" height="42"/>
-        <rect class="m-trench" x="17.6" y="-6" width="4.2" height="20"/>
-        <path class="m-pipe" d="M-44 17.8H44M-44 20.6H44M-44 23H44M19.3 -8V20.6M21 -8V23"/>
-        <path class="m-drain" d="M-32.5 0.5H-13.5V-7.5H32.5V-38.5H-32.5Z"/>
-        <path class="m-fence" d="M6 13.7H-43.7V-42.7H43.7V13.7H18"/>
-      </svg>
-      <figcaption id="mapcap" data-c0="Site · excavation started" data-c1="Pipes · sewer 3 m down" data-c2="Fill · compacted in 30 cm layers" data-c3="Pad · ready for the footings" data-c4="Going up · drain and backfill" data-c5="Finishing · paving and asphalt" data-c6="Fence · gate at the entrance" data-c7="The finished site">Site · excavation started</figcaption>
-    </figure>
+    <p class="pics-note">Computer-generated illustrations</p>
   </div>
 </section>
 
@@ -154,20 +131,20 @@
   <div class="wrap">
     <div class="sec-hd rv">
       <div><p class="eyebrow">Services</p><h2 class="disp" id="svc-h">Nine jobs, <em>one contractor.</em></h2></div>
-      <div><p class="lead">Small and large jobs for businesses, homes and other contractors. The pictures are of the same site as above.</p>
+      <div><p class="lead">Small and large jobs for businesses, homes and other contractors. The pictures are illustrations of the same site as above.</p>
       <div class="cards-nav"><button type="button" data-d="-1" aria-label="Previous services">←</button><button type="button" data-d="1" aria-label="Next services">→</button></div></div>
     </div>
   </div>
   <div class="cards" id="cards">
-    <a class="card" href="services/graftur-og-jardvinna/" data-snap="graftur"><div class="pic"><b>Groundwork</b><img alt=""></div><div class="tx"><h3>Excavation and groundwork</h3><p>Excavation for buildings, trenches and soil replacement.</p><span class="go">More</span></div></a>
-    <a class="card" href="services/lagnaskurdir/" data-snap="skurdir"><div class="pic"><b>Pipes</b><img alt=""></div><div class="tx"><h3>Trenching</h3><p>Trenches for water, district heating, power, fibre and sewer pipes.</p><span class="go">More</span></div></a>
-    <a class="card" href="services/veituframkvaemdir/" data-snap="veitur"><div class="pic"><b>Utilities</b><img alt=""></div><div class="tx"><h3>Utility work</h3><p>Service connections, in cooperation with the utility companies and plumbers.</p><span class="go">More</span></div></a>
-    <a class="card" href="#hafa-samband" data-snap="fylling"><div class="pic"><b>Fill</b><img alt=""></div><div class="tx"><h3>Fill and compaction</h3><p>Load-bearing fill in layers, compacted and graded to the right levels.</p><span class="go">Get a price</span></div></a>
-    <a class="card" href="services/grunnar-og-lodir/" data-snap="grunnur"><div class="pic"><b>Foundations</b><img alt=""></div><div class="tx"><h3>Foundations and gardens</h3><p>Preparation for foundations and footings, from the pad to the holes.</p><span class="go">More</span></div></a>
-    <a class="card" href="services/drenlogn/" data-snap="dren"><div class="pic"><b>Drainage</b><img alt=""></div><div class="tx"><h3>Foundation drainage</h3><p>New or renewed drains along the foundations.</p><span class="go">More</span></div></a>
-    <a class="card" href="#reiknivel" data-verk="jofnun" data-snap="fragangur"><div class="pic"><b>Finishing</b><img alt=""></div><div class="tx"><h3>Site finishing and kerbs</h3><p>Kerbs, base course under asphalt and paths, topsoil and grass.</p><span class="go">Get a price</span></div></a>
-    <a class="card" href="services/hellulogn/" data-snap="hellur"><div class="pic"><b>Paving</b><img alt=""></div><div class="tx"><h3>Paving and driveways</h3><p>Car parks, driveways and paths, from excavation to the last paver.</p><span class="go">More</span></div></a>
-    <a class="card" href="#hafa-samband" data-snap="girding"><div class="pic"><b>Fences</b><img alt=""></div><div class="tx"><h3>Fences and gates</h3><p>Fences and gates around sites and yards.</p><span class="go">Get a price</span></div></a>
+    <a class="card has-img" href="services/graftur-og-jardvinna/"><div class="pic"><b>Groundwork</b><img alt="" src="../img/afangar/spjald-graftur.webp" width="720" height="500" loading="lazy" decoding="async"></div><div class="tx"><h3>Excavation and groundwork</h3><p>Excavation for buildings, trenches and soil replacement.</p><span class="go">More</span></div></a>
+    <a class="card has-img" href="services/lagnaskurdir/"><div class="pic"><b>Pipes</b><img alt="" src="../img/afangar/spjald-skurdir.webp" width="720" height="500" loading="lazy" decoding="async"></div><div class="tx"><h3>Trenching</h3><p>Trenches for water, district heating, power, fibre and sewer pipes.</p><span class="go">More</span></div></a>
+    <a class="card has-img" href="services/veituframkvaemdir/"><div class="pic"><b>Utilities</b><img alt="" src="../img/afangar/spjald-veitur.webp" width="720" height="500" loading="lazy" decoding="async"></div><div class="tx"><h3>Utility work</h3><p>Service connections, in cooperation with the utility companies and plumbers.</p><span class="go">More</span></div></a>
+    <a class="card has-img" href="#hafa-samband"><div class="pic"><b>Fill</b><img alt="" src="../img/afangar/spjald-fylling.webp" width="720" height="500" loading="lazy" decoding="async"></div><div class="tx"><h3>Fill and compaction</h3><p>Load-bearing fill in layers, compacted and graded to the right levels.</p><span class="go">Get a price</span></div></a>
+    <a class="card has-img" href="services/grunnar-og-lodir/"><div class="pic"><b>Foundations</b><img alt="" src="../img/afangar/spjald-grunnur.webp" width="720" height="500" loading="lazy" decoding="async"></div><div class="tx"><h3>Foundations and gardens</h3><p>Preparation for foundations and footings, from the pad to the holes.</p><span class="go">More</span></div></a>
+    <a class="card has-img" href="services/drenlogn/"><div class="pic"><b>Drainage</b><img alt="" src="../img/afangar/spjald-dren.webp" width="720" height="500" loading="lazy" decoding="async"></div><div class="tx"><h3>Foundation drainage</h3><p>New or renewed drains along the foundations.</p><span class="go">More</span></div></a>
+    <a class="card has-img" href="#reiknivel" data-verk="jofnun"><div class="pic"><b>Finishing</b><img alt="" src="../img/afangar/spjald-fragangur.webp" width="720" height="500" loading="lazy" decoding="async"></div><div class="tx"><h3>Site finishing and kerbs</h3><p>Kerbs, base course under asphalt and paths, topsoil and grass.</p><span class="go">Get a price</span></div></a>
+    <a class="card has-img" href="services/hellulogn/"><div class="pic"><b>Paving</b><img alt="" src="../img/afangar/spjald-hellur.webp" width="720" height="500" loading="lazy" decoding="async"></div><div class="tx"><h3>Paving and driveways</h3><p>Car parks, driveways and paths, from excavation to the last paver.</p><span class="go">More</span></div></a>
+    <a class="card has-img" href="#hafa-samband"><div class="pic"><b>Fences</b><img alt="" src="../img/afangar/spjald-girding.webp" width="720" height="500" loading="lazy" decoding="async"></div><div class="tx"><h3>Fences and gates</h3><p>Fences and gates around sites and yards.</p><span class="go">Get a price</span></div></a>
   </div>
 </section>
 
@@ -344,13 +321,12 @@
   </div>
 </footer>
 
-<script src="../js/vendor/gsap/gsap.min.js?v=20261115b"></script>
-<script src="../js/vendor/gsap/ScrollTrigger.min.js?v=20261115b"></script>
-<script src="../js/vendor/gsap/SplitText.min.js?v=20261115b"></script>
-<script src="../js/vendor/lenis/lenis.min.js?v=20261115b"></script>
-<script type="importmap">{"imports":{"three":"../js/vendor/three/three.module.min.js","three/addons/":"../js/vendor/three/addons/"}}</script>
-<script src="../js/forsida/page.js?v=20261115b"></script>
-<script src="../js/forsida/reiknivel.js?v=20261115b"></script>
-<script type="module" src="../js/forsida/scene.js?v=20261115b"></script>
+<script src="../js/vendor/gsap/gsap.min.js?v=20261115c"></script>
+<script src="../js/vendor/gsap/ScrollTrigger.min.js?v=20261115c"></script>
+<script src="../js/vendor/gsap/SplitText.min.js?v=20261115c"></script>
+<script src="../js/vendor/lenis/lenis.min.js?v=20261115c"></script>
+<script src="../js/forsida/page.js?v=20261115c"></script>
+<script src="../js/forsida/reiknivel.js?v=20261115c"></script>
+<script src="../js/forsida/afangar.js?v=20261115c"></script>
 </body>
 </html>

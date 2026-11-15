@@ -4,14 +4,13 @@
   root.classList.add('js');
   var reduce = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
   var hover = !!(window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches);
-  var gl2 = (function () { try { return !!document.createElement('canvas').getContext('webgl2'); } catch (e) { return false; } })();
-  if (gl2) root.classList.add('story-on');
+  var story = document.getElementById('story');
+  if (story) root.classList.add('story-on');
   var gsap = window.gsap, ST = window.ScrollTrigger, Split = window.SplitText;
   if (gsap && ST) gsap.registerPlugin(ST);
   if (gsap && Split) gsap.registerPlugin(Split); else root.classList.add('no-split');
-  var story = document.getElementById('story');
   var NCH = Math.max(1, document.querySelectorAll('.ch').length - 1);
-  function storyHeight() { if (gl2 && story) story.style.height = (innerHeight + NCH * Math.round(innerHeight * 1.25)) + 'px'; }
+  function storyHeight() { if (story) story.style.height = (innerHeight + NCH * Math.round(innerHeight * 1.25)) + 'px'; }
   storyHeight();
   var hd = document.getElementById('hd');
   var prog = hd.querySelector('.prog');
@@ -30,10 +29,9 @@
   }
   function scrollToY(y) { if (lenis) lenis.scrollTo(y, { duration: 1.5 }); else window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' }); }
 
-  /* ---------- 3D story: wait for the scene module ---------- */
+  /* ---------- the story: wait for the stage pictures (afangar.js) ---------- */
   var S = null, sceneReady = new Promise(function (res) {
     window.addEventListener('pb:size', function () { if (ST) ST.refresh(); });
-    if (!gl2) { res(null); return; }
     function done() { S = window.PBStory || null; res(S); }
     if ('PBStory' in window) done(); else window.addEventListener('pbstory', done, { once: true });
     setTimeout(function () { if (!S) { root.classList.remove('story-on'); root.classList.add('no3d'); story.style.height = ''; res(null); } }, 12000);
@@ -69,7 +67,7 @@
     intro.hidden = true; root.classList.remove('intro-on'); brand.style.opacity = '';
     if (lenis) lenis.start();
     if (S) {
-      S.build(2600).then(shotsWhenNear);
+      S.build(2600);
       setTimeout(heroIn, reduce ? 0 : 900);
     } else heroIn();
   }
@@ -87,7 +85,7 @@
   var deep = !!location.hash || /[?&]verk=/.test(location.search);
   if (reduce || seen || deep || !ilogo.animate) {
     intro.hidden = true;
-    sceneReady.then(function () { if (S) S.build(reduce || deep ? 0 : 2200).then(shotsWhenNear); heroIn(); });
+    sceneReady.then(function () { if (S) S.build(reduce || deep ? 0 : 2200); heroIn(); });
   } else {
     intro.hidden = false; root.classList.add('intro-on'); brand.style.opacity = '0';
     ilogo = shown(intro.querySelectorAll('img')); hlogo = shown(brand.querySelectorAll('img'));
@@ -124,7 +122,7 @@
     var setMenu = function (o) { mn.hidden = !o; mb.setAttribute('aria-expanded', o ? 'true' : 'false'); var ic = document.getElementById('menuIco'); if (ic) ic.setAttribute('d', o ? 'M6 6l12 12M18 6L6 18' : 'M4 7h16M4 12h16M4 17h16'); };
     mb.addEventListener('click', function () { setMenu(mn.hidden); });
     mn.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
-    addEventListener('resize', function () { if (innerWidth > 980) setMenu(false); });
+    addEventListener('resize', function () { if (innerWidth > 1179) setMenu(false); });
   }
 
   /* ---------- light / dark: same switch and the same remembered choice (pb-theme) as the rest of the site ---------- */
@@ -140,34 +138,6 @@
     syncTheme();
   });
   syncTheme();
-
-  /* ---------- snapshots of the same lot for the service cards ---------- */
-  // each card's picture is the same lot at the stage that shows the job (t), from its own camera
-  var SNAP = {
-    graftur:{t:0.55,eye:[29,7,-6],tgt:[18,-1,8],fov:34}, skurdir:{t:0.75,eye:[23.5,5.5,-2],tgt:[19.5,-1.2,6],fov:34},
-    veitur:{t:1.12,eye:[36,14,-8],tgt:[17,-1.6,10],fov:36}, fylling:{t:2.1,eye:[34,10,2],tgt:[8,-0.5,-18],fov:34},
-    grunnur:{t:2.92,eye:[14,5,-10],tgt:[2,-1,-23],fov:36}, dren:{t:3.92,eye:[40,7,-12],tgt:[33,-1.3,-24],fov:34},
-    fragangur:{t:5.12,eye:[40,3.5,17],tgt:[28,0,4],fov:34}, hellur:{t:7.0,eye:[-22,3.2,12.6],tgt:[-30,0.3,5.5],fov:34},
-    girding:{t:7.0,eye:[12,3.2,24],tgt:[12,1.2,12],fov:34}};
-  var shotsDone = false;
-  function shots() {
-    if (shotsDone || !S || !S.snapshots) return; shotsDone = true;
-    var list = [];
-    document.querySelectorAll('.card[data-snap]').forEach(function (c) {
-      var j = SNAP[c.getAttribute('data-snap')]; if (!j) return;
-      list.push({ t: j.t, eye: j.eye, tgt: j.tgt, fov: j.fov, img: c.querySelector('img') });
-    });
-    S.snapshots(list);
-  }
-  function shotsWhenNear() {
-    var cards = document.getElementById('thjonusta');
-    var go = function () { if (window.requestIdleCallback) requestIdleCallback(shots, { timeout: 1500 }); else setTimeout(shots, 400); };
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (es) { if (es.some(function (e) { return e.isIntersecting; })) { io.disconnect(); go(); } }, { rootMargin: '1400px 0px 1400px 0px' });
-      io.observe(cards);
-      setTimeout(function () { io.disconnect(); go(); }, 6000);
-    } else go();
-  }
 
   /* ---------- chapter headings rise in when their chapter becomes active ---------- */
   var chSplits = [];

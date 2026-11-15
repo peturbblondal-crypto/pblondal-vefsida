@@ -4,15 +4,14 @@ Vefsíða P. Blöndal ehf., gröfuþjónusta og jarðvinna á höfuðborgarsvæ�
 
 ## Skrár
 
-- `index.html`: forsíða með þrívíddarsenu af lóð, verðreiknivél og tilboðsformi
-- `en/index.html`: sama forsíða á ensku. Hún notar sömu CSS- og JS-skrár og íslenska forsíðan, svo breyting á útliti, senu eða verðum gildir á báðum
+- `index.html`: forsíða með myndasögu af framkvæmd í átta áföngum, verðreiknivél og tilboðsformi
+- `en/index.html`: sama forsíða á ensku. Hún notar sömu CSS- og JS-skrár og myndir og íslenska forsíðan, svo breyting á útliti, myndum eða verðum gildir á báðum
 - `css/forsida.css`: útlit forsíðunnar, ljóst og dökkt (litirnir eru breytur efst í skránni)
-- `js/forsida/scene.js`: þrívíddarsenan á forsíðunni (three.js): framkvæmd við vöruhús frá fyrsta skurði að fullfrágenginni lóð (sjá „Þrívíddarsagan“ hér fyrir neðan). Merkingar í senunni eru á íslensku eða ensku eftir `<html lang>`
-- `js/forsida/kit.js`: sameiginleg efni og hjálparföll fyrir senuna og netið í girðingunum
-- `js/forsida/page.js`: hreyfingar á forsíðu: mjúkt skrun (Lenis), ScrollTrigger og SplitText (GSAP), myndir á þjónustuspjöldum
+- `js/forsida/afangar.js`: myndasagan á forsíðunni (sjá „Myndasagan á forsíðunni“ hér fyrir neðan)
+- `js/forsida/page.js`: hreyfingar á forsíðu: mjúkt skrun (Lenis), ScrollTrigger og SplitText (GSAP), kynning, valmynd og ljóst/dökkt útlit
 - `js/forsida/reiknivel.js`: verðreiknivél og tilboðsform fyrir báðar forsíðurnar. Textar eru í `tr('íslenska', 'English')`
-- `js/vendor/`: three.js r170, GSAP 3.13.0 og Lenis 1.3.24, hýst á vefnum sjálfum eins og letrið
-- `img/lod/`: áferðir (gras, hellur, steypa, timbur, jarðlög) sem senan notar
+- `js/vendor/`: GSAP 3.13.0 og Lenis 1.3.24, hýst á vefnum sjálfum eins og letrið
+- `img/afangar/`: myndirnar átta í myndasögunni (`afangi-1.webp` … `afangi-8.webp`) og myndirnar á þjónustuspjöldunum (`spjald-<heiti>.webp`), skornar úr sömu myndum
 - `thjonusta/<heiti>/index.html`: sérsíða fyrir hverja þjónustu
 - `stefnur/`: 17 stefnur og verklagsreglur (útgáfa 1.0, samþykkt 27. október 2026), hver á sinni síðu, með PDF í `stefnur/pdf/` og öll skjölin saman í `stefnur/pdf/p-blondal-stefnur-og-verklag.pdf`. Ensk þýðing allra skjalanna er í `en/policies/` með PDF í `en/policies/pdf/`.
 - `css/site.css`: sameiginlegt útlit fyrir aðrar síður en forsíðuna
@@ -22,26 +21,27 @@ Vefsíða P. Blöndal ehf., gröfuþjónusta og jarðvinna á höfuðborgarsvæ�
 - `og.png`: myndin sem birtist þegar síðunni er deilt
 - `logo.png`, `logo-ljost.png`, `favicon-32.png`, `apple-touch-icon.png`: merki og tákn
 
-## Þrívíddarsagan á forsíðunni
+## Myndasagan á forsíðunni
 
-Sagan sýnir okkar hluta framkvæmdarinnar: allt sem húsið stendur á og allt í kringum það. Húsið sjálft rís aðeins í bakgrunni sem samhengi. Engar vinnuvélar eru í senunni: hver kafli sýnir stöðu verksins.
-Skrunið stýrir einni tölu, `t`, frá 0 upp í 7. Hver heil tala er einn kafli (`.ch` í `index.html`):
+Sagan sýnir okkar hluta framkvæmdarinnar: allt sem húsið stendur á og allt í kringum það. Átta myndir af sömu lóð, ein fyrir hvern áfanga:
 
-0. Framkvæmdasvæði: lagnaskurðurinn opnast að götu, uppgröftur, efni, keilur og vinnusvæðisgirðing
-1. Lagnir: sandbeð, lagnirnar lagðar, jörðin verður gegnsæ og sýnir allt lagnakerfið, svo er fyllt yfir
-2. Fyllingar: fyllingarefni, púðinn hækkar í þjöppuðum lögum, burðarlag á lóð
-3. Undirbúningur fyrir grunn: púði í réttri hæð, holur fyrir undirstöður, húsið sem útlína
-4. Húsið rís: drenlögn, lagnir inn í húsið, fyllt að sökklum, hleðsludokkar
-5. Lóðarfrágangur: kantsteinar og malbik á leiðinni meðfram húsinu, svo hellulögn á bílaplaninu, gras, tré, ljósastaurar og merkingar
-6. Girðingar: staurar og grindverk umhverfis lóðina, rennihlið við aðkomuna
-7. Fullbúin lóð: flutningabílar við dokkana og heildarskot yfir lóðina
+1. Framkvæmdasvæði: lagnaskurður, uppgröftur, efni og vinnusvæðisgirðing
+2. Lagnir í opnum skurði, brunnur og sandbeð
+3. Fyllingar og þjöppun
+4. Púði tilbúinn fyrir undirstöður
+5. Húsið risið, dren og fylling meðfram sökklum
+6. Lóðarfrágangur: kantsteinar, malbik, hellur og gróður
+7. Grindverk og rennihlið
+8. Fullbúin lóð
 
-- `apply(t)` í `scene.js` stillir allt ástand senunnar fyrir gefið `t`, svo saga og myndavél fylgjast alltaf að, hvort sem skrunað er fram eða aftur. Þar er tímasetning hvers verkþáttar, t.d. `setKerbs(ramp(4.5, 4.94, t))`.
-- Myndavélarstöðvarnar eru í `K`, ein fyrir hvern kafla (`eye`, `tgt`, `fov`). `MOB` segir hve miklu fjær myndavélin er í síma. Á milli stöðva svífur hún mjúkt (`camAt`).
-- Ef gestur hefur beðið um minni hreyfingu í stýrikerfinu (prefers-reduced-motion) svífur myndavélin ekki heldur skiptir beint á milli sjónarhorna kaflanna, og hvorki innkoma né sveifla er.
-- Myndirnar á þjónustuspjöldunum eru teknar úr sömu senu: `SNAP` í `page.js` geymir `t` og sjónarhorn fyrir hvert spjald.
-- `?nosnap` aftan við slóðina sleppir myndunum á spjöldunum og opnar prófunarkrók (`window.__pbDev`) sem er notaður við skjámyndatöku.
+- Skrunið stýrir einni tölu, `t`, frá 0 upp í 7. Hver heil tala er einn kafli (`.ch` í `index.html`). Hver mynd stendur í sínum kafla og sú næsta strýkst inn yfir hana á milli kafla, frá vinstri til hægri.
+- Myndin er í breiðum borða undir hausnum og textinn hvers kafla er undir henni. Sjónarhornið líður hægt yfir myndina meðan skrunað er; í síma ferðast það yfir alla breiddina. `FOCUS` í `afangar.js` segir hvar verkið er á hverri mynd (hlutfall af breidd).
+- Ef gestur hefur beðið um minni hreyfingu í stýrikerfinu (prefers-reduced-motion) er engin hreyfing á myndunum og þær skiptast í miðju skrefi í stað þess að strjúkast inn.
+- Til að skipta um mynd: settu nýja skrá með sama nafni í `img/afangar/`. Myndirnar eru 1574 × 484 dílar; stærri myndir í sama hlutfalli (t.d. 3148 × 968) verða skarpari á háupplausnarskjám.
+- Myndirnar eru tölvugerðar skýringarmyndir, ekki ljósmyndir af verkum P. Blöndal, og það stendur smátt neðst á myndborðanum.
+- `?nosnap` aftan við slóðina opnar prófunarkrók (`window.__pbDev`) sem er notaður við skjámyndatöku.
 
+Fyrri útgáfa sögunnar var þrívíddarsena í three.js. Hún er geymd í sögu greinarinnar `jardvinnusaga` (commit 993c5d9) ef einhvern tíma á að taka hana upp aftur.
 
 ## Verð í reiknivélinni
 
@@ -72,5 +72,5 @@ Síðan er á https://pblondal.is. DNS er hjá ISNIC: fjórar A-færslur á IP-t
 - Ensk útgáfa er á `/en/` (forsíða), `/en/services/<heiti>/` (þjónustusíður) og `/en/policies/` (stefnur).
 - Hnappurinn „EN / IS“ efst skiptir á milli samsvarandi síðna á hvoru tungumáli.
 - Hnappurinn með tungli/sól skiptir á milli ljóss og dökks útlits á öllum síðum. Valið er munað í vafranum (`pb-theme`) og gildir á öllum síðum. Síðan opnast í ljósu útliti nema gestur hafi valið dökkt.
-- Á forsíðunni stýrir útlitið líka birtunni í þrívíddarsenunni: síðdegisbirta í ljósu útliti, sólsetur með kveikt ljós í dökku.
+- Á forsíðunni eru myndirnar í sögunni ögn dekktar í dökku útliti.
 - Fyrirspurnir af ensku síðunni berast á petur@pblondal.is merktar „Tungumál: Enska“.
