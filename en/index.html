@@ -221,20 +221,59 @@
               <p>Soil and access change the output. Clay and rock slow the work down, and tight access means more repositioning of the machine.</p>
               <p>Materials are calculated in tonnes from volume: sand under pipes and pavers, base course for fill and drainage gravel for drains. Material prices are based on P. Blöndal's rates and Steypustöðin's list prices. The truck carries up to 15 tonnes of material or 10 m³ of excavated soil per trip.</p>
               <p>The estimate is shown as a range from 90% to 130% of the calculated price, because conditions are never exactly as on paper. Disposal fees, pipes and pavers are not included.</p>
+              <p>All prices in the calculator are excluding VAT. If you choose “Incl. VAT”, 24% VAT is added once to the total and the amounts are rounded to the nearest thousand. The breakdown is always shown excluding VAT.</p>
             </div>
           </details>
         </div>
-        <button type="button" class="calc-mini" id="calcMini" hidden><span>Estimate</span><b id="calcMiniV"></b></button>
-        <aside class="calc-sum" id="calcSum" aria-live="polite">
-          <div class="label">Estimate excl. VAT</div>
-          <div class="calc-range" id="calcRange">Choose a job</div>
-          <div class="calc-sub" id="calcVat">Your estimate appears here as soon as you choose a job.</div>
+        <button type="button" class="calc-mini" id="calcMini" hidden><span id="calcMiniL">Excl. VAT</span><b id="calcMiniV"></b></button>
+        <aside class="calc-sum" id="calcSum">
+          <div class="seg vatsw" id="g-vat" role="radiogroup" aria-label="Show prices">
+            <label><input type="radio" name="vat" value="0" checked><span>Excl. VAT</span></label>
+            <label><input type="radio" name="vat" value="1"><span>Incl. VAT</span></label>
+          </div>
+          <div class="calc-live" aria-live="polite">
+            <div class="label" id="calcLabel">Estimate excl. VAT</div>
+            <div class="calc-range" id="calcRange">Choose a job</div>
+            <div class="calc-sub" id="calcVat">Your estimate appears here as soon as you choose a job.</div>
+          </div>
+          <dl class="calc-vat" id="calcVatBox" hidden>
+            <div><dt>Estimated price excl. VAT</dt><dd id="vEx"></dd></div>
+            <div><dt>VAT 24%</dt><dd id="vVat"></dd></div>
+            <div class="tot"><dt>Estimated total incl. VAT</dt><dd id="vInc"></dd></div>
+          </dl>
           <div class="calc-lines" id="calcLines" hidden></div>
-          <p class="calc-note">Estimate based on typical output and P. Blöndal's rates. Materials and haulage are calculated from your choices. Disposal fees are not included. We confirm the price after a site visit.</p>
-          <a class="btn" id="calcCta" href="#hafa-samband" aria-disabled="true">Get an exact quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <p class="calc-note">Estimate based on typical output and P. Blöndal's rates. Materials and haulage are calculated from your choices. Disposal fees are not included.</p>
+          <p class="calc-disc">The calculated price is an estimate, not a binding quote. The final price may change depending on site conditions, scope and further agreement.</p>
+          <button type="button" class="btn" id="calcCta" aria-disabled="true" aria-haspopup="dialog">Send an enquiry based on this estimate <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <div class="calc-tools"><button type="button" id="calcCopy" disabled>Copy summary</button><button type="button" id="calcDl" disabled>Download as text file</button></div>
+          <p class="calc-tmsg" id="calcToolMsg" role="status" hidden></p>
+          <textarea class="calc-copytxt" id="calcCopyTxt" rows="9" readonly hidden aria-label="Estimate summary"></textarea>
         </aside>
       </div>
   </div>
+  <dialog class="qdlg" id="calcDlg" aria-labelledby="calcDlgH" data-lenis-prevent>
+    <form class="qform" id="calcQuote" novalidate>
+      <div class="qdlg-hd full">
+        <div><p class="eyebrow">Enquiry</p><h2 id="calcDlgH">Based on your estimate</h2></div>
+        <button type="button" class="qdlg-x" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+      <div class="qest full" id="calcDlgEst"></div>
+      <div class="field"><label for="d-nafn">Name</label><input id="d-nafn" name="nafn" autocomplete="name" required></div>
+      <div class="field"><label for="d-simi">Phone</label><input id="d-simi" name="simi" type="tel" autocomplete="tel" required></div>
+      <div class="field full"><label for="d-netfang">Email</label><input id="d-netfang" name="netfang" type="email" autocomplete="email" required></div>
+      <div class="field"><label for="d-stadur">Location of the job</label><input id="d-stadur" name="stadur" placeholder="e.g. Kópavogur" required></div>
+      <div class="field"><label for="d-hvenaer">When?</label><select id="d-hvenaer" name="hvenaer"><option>As soon as possible</option><option>Within a month</option><option>In the coming months</option><option>Not decided</option></select></div>
+      <div class="field full"><label for="d-lysing">More details <em>(optional)</em></label><textarea id="d-lysing" name="lysing" placeholder="Access, pipes on site or anything else that is useful to know"></textarea></div>
+      <p class="qnote full">Do you have photos or drawings of the site? Email them to <a href="mailto:petur@pblondal.is">petur@pblondal.is</a> once the enquiry is sent, with your name in the email.</p>
+      <p class="calc-disc full">The calculated price is an estimate, not a binding quote. The final price may change depending on site conditions, scope and further agreement.</p>
+      <div class="form-foot">
+        <small>We only use your details to reply to your enquiry.</small>
+        <button class="btn btn-main" type="submit">Send enquiry <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+      <p class="msg" id="calcDlgMsg" role="status" hidden></p>
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    </form>
+  </dialog>
 </section>
 
 <section class="sec safe" id="oryggi" aria-labelledby="safe-h">
@@ -301,7 +340,7 @@
         <a class="bignum" href="tel:+3547733363">773-3363</a>
         <dl class="cinfo"><dt>Email</dt><dd><a href="mailto:petur@pblondal.is">petur@pblondal.is</a></dd><dt>Area</dt><dd>Greater Reykjavík area</dd><dt>Company ID</dt><dd>570125-0950</dd></dl>
       </div>
-      <form class="rv" id="quote" novalidate aria-label="Request a quote">
+      <form class="rv qform" id="quote" novalidate aria-label="Request a quote">
         <div class="field full">
           <span class="lbl" id="typeLbl">What needs doing?</span>
           <div class="chips" role="radiogroup" aria-labelledby="typeLbl">
@@ -345,6 +384,7 @@
 <script src="../js/vendor/lenis/lenis.min.js?v=20261115u"></script>
 <script type="importmap">{"imports":{"three":"../js/vendor/three/three.module.min.js","three/addons/":"../js/vendor/three/addons/"}}</script>
 <script src="../js/forsida/page.js?v=20261115u"></script>
+<script src="../js/fyrirspurn.js?v=20261115u"></script>
 <script src="../js/forsida/reiknivel.js?v=20261115u"></script>
 <script type="module" src="../js/forsida/scene.js?v=20261115u"></script>
 </body>

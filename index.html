@@ -220,20 +220,59 @@
               <p>Jarðvegur og aðgengi breyta afköstunum. Leir og grjót hægja á verkinu og þröngt aðgengi kallar á fleiri tilfærslur á vélinni.</p>
               <p>Efni er reiknað í tonnum út frá rúmmáli: sandur undir lagnir og hellur, burðarlag í fyllingar og drenmöl við drenlagnir. Verð á efni miðast við verðskrá P. Blöndal og listaverð Steypustöðvarinnar. Vörubíllinn tekur allt að 15 tonn af efni eða 10 m³ af uppgreftri í hverri ferð.</p>
               <p>Verðhugmyndin er sýnd sem bil frá 90% upp í 130% af útreiknuðu verði, því aðstæður eru aldrei alveg eins og á blaði. Förgunargjöld á losunarstað, lagnaefni og hellur eru ekki innifalin.</p>
+              <p>Öll verð í reiknivélinni eru án virðisaukaskatts. Ef þú velur „Með VSK“ er 24% VSK lagður einu sinni ofan á heildarverðið og upphæðirnar námundaðar að næsta þúsundi. Sundurliðunin er alltaf sýnd án VSK.</p>
             </div>
           </details>
         </div>
-        <button type="button" class="calc-mini" id="calcMini" hidden><span>Verðhugmynd</span><b id="calcMiniV"></b></button>
-        <aside class="calc-sum" id="calcSum" aria-live="polite">
-          <div class="label">Verðhugmynd án VSK</div>
-          <div class="calc-range" id="calcRange">Veldu verk</div>
-          <div class="calc-sub" id="calcVat">Verðhugmyndin birtist hér um leið og þú velur verk.</div>
+        <button type="button" class="calc-mini" id="calcMini" hidden><span id="calcMiniL">Án VSK</span><b id="calcMiniV"></b></button>
+        <aside class="calc-sum" id="calcSum">
+          <div class="seg vatsw" id="g-vat" role="radiogroup" aria-label="Sýna verð">
+            <label><input type="radio" name="vat" value="0" checked><span>Án VSK</span></label>
+            <label><input type="radio" name="vat" value="1"><span>Með VSK</span></label>
+          </div>
+          <div class="calc-live" aria-live="polite">
+            <div class="label" id="calcLabel">Verðhugmynd án VSK</div>
+            <div class="calc-range" id="calcRange">Veldu verk</div>
+            <div class="calc-sub" id="calcVat">Verðhugmyndin birtist hér um leið og þú velur verk.</div>
+          </div>
+          <dl class="calc-vat" id="calcVatBox" hidden>
+            <div><dt>Áætlað verð án VSK</dt><dd id="vEx"></dd></div>
+            <div><dt>VSK 24%</dt><dd id="vVat"></dd></div>
+            <div class="tot"><dt>Áætlað heildarverð með VSK</dt><dd id="vInc"></dd></div>
+          </dl>
           <div class="calc-lines" id="calcLines" hidden></div>
-          <p class="calc-note">Áætlun byggð á almennum afköstum og verðskrá P. Blöndal. Efni og akstur eru reiknuð eftir vali þínu. Förgunargjöld eru ekki innifalin. Við staðfestum verð eftir skoðun.</p>
-          <a class="btn" id="calcCta" href="#hafa-samband" aria-disabled="true">Fá nákvæmt tilboð <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <p class="calc-note">Áætlun byggð á almennum afköstum og verðskrá P. Blöndal. Efni og akstur eru reiknuð eftir vali þínu. Förgunargjöld eru ekki innifalin.</p>
+          <p class="calc-disc">Útreiknað verð er áætlað og ekki bindandi tilboð. Endanlegt verð getur breyst eftir aðstæðum á verkstað, umfangi og nánara samkomulagi.</p>
+          <button type="button" class="btn" id="calcCta" aria-disabled="true" aria-haspopup="dialog">Senda fyrirspurn út frá þessari verðhugmynd <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <div class="calc-tools"><button type="button" id="calcCopy" disabled>Afrita samantekt</button><button type="button" id="calcDl" disabled>Sækja sem textaskrá</button></div>
+          <p class="calc-tmsg" id="calcToolMsg" role="status" hidden></p>
+          <textarea class="calc-copytxt" id="calcCopyTxt" rows="9" readonly hidden aria-label="Samantekt verðhugmyndar"></textarea>
         </aside>
       </div>
   </div>
+  <dialog class="qdlg" id="calcDlg" aria-labelledby="calcDlgH" data-lenis-prevent>
+    <form class="qform" id="calcQuote" novalidate>
+      <div class="qdlg-hd full">
+        <div><p class="eyebrow">Fyrirspurn</p><h2 id="calcDlgH">Út frá verðhugmyndinni</h2></div>
+        <button type="button" class="qdlg-x" data-close aria-label="Loka glugganum"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+      <div class="qest full" id="calcDlgEst"></div>
+      <div class="field"><label for="d-nafn">Nafn</label><input id="d-nafn" name="nafn" autocomplete="name" required></div>
+      <div class="field"><label for="d-simi">Sími</label><input id="d-simi" name="simi" type="tel" autocomplete="tel" required></div>
+      <div class="field full"><label for="d-netfang">Netfang</label><input id="d-netfang" name="netfang" type="email" autocomplete="email" required></div>
+      <div class="field"><label for="d-stadur">Staðsetning verks</label><input id="d-stadur" name="stadur" placeholder="t.d. Kópavogur" required></div>
+      <div class="field"><label for="d-hvenaer">Hvenær?</label><select id="d-hvenaer" name="hvenaer"><option>Sem fyrst</option><option>Innan mánaðar</option><option>Á næstu mánuðum</option><option>Óákveðið</option></select></div>
+      <div class="field full"><label for="d-lysing">Nánari upplýsingar <em>(valfrjálst)</em></label><textarea id="d-lysing" name="lysing" placeholder="Aðgengi, lagnir á svæðinu eða annað sem gott er að vita"></textarea></div>
+      <p class="qnote full">Áttu myndir eða teikningar af svæðinu? Sendu þær á <a href="mailto:petur@pblondal.is">petur@pblondal.is</a> þegar fyrirspurnin er farin og merktu póstinn með nafninu þínu.</p>
+      <p class="calc-disc full">Útreiknað verð er áætlað og ekki bindandi tilboð. Endanlegt verð getur breyst eftir aðstæðum á verkstað, umfangi og nánara samkomulagi.</p>
+      <div class="form-foot">
+        <small>Við notum upplýsingarnar eingöngu til að svara fyrirspurninni.</small>
+        <button class="btn btn-main" type="submit">Senda fyrirspurn <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+      <p class="msg" id="calcDlgMsg" role="status" hidden></p>
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    </form>
+  </dialog>
 </section>
 
 <section class="sec safe" id="oryggi" aria-labelledby="safe-h">
@@ -300,7 +339,7 @@
         <a class="bignum" href="tel:+3547733363">773-3363</a>
         <dl class="cinfo"><dt>Netfang</dt><dd><a href="mailto:petur@pblondal.is">petur@pblondal.is</a></dd><dt>Svæði</dt><dd>Höfuðborgarsvæðið</dd><dt>Kennitala</dt><dd>570125-0950</dd></dl>
       </div>
-      <form class="rv" id="quote" novalidate aria-label="Beiðni um tilboð">
+      <form class="rv qform" id="quote" novalidate aria-label="Beiðni um tilboð">
         <div class="field full">
           <span class="lbl" id="typeLbl">Hvað þarf að gera?</span>
           <div class="chips" role="radiogroup" aria-labelledby="typeLbl">
@@ -344,6 +383,7 @@
 <script src="js/vendor/lenis/lenis.min.js?v=20261115u"></script>
 <script type="importmap">{"imports":{"three":"./js/vendor/three/three.module.min.js","three/addons/":"./js/vendor/three/addons/"}}</script>
 <script src="js/forsida/page.js?v=20261115u"></script>
+<script src="js/fyrirspurn.js?v=20261115u"></script>
 <script src="js/forsida/reiknivel.js?v=20261115u"></script>
 <script type="module" src="js/forsida/scene.js?v=20261115u"></script>
 </body>

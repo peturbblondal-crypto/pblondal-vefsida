@@ -28,6 +28,7 @@
       }
     } catch (e) { lenis = null; }
   }
+  window.pbLenis = lenis;   /* reiknivel.js stöðvar skrunið á meðan fyrirspurnarglugginn er opinn */
   function scrollToY(y) { if (lenis) lenis.scrollTo(y, { duration: 1.5 }); else window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' }); }
 
   /* ---------- 3D story: wait for the scene module ---------- */

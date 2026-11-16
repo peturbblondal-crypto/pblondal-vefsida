@@ -390,27 +390,92 @@ html.lenis,html.lenis body{height:auto}
 @media (max-width:380px){.jobs{grid-template-columns:1fr}}
 
 /* quote form */
-#quote{display:grid;grid-template-columns:1fr 1fr;gap:16px;background:var(--panel);border:1px solid var(--line);padding:clamp(22px,3vw,34px);position:relative;min-width:0}
-#quote .field{display:grid;gap:8px;min-width:0}
-#quote .field.full{grid-column:1/-1}
-#quote .field>label,#quote .lbl{font-size:.74rem;font-weight:700;font-stretch:78%;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
-#quote .field input,#quote .field select,#quote .field textarea{font:inherit;font-size:1rem;color:var(--fg);background:var(--input);border:1px solid var(--line2);padding:13px 14px;border-radius:0;width:100%;min-width:0;transition:border-color .2s}
-#quote .field input:focus,#quote .field select:focus,#quote .field textarea:focus{outline:none;border-color:var(--pink)}
-#quote .field textarea{min-height:130px;resize:vertical}
-#quote .field input::placeholder,#quote .field textarea::placeholder{color:var(--mute2)}
-#quote .bad{border-color:var(--pink)!important;box-shadow:inset 0 0 0 1px var(--pink)}
-#quote .chips{display:flex;flex-wrap:wrap;gap:8px;margin:0}
-#quote .chip{position:relative}
-#quote .chip input{position:absolute;opacity:0;pointer-events:none}
-#quote .chip span{display:inline-flex;align-items:center;min-height:42px;padding:0 15px;border:1px solid var(--line2);background:var(--input);font-size:.94rem;font-weight:600;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
-#quote .chip span:hover{border-color:var(--mute)}
-#quote .chip input:checked+span{background:var(--pink);color:var(--on-pink);border-color:var(--pink)}
-#quote .chip input:focus-visible+span{outline:2px solid var(--pink);outline-offset:2px}
-#quote .form-foot{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-top:4px}
-#quote .form-foot small{color:var(--mute);font-size:.86rem;max-width:38ch}
-#quote .msg{grid-column:1/-1;margin:0;padding:14px 16px;background:var(--bg3);border-left:3px solid var(--sandt);font-size:.95rem}
-#quote .msg.err{border-left-color:var(--pink)}
-@media (max-width:560px){#quote{grid-template-columns:1fr}#quote .form-foot .btn{flex:1 1 100%}}
+.qform{display:grid;grid-template-columns:1fr 1fr;gap:16px;background:var(--panel);border:1px solid var(--line);padding:clamp(22px,3vw,34px);position:relative;min-width:0}
+.qform .field{display:grid;gap:8px;min-width:0}
+.qform .field.full{grid-column:1/-1}
+.qform .field>label,.qform .lbl{font-size:.74rem;font-weight:700;font-stretch:78%;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.qform .field input,.qform .field select,.qform .field textarea{font:inherit;font-size:1rem;color:var(--fg);background:var(--input);border:1px solid var(--line2);padding:13px 14px;border-radius:0;width:100%;min-width:0;transition:border-color .2s}
+.qform .field input:focus,.qform .field select:focus,.qform .field textarea:focus{outline:none;border-color:var(--pink)}
+.qform .field textarea{min-height:130px;resize:vertical}
+.qform .field input::placeholder,.qform .field textarea::placeholder{color:var(--mute2)}
+.qform .bad{border-color:var(--pink)!important;box-shadow:inset 0 0 0 1px var(--pink)}
+.qform .chips{display:flex;flex-wrap:wrap;gap:8px;margin:0}
+.qform .chip{position:relative}
+.qform .chip input{position:absolute;opacity:0;pointer-events:none}
+.qform .chip span{display:inline-flex;align-items:center;min-height:42px;padding:0 15px;border:1px solid var(--line2);background:var(--input);font-size:.94rem;font-weight:600;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.qform .chip span:hover{border-color:var(--mute)}
+.qform .chip input:checked+span{background:var(--pink);color:var(--on-pink);border-color:var(--pink)}
+.qform .chip input:focus-visible+span{outline:2px solid var(--pink);outline-offset:2px}
+.qform .form-foot{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-top:4px}
+.qform .form-foot small{color:var(--mute);font-size:.86rem;max-width:38ch}
+.qform .msg{grid-column:1/-1;margin:0;padding:14px 16px;background:var(--bg3);border-left:3px solid var(--sandt);font-size:.95rem}
+.qform .msg.err{border-left-color:var(--pink)}
+@media (max-width:560px){.qform{grid-template-columns:1fr}.qform .form-foot .btn{flex:1 1 100%}}
+.qform>.full{grid-column:1/-1}
+.qform .field>label em{font-style:normal;font-weight:500;text-transform:none;letter-spacing:0}
+.qform .msg.ok{border-left-color:var(--pink)}
+
+/* ---------- verðreiknivél: með eða án VSK, sundurliðun, fyrirvari, samantekt ---------- */
+.calc-sum .vatsw{gap:0;border:1.5px solid var(--on-pink);width:max-content;max-width:100%}
+.calc-sum .vatsw span{background:transparent;border:0;color:var(--on-pink);font-weight:750;font-stretch:85%;font-size:.88rem;letter-spacing:.02em;padding:8px 16px}
+.calc-sum .vatsw span:hover{background:rgba(12,13,15,.08)}
+.calc-sum .vatsw input:checked+span{background:var(--on-pink);color:var(--cream)}
+.calc-sum .vatsw input:focus-visible+span{outline:2px solid var(--on-pink);outline-offset:2px}
+.calc-live{display:grid;gap:12px}
+.calc-sub[hidden]{display:none}
+.calc-vat{margin:0;display:grid;gap:7px;font-size:.92rem;font-variant-numeric:tabular-nums;border-top:1px solid rgba(12,13,15,.28);padding-top:14px}
+.calc-vat[hidden]{display:none}
+.calc-vat div{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px}
+.calc-vat dt{opacity:.85}
+.calc-vat dd{margin:0 0 0 auto;white-space:nowrap;font-weight:650}
+.calc-vat .tot dt,.calc-vat .tot dd{font-weight:800;opacity:1}
+.calc-lh{font-size:.72rem;font-weight:750;font-stretch:78%;letter-spacing:.14em;text-transform:uppercase;opacity:.72}
+.calc-disc{margin:0;font-size:.82rem;line-height:1.5;padding-left:12px;border-left:2px solid currentColor}
+.calc-sum #calcCta{min-height:56px;padding:12px 20px;line-height:1.25;text-align:center}
+.calc-sum #calcCta[aria-disabled="true"]{cursor:default}
+.calc-tools{display:flex;flex-wrap:wrap;gap:6px 22px}
+.calc-tools button{font:inherit;font-size:.88rem;font-weight:750;font-stretch:88%;background:none;border:0;border-bottom:1.5px solid currentColor;padding:3px 0;color:inherit;cursor:pointer}
+.calc-tools button:hover{border-bottom-width:3px}
+.calc-tools button:disabled{opacity:.45;cursor:default;border-bottom-width:1.5px}
+.calc-tmsg{margin:0;font-size:.84rem;font-weight:600}
+.calc-tmsg[hidden],.calc-copytxt[hidden]{display:none}
+.calc-copytxt{width:100%;font:inherit;font-size:.78rem;line-height:1.45;color:var(--fg);background:var(--panel);border:1px solid var(--on-pink);padding:10px;resize:vertical}
+.of-err{margin:0;font-size:.84rem;font-weight:650;line-height:1.4;color:var(--pinkt)}
+.of-err[hidden]{display:none}
+.qty input.bad{box-shadow:inset 0 0 0 2px var(--pink)}
+.calc-range.bump{animation:bump .45s var(--ease)}
+@keyframes bump{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+/* ---------- fyrirspurnargluggi úr reiknivélinni ---------- */
+.qdlg{width:min(780px,calc(100vw - 32px));max-width:none;max-height:calc(100dvh - 40px);margin:auto;padding:0;border:1px solid var(--line2);background:var(--panel);color:var(--fg);overflow:auto;overscroll-behavior:contain;box-shadow:0 30px 90px rgba(0,0,0,.35)}
+.qdlg::backdrop{background:rgba(12,13,15,.6);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.qdlg[open]{animation:dlgin .35s var(--ease)}
+@keyframes dlgin{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.qdlg .qform{border:0;background:transparent}
+.qdlg-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.qdlg-hd .eyebrow{margin-bottom:12px}
+.qdlg-hd h2{margin:0;font-weight:850;font-stretch:68%;text-transform:uppercase;font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:.92;text-wrap:balance}
+.qdlg-x{flex:0 0 auto;width:46px;height:46px;display:grid;place-items:center;border:1px solid var(--line2);background:transparent;color:var(--fg);cursor:pointer}
+.qdlg-x svg{width:20px;height:20px}
+.qdlg-x:hover{border-color:var(--fg)}
+.qest{background:var(--bg2);border-left:3px solid var(--pink);padding:16px 18px;display:grid;gap:12px}
+.qest-h{display:grid;gap:3px}
+.qest-h span{font-size:.72rem;font-weight:750;font-stretch:78%;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.qest-h b{font-size:clamp(1.35rem,2.6vw,1.7rem);font-weight:850;font-stretch:72%;line-height:1.1;font-variant-numeric:tabular-nums}
+.qest-h b small{font-size:.62em;font-weight:650;font-stretch:85%;color:var(--mute)}
+.qest-h em{font-style:normal;font-size:.9rem;color:var(--mute);font-variant-numeric:tabular-nums}
+.qest-l{margin:0;padding-left:18px;font-size:.88rem;line-height:1.45;color:var(--mute);display:grid;gap:3px}
+.qest-edit{justify-self:start;font:inherit;font-size:.88rem;font-weight:700;background:none;border:0;border-bottom:1.5px solid var(--pink);padding:2px 0;color:var(--fg);cursor:pointer}
+.qest-edit:hover{color:var(--pinkt)}
+.qnote{margin:0;font-size:.9rem;color:var(--mute)}
+.qnote a{color:var(--fg)}
+.qform .calc-disc{color:var(--mute);border-left-color:var(--sandt)}
+html.dlg-open .calc-mini{display:none!important}
+@media (max-width:560px){
+  .qdlg{width:100%;height:100%;max-height:100dvh;margin:0;border:0}
+  .qdlg .qform{padding:max(18px,env(safe-area-inset-top,0px)) var(--gutr) calc(26px + env(safe-area-inset-bottom,0px)) var(--gut)}
+}
+@media (prefers-reduced-motion:reduce){.qdlg[open],.calc-range.bump{animation:none}}
 
 /* switching theme: colours ease instead of jumping (not on first paint) */
-html.theming body,html.theming .hd,html.theming .sec,html.theming .band,html.theming .card,html.theming #quote,html.theming .ch,html.theming .labels .lbl span,html.theming .scrim{transition:background-color .5s var(--ease),color .5s var(--ease),border-color .5s var(--ease)}
+html.theming body,html.theming .hd,html.theming .sec,html.theming .band,html.theming .card,html.theming .qform,html.theming .ch,html.theming .labels .lbl span,html.theming .scrim{transition:background-color .5s var(--ease),color .5s var(--ease),border-color .5s var(--ease)}
