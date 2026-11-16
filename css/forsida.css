@@ -1,5 +1,5 @@
 /* P. Blöndal forsíða (íslenska og enska): ljóst og dökkt útlit með þrívíddarsenu. Letur: Archivo og Instrument Serif (OFL).
-   Ljóst útlit er sjálfgefið; hnappurinn með tungli/sól setur data-theme="dark" á <html> og valið er munað (pb-theme), eins og á undirsíðum.
+   Dökkt útlit er sjálfgefið (data-theme="dark" á <html>); hnappurinn með tungli/sól skiptir yfir í ljóst og valið er munað (pb-theme), eins og á undirsíðum.
    Litirnir eru breytur hér efst: --bg, --fg o.s.frv. Í dökku útliti eru þær yfirskrifaðar í :root[data-theme="dark"]. */
 @font-face{font-family:"Archivo";src:url(../fonts/archivo.woff) format("woff");font-weight:300 900;font-stretch:62% 100%;font-style:normal;font-display:swap}
 @font-face{font-family:"Instrument Serif";src:url(../fonts/instrument-serif-italic.woff) format("woff");font-weight:400;font-style:italic;font-display:swap}

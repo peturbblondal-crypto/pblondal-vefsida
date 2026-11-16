@@ -79,7 +79,7 @@ Síðan er á https://pblondal.is. DNS er hjá ISNIC: fjórar A-færslur á IP-t
 
 - Ensk útgáfa er á `/en/` (forsíða), `/en/services/<heiti>/` (þjónustusíður) og `/en/policies/` (stefnur).
 - Hnappurinn „EN / IS“ efst skiptir á milli samsvarandi síðna á hvoru tungumáli.
-- Hnappurinn með tungli/sól skiptir á milli ljóss og dökks útlits á öllum síðum. Valið er munað í vafranum (`pb-theme`) og gildir á öllum síðum. Síðan opnast í ljósu útliti nema gestur hafi valið dökkt.
+- Hnappurinn með tungli/sól skiptir á milli ljóss og dökks útlits á öllum síðum. Valið er munað í vafranum (`pb-theme`) og gildir á öllum síðum. Síðan opnast í dökku útliti nema gestur hafi valið ljóst.
 - Á forsíðunni stýrir útlitið líka birtunni í þrívíddarsenunni: síðdegisbirta í ljósu útliti, sólsetur með kveikt ljós í dökku.
 - Fyrirspurnir af ensku síðunni berast á petur@pblondal.is merktar „Tungumál: Enska“.
 
