@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://pblondal.is/</loc><lastmod>2026-11-14</lastmod></url>
-  <url><loc>https://pblondal.is/en/</loc><lastmod>2026-11-14</lastmod></url>
+  <url><loc>https://pblondal.is/</loc><lastmod>2026-11-16</lastmod></url>
+  <url><loc>https://pblondal.is/en/</loc><lastmod>2026-11-16</lastmod></url>
+  <url><loc>https://pblondal.is/fyrirtaeki/</loc><lastmod>2026-11-16</lastmod></url>
+  <url><loc>https://pblondal.is/en/business/</loc><lastmod>2026-11-16</lastmod></url>
   <url><loc>https://pblondal.is/thjonusta/graftur-og-jardvinna/</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://pblondal.is/thjonusta/veituframkvaemdir/</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://pblondal.is/thjonusta/lagnaskurdir/</loc><lastmod>2026-10-27</lastmod></url>
@@ -14,7 +16,7 @@
   <url><loc>https://pblondal.is/en/services/drenlogn/</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://pblondal.is/en/services/hellulogn/</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://pblondal.is/en/services/grunnar-og-lodir/</loc><lastmod>2026-10-27</lastmod></url>
-  <url><loc>https://pblondal.is/stefnur/</loc><lastmod>2026-10-27</lastmod></url>
+  <url><loc>https://pblondal.is/stefnur/</loc><lastmod>2026-11-16</lastmod></url>
   <url><loc>https://pblondal.is/stefnur/sjalfbaernistefna/</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://pblondal.is/stefnur/umhverfisstefna/</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://pblondal.is/stefnur/mannaudsstefna/</loc><lastmod>2026-10-27</lastmod></url>
@@ -32,7 +34,7 @@
   <url><loc>https://pblondal.is/stefnur/eftirlit-med-vinnuvelum/</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://pblondal.is/stefnur/vidbragdsaaetlun/</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://pblondal.is/stefnur/mottaka-nylida/</loc><lastmod>2026-10-27</lastmod></url>
-  <url><loc>https://pblondal.is/en/policies/</loc><lastmod>2026-10-27</lastmod></url>
+  <url><loc>https://pblondal.is/en/policies/</loc><lastmod>2026-11-16</lastmod></url>
   <url><loc>https://pblondal.is/en/policies/sjalfbaernistefna/</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://pblondal.is/en/policies/umhverfisstefna/</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://pblondal.is/en/policies/mannaudsstefna/</loc><lastmod>2026-10-27</lastmod></url>

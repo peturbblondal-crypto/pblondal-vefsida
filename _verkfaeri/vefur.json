@@ -5,61 +5,193 @@
     "valmynd_heiti": "Aðalvalmynd",
     "simavalmynd_heiti": "Valmynd",
     "valmynd": [
-      {"texti": "Þjónusta", "slod": "#thjonusta"},
-      {"texti": "Verðreiknivél", "slod": "#reiknivel"},
-      {"texti": "Fyrirtæki", "langt": "Fyrirtæki & undirverktaka", "slod": "fyrirtaeki/"},
-      {"texti": "Verkferli", "slod": "#ferli"},
-      {"texti": "Um okkur", "slod": "#um-okkur"},
-      {"texti": "Stefnur", "langt": "Stefnur og verklag", "slod": "stefnur/"},
-      {"texti": "Hafa samband", "slod": "#hafa-samband"}
+      {
+        "texti": "Þjónusta",
+        "slod": "#thjonusta"
+      },
+      {
+        "texti": "Verðreiknivél",
+        "slod": "#reiknivel"
+      },
+      {
+        "texti": "Fyrirtæki",
+        "langt": "Fyrirtæki & undirverktaka",
+        "slod": "fyrirtaeki/"
+      },
+      {
+        "texti": "Verkferli",
+        "slod": "#ferli"
+      },
+      {
+        "texti": "Um okkur",
+        "slod": "#um-okkur"
+      },
+      {
+        "texti": "Stefnur",
+        "langt": "Stefnur og verklag",
+        "slod": "stefnur/"
+      },
+      {
+        "texti": "Hafa samband",
+        "slod": "#hafa-samband"
+      }
     ],
     "hringja": "Hringja 773-3363",
-    "annad_mal": {"texti": "English", "slod": "en/", "lang": "en"},
+    "annad_mal": {
+      "texti": "English",
+      "slod": "en/",
+      "lang": "en"
+    },
     "thjonusta_mappa": "thjonusta/",
     "thjonusta_heiti": "Þjónusta",
     "thjonusta": [
-      {"slug": "graftur-og-jardvinna", "stutt": "Gröftur og jarðvinna", "fullt": "Gröftur og jarðvinna"},
-      {"slug": "veituframkvaemdir", "stutt": "Veituframkvæmdir", "fullt": "Veituframkvæmdir"},
-      {"slug": "lagnaskurdir", "stutt": "Lagnaskurðir", "fullt": "Lagnaskurðir"},
-      {"slug": "drenlogn", "stutt": "Drenlögn", "fullt": "Drenlögn kringum hús"},
-      {"slug": "hellulogn", "stutt": "Hellulögn", "fullt": "Hellulögn og innkeyrslur"},
-      {"slug": "grunnar-og-lodir", "stutt": "Grunnar og lóðir", "fullt": "Grunnar og lóðir"}
+      {
+        "slug": "graftur-og-jardvinna",
+        "stutt": "Gröftur og jarðvinna",
+        "fullt": "Gröftur og jarðvinna"
+      },
+      {
+        "slug": "veituframkvaemdir",
+        "stutt": "Veituframkvæmdir",
+        "fullt": "Veituframkvæmdir"
+      },
+      {
+        "slug": "lagnaskurdir",
+        "stutt": "Lagnaskurðir",
+        "fullt": "Lagnaskurðir"
+      },
+      {
+        "slug": "drenlogn",
+        "stutt": "Drenlögn",
+        "fullt": "Drenlögn kringum hús"
+      },
+      {
+        "slug": "hellulogn",
+        "stutt": "Hellulögn",
+        "fullt": "Hellulögn og innkeyrslur"
+      },
+      {
+        "slug": "grunnar-og-lodir",
+        "stutt": "Grunnar og lóðir",
+        "fullt": "Grunnar og lóðir"
+      }
     ],
     "fotur": [
-      {"texti": "Fyrirtæki & undirverktaka", "slod": "fyrirtaeki/"},
-      {"texti": "Stefnur og verklag", "slod": "stefnur/"}
+      {
+        "texti": "Fyrirtæki & undirverktaka",
+        "slod": "fyrirtaeki/"
+      },
+      {
+        "texti": "Stefnur og verklag",
+        "slod": "stefnur/"
+      }
     ],
-    "kt": "Kt. 570125-0950"
+    "kt": "Kt. 570125-0950",
+    "vidmot": {
+      "skip": "Fara beint í efni",
+      "valmynd_takki": "Valmynd",
+      "loka": "Loka",
+      "flytileidir": "Flýtileiðir",
+      "thema": "Skipta á milli ljóss og dökks útlits",
+      "forsida": "P. Blöndal ehf., forsíða",
+      "reiknivel": "Verðreiknivél"
+    }
   },
   "en": {
     "heim": "en/",
     "valmynd_heiti": "Main menu",
     "simavalmynd_heiti": "Menu",
     "valmynd": [
-      {"texti": "Services", "slod": "#thjonusta"},
-      {"texti": "Price calculator", "slod": "#reiknivel"},
-      {"texti": "Business", "langt": "Business & subcontracting", "slod": "business/"},
-      {"texti": "How we work", "slod": "#ferli"},
-      {"texti": "About", "slod": "#um-okkur"},
-      {"texti": "Policies", "langt": "Policies and procedures", "slod": "policies/"},
-      {"texti": "Contact", "slod": "#hafa-samband"}
+      {
+        "texti": "Services",
+        "slod": "#thjonusta"
+      },
+      {
+        "texti": "Price calculator",
+        "slod": "#reiknivel"
+      },
+      {
+        "texti": "Business",
+        "langt": "Business & subcontracting",
+        "slod": "business/"
+      },
+      {
+        "texti": "How we work",
+        "slod": "#ferli"
+      },
+      {
+        "texti": "About",
+        "slod": "#um-okkur"
+      },
+      {
+        "texti": "Policies",
+        "langt": "Policies and procedures",
+        "slod": "policies/"
+      },
+      {
+        "texti": "Contact",
+        "slod": "#hafa-samband"
+      }
     ],
     "hringja": "Call 773-3363",
-    "annad_mal": {"texti": "Íslenska", "slod": "../", "lang": "is"},
+    "annad_mal": {
+      "texti": "Íslenska",
+      "slod": "../",
+      "lang": "is"
+    },
     "thjonusta_mappa": "services/",
     "thjonusta_heiti": "Services",
     "thjonusta": [
-      {"slug": "graftur-og-jardvinna", "stutt": "Excavation and groundwork", "fullt": "Excavation and groundwork"},
-      {"slug": "veituframkvaemdir", "stutt": "Utility work", "fullt": "Utility work"},
-      {"slug": "lagnaskurdir", "stutt": "Trenching", "fullt": "Trenching"},
-      {"slug": "drenlogn", "stutt": "Foundation drainage", "fullt": "Foundation drainage"},
-      {"slug": "hellulogn", "stutt": "Paving and driveways", "fullt": "Paving and driveways"},
-      {"slug": "grunnar-og-lodir", "stutt": "Foundations and gardens", "fullt": "Foundations and gardens"}
+      {
+        "slug": "graftur-og-jardvinna",
+        "stutt": "Excavation and groundwork",
+        "fullt": "Excavation and groundwork"
+      },
+      {
+        "slug": "veituframkvaemdir",
+        "stutt": "Utility work",
+        "fullt": "Utility work"
+      },
+      {
+        "slug": "lagnaskurdir",
+        "stutt": "Trenching",
+        "fullt": "Trenching"
+      },
+      {
+        "slug": "drenlogn",
+        "stutt": "Foundation drainage",
+        "fullt": "Foundation drainage"
+      },
+      {
+        "slug": "hellulogn",
+        "stutt": "Paving and driveways",
+        "fullt": "Paving and driveways"
+      },
+      {
+        "slug": "grunnar-og-lodir",
+        "stutt": "Foundations and gardens",
+        "fullt": "Foundations and gardens"
+      }
     ],
     "fotur": [
-      {"texti": "Business & subcontracting", "slod": "business/"},
-      {"texti": "Policies and procedures", "slod": "policies/"}
+      {
+        "texti": "Business & subcontracting",
+        "slod": "business/"
+      },
+      {
+        "texti": "Policies and procedures",
+        "slod": "policies/"
+      }
     ],
-    "kt": "Company ID 570125-0950"
+    "kt": "Company ID 570125-0950",
+    "vidmot": {
+      "skip": "Skip to content",
+      "valmynd_takki": "Menu",
+      "loka": "Close",
+      "flytileidir": "Quick links",
+      "thema": "Switch between light and dark mode",
+      "forsida": "P. Blöndal ehf., home",
+      "reiknivel": "Price calculator"
+    }
   }
 }

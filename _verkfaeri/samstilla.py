@@ -44,8 +44,31 @@ def cur(L, pdir, slod):
     return ' aria-current="page"' if not slod.startswith('#') and L['heim'] + slod == pdir else ''
 
 
+def en404():
+    """Íslenskur texti og slóðir á 404-síðunni og ensk samsvörun, fyrir slóðir undir /en/."""
+    I, N = DATA['is'], DATA['en']
+    text, href = {}, {'/': '/en/'}
+    for a, b in zip(I['valmynd'], N['valmynd']):
+        text[a['texti']] = b['texti']
+        if 'langt' in a: text[a['langt']] = b.get('langt', b['texti'])
+        href['/' + a['slod']] = '/en/' + b['slod']
+    for a, b in zip(I['thjonusta'], N['thjonusta']):
+        text[a['stutt']] = b['stutt']
+        href['/' + I['thjonusta_mappa'] + a['slug'] + '/'] = '/en/' + N['thjonusta_mappa'] + b['slug'] + '/'
+    for a, b in zip(I['fotur'], N['fotur']):
+        text[a['texti']] = b['texti']
+        href['/' + a['slod']] = '/en/' + b['slod']
+    for k in ('valmynd_heiti', 'simavalmynd_heiti', 'thjonusta_heiti', 'hringja', 'kt'):
+        text[I[k]] = N[k]
+    for k, v in I['vidmot'].items():
+        text[v] = N['vidmot'][k]
+    return json.dumps({'text': text, 'href': href}, ensure_ascii=False, sort_keys=True)
+
+
 def sync(path, src):
     L, lang, pdir, pre, is404 = ctx(path, src)
+    if is404:
+        src = re.sub(r'/\*TEXTI\*/.*?/\*TEXTI\*/', lambda m: '/*TEXTI*/' + en404() + '/*TEXTI*/', src, flags=re.S)
     home = pdir == L['heim'] and path.endswith('index.html')
     out = src
     items = L['valmynd']

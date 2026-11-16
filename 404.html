@@ -37,6 +37,7 @@
     <nav class="nav" aria-label="Aðalvalmynd">
       <a href="/#thjonusta">Þjónusta</a>
       <a href="/#reiknivel">Verðreiknivél</a>
+      <a href="/fyrirtaeki/">Fyrirtæki</a>
       <a href="/#ferli">Verkferli</a>
       <a href="/#um-okkur">Um okkur</a>
       <a href="/stefnur/">Stefnur</a>
@@ -49,25 +50,31 @@
   <nav class="mnav" id="mnav" aria-label="Valmynd" hidden>
     <a href="/#thjonusta">Þjónusta</a>
     <a href="/#reiknivel">Verðreiknivél</a>
+    <a href="/fyrirtaeki/">Fyrirtæki &amp; undirverktaka</a>
     <a href="/#ferli">Verkferli</a>
     <a href="/#um-okkur">Um okkur</a>
-    <a href="/stefnur/">Stefnur</a>
+    <a href="/stefnur/">Stefnur og verklag</a>
     <a href="/#hafa-samband">Hafa samband</a>
     <a href="tel:+3547733363">Hringja 773-3363</a>
   </nav>
 </header>
 
-<main id="efni"><div class="wrap nf">
+<main id="efni"><div class="wrap nf" lang="is" data-l="is">
   <div class="label">404</div>
   <h1>Þessi síða fannst ekki.</h1>
   <p class="mute" style="margin:0;max-width:46ch">Slóðin gæti hafa breyst. Farðu á forsíðuna eða hringdu beint í 773-3363.<br><span lang="en">Page not found. <a href="/en/">Go to the English home page</a>.</span></p>
   <div style="display:flex;flex-wrap:wrap;gap:10px"><a class="btn btn-main" href="/">Fara á forsíðu</a><a class="btn btn-line" href="/#reiknivel">Verðreiknivél</a></div>
+</div><div class="wrap nf" lang="en" data-l="en" hidden>
+  <div class="label">404</div>
+  <h1>This page was not found.</h1>
+  <p class="mute" style="margin:0;max-width:46ch">The address may have changed. Go to the home page or call us on 773-3363.<br><span lang="is">Síðan fannst ekki. <a href="/">Fara á íslensku forsíðuna</a>.</span></p>
+  <div style="display:flex;flex-wrap:wrap;gap:10px"><a class="btn btn-main" href="/en/">Go to the home page</a><a class="btn btn-line" href="/en/#reiknivel">Price calculator</a></div>
 </div></main>
 <footer>
   <div class="wrap foot">
     <img class="logo-light" src="/logo.png" alt="P. Blöndal ehf." width="400" height="99">
     <img class="logo-dark" src="/logo-ljost.png" alt="P. Blöndal ehf." width="400" height="99">
-    <div class="foot-info"><a href="tel:+3547733363">773-3363</a><a href="mailto:petur@pblondal.is">petur@pblondal.is</a><a href="/stefnur/">Stefnur og verklag</a><span>Kt. 570125-0950</span><span>© 2026 P. Blöndal ehf.</span></div>
+    <div class="foot-info"><a href="tel:+3547733363">773-3363</a><a href="mailto:petur@pblondal.is">petur@pblondal.is</a><a href="/fyrirtaeki/">Fyrirtæki &amp; undirverktaka</a><a href="/stefnur/">Stefnur og verklag</a><span>Kt. 570125-0950</span><span>© 2026 P. Blöndal ehf.</span></div>
   </div>
   <div class="wrap"><nav class="foot-links" aria-label="Þjónusta"><a href="/thjonusta/graftur-og-jardvinna/">Gröftur og jarðvinna</a><a href="/thjonusta/veituframkvaemdir/">Veituframkvæmdir</a><a href="/thjonusta/lagnaskurdir/">Lagnaskurðir</a><a href="/thjonusta/drenlogn/">Drenlögn</a><a href="/thjonusta/hellulogn/">Hellulögn</a><a href="/thjonusta/grunnar-og-lodir/">Grunnar og lóðir</a></nav></div>
 </footer>
@@ -77,12 +84,29 @@
   <a class="btn btn-line" href="/#reiknivel">Verðreiknivél</a>
 </div>
 <script>
+/* Sama 404-síða birtist fyrir allar slóðir sem finnast ekki. Undir /en/ birtist hún á ensku.
+   Textarnir koma úr _verkfaeri/vefur.json (samstilla.py skrifar þá hér inn). */
+(function(){
+  if(!/^\/en(\/|$)/.test(location.pathname))return;
+  var T=/*TEXTI*/{"href": {"/": "/en/", "/#ferli": "/en/#ferli", "/#hafa-samband": "/en/#hafa-samband", "/#reiknivel": "/en/#reiknivel", "/#thjonusta": "/en/#thjonusta", "/#um-okkur": "/en/#um-okkur", "/fyrirtaeki/": "/en/business/", "/stefnur/": "/en/policies/", "/thjonusta/drenlogn/": "/en/services/drenlogn/", "/thjonusta/graftur-og-jardvinna/": "/en/services/graftur-og-jardvinna/", "/thjonusta/grunnar-og-lodir/": "/en/services/grunnar-og-lodir/", "/thjonusta/hellulogn/": "/en/services/hellulogn/", "/thjonusta/lagnaskurdir/": "/en/services/lagnaskurdir/", "/thjonusta/veituframkvaemdir/": "/en/services/veituframkvaemdir/"}, "text": {"Aðalvalmynd": "Main menu", "Drenlögn": "Foundation drainage", "Fara beint í efni": "Skip to content", "Flýtileiðir": "Quick links", "Fyrirtæki": "Business", "Fyrirtæki & undirverktaka": "Business & subcontracting", "Grunnar og lóðir": "Foundations and gardens", "Gröftur og jarðvinna": "Excavation and groundwork", "Hafa samband": "Contact", "Hellulögn": "Paving and driveways", "Hringja 773-3363": "Call 773-3363", "Kt. 570125-0950": "Company ID 570125-0950", "Lagnaskurðir": "Trenching", "Loka": "Close", "P. Blöndal ehf., forsíða": "P. Blöndal ehf., home", "Skipta á milli ljóss og dökks útlits": "Switch between light and dark mode", "Stefnur": "Policies", "Stefnur og verklag": "Policies and procedures", "Um okkur": "About", "Valmynd": "Menu", "Veituframkvæmdir": "Utility work", "Verkferli": "How we work", "Verðreiknivél": "Price calculator", "Þjónusta": "Services"}}/*TEXTI*/;
+  var d=document;d.documentElement.lang='en';d.title='Page not found | P. Blöndal ehf.';
+  d.querySelectorAll('[data-l]').forEach(function(e){e.hidden=e.getAttribute('data-l')!=='en'});
+  d.querySelectorAll('header a,footer a,footer span,.callbar a,.skip,#menuTxt').forEach(function(a){
+    var h=a.getAttribute('href');if(h&&T.href[h])a.setAttribute('href',T.href[h]);
+    if(!a.children.length){var t=a.textContent.trim();if(T.text[t])a.textContent=T.text[t]}
+  });
+  d.querySelectorAll('[aria-label],[title]').forEach(function(e){['aria-label','title'].forEach(function(k){var t=e.getAttribute(k);if(t&&T.text[t])e.setAttribute(k,T.text[t])})});
+  var l=d.querySelector('.tools .lang');if(l){l.setAttribute('href','/');l.textContent='IS';l.setAttribute('hreflang','is');l.setAttribute('lang','is');l.setAttribute('title','Íslenska');l.setAttribute('aria-label','Íslenska')}
+})();
+</script>
+<script>
 (function(){
   var head=document.getElementById('head');
   function s(){head.classList.toggle('lined',window.scrollY>8)}
   window.addEventListener('scroll',s,{passive:true});s();
   var mb=document.getElementById('menuBtn'),mn=document.getElementById('mnav');
-  function setMenu(o){mn.hidden=!o;mb.setAttribute('aria-expanded',o);document.getElementById('menuTxt').textContent=o?'Loka':'Valmynd';document.getElementById('menuIco').setAttribute('d',o?'M6 6l12 12M18 6L6 18':'M4 7h16M4 12h16M4 17h16')}
+  var EN=document.documentElement.lang==='en';
+  function setMenu(o){mn.hidden=!o;mb.setAttribute('aria-expanded',o);document.getElementById('menuTxt').textContent=o?(EN?'Close':'Loka'):(EN?'Menu':'Valmynd');document.getElementById('menuIco').setAttribute('d',o?'M6 6l12 12M18 6L6 18':'M4 7h16M4 12h16M4 17h16')}
   mb.addEventListener('click',function(){setMenu(mn.hidden)});
   mn.addEventListener('click',function(e){if(e.target.closest('a'))setMenu(false)});
   window.addEventListener('resize',function(){if(window.innerWidth>1100)setMenu(false)});

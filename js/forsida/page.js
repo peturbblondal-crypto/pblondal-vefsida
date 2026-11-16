@@ -80,7 +80,7 @@
     var setMenu = function (o) { mn.hidden = !o; mb.setAttribute('aria-expanded', o ? 'true' : 'false'); var ic = document.getElementById('menuIco'); if (ic) ic.setAttribute('d', o ? 'M6 6l12 12M18 6L6 18' : 'M4 7h16M4 12h16M4 17h16'); };
     mb.addEventListener('click', function () { setMenu(mn.hidden); });
     mn.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
-    addEventListener('resize', function () { if (innerWidth > 980) setMenu(false); });
+    addEventListener('resize', function () { if (innerWidth > 1100) setMenu(false); });
   }
 
   /* ---------- light / dark: same switch and the same remembered choice (pb-theme) as the rest of the site ---------- */

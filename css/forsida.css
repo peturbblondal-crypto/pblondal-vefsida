@@ -99,7 +99,8 @@ a{color:inherit}
 :root[data-theme="dark"] .i-sun{display:block}
 :root[data-theme="dark"] .i-moon{display:none}
 @media (prefers-color-scheme:dark){:root:not([data-theme]) .i-sun{display:block}:root:not([data-theme]) .i-moon{display:none}}
-@media (max-width:980px){.nav{display:none}.hd-cta{margin-left:auto}}
+@media (max-width:1100px){.nav{display:none}.hd-cta{margin-left:auto}}
+@media (min-width:1101px) and (max-width:1240px){.nav{gap:20px}}
 @media (max-width:460px){.hd .wrap{gap:14px}.hd-cta{gap:8px}.hd .btn{display:none}.brand img{height:24px}}
 @media (max-width:400px){.brand img{height:22px}}
 @media (max-width:352px){.tel{min-width:42px;justify-content:center;border:1px solid var(--line2);padding:0}.tel .tel-n{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}
@@ -221,12 +222,13 @@ html.lenis,html.lenis body{height:auto}
 .safe-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px 80px;align-items:start}
 @media (max-width:860px){.safe-grid{grid-template-columns:1fr}}
 .docs{list-style:none;margin:0 0 30px;padding:0;border-top:1px solid var(--line2)}
-.docs a{display:grid;grid-template-columns:56px 1fr auto;gap:16px;align-items:center;padding:20px 0;border-bottom:1px solid var(--line);text-decoration:none}
+.docs a{display:grid;grid-template-columns:84px 1fr auto;gap:16px;align-items:center;padding:20px 0;border-bottom:1px solid var(--line);text-decoration:none}
 .docs a:hover b{color:var(--pinkt)}
 .docs span{font-size:.8rem;font-weight:700;font-stretch:78%;letter-spacing:.12em;color:var(--sandt);font-variant-numeric:tabular-nums}
 .docs b{font-size:1.18rem;font-weight:700;font-stretch:88%;transition:color .2s}
 .docs a::after{content:"→";color:var(--mute)}
-:lang(en) .docs a{grid-template-columns:96px 1fr auto}
+:lang(en) .docs a{grid-template-columns:104px 1fr auto}
+.docs span{white-space:nowrap}
 
 /* area */
 .area-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line2)}
@@ -282,8 +284,9 @@ html.lenis,html.lenis body{height:auto}
 .ft .wrap+.wrap{margin-top:14px}
 
 /* split text: each word slides up inside its own mask */
-.wmask{display:inline-block;overflow:clip;vertical-align:top;padding-bottom:.06em;margin-bottom:-.06em}
-.disp .wmask{padding-right:.04em;margin-right:-.04em}
+.wmask,.w-mask{display:inline-block;overflow:clip;vertical-align:top;padding-bottom:.06em;margin-bottom:-.06em}
+/* SplitText (3.13) nefnir grímuna w-mask. Gríman nær upp fyrir línuna svo kommur og tvípunktar yfir hástöfum (Á, Í, Ó, Ö) klippist ekki */
+.disp .wmask,.disp .w-mask{padding-right:.04em;margin-right:-.04em;padding-top:.24em;margin-top:-.24em}
 /* scroll-velocity band between the story and the services */
 .band{background:var(--bg);border-block:1px solid var(--line);padding-block:clamp(18px,2.4vw,30px);overflow:hidden;display:grid;gap:clamp(6px,1vw,12px)}
 .band-row{display:flex;white-space:nowrap;will-change:transform}
@@ -305,7 +308,8 @@ html.lenis,html.lenis body{height:auto}
 .mnav[hidden]{display:none}
 .mnav a{padding:15px 2px;border-bottom:1px solid var(--line);text-decoration:none;font-weight:700;font-stretch:85%;font-size:1.12rem}
 .mnav a:last-child{border-bottom:0;color:var(--pinkt)}
-@media (max-width:980px){.menu-btn{display:inline-flex}.hd .lang{display:none}}
+@media (max-width:1100px){.menu-btn{display:inline-flex}}
+@media (max-width:980px){.hd .lang{display:none}}
 @media (max-width:460px){.tel{font-size:.95rem}}
 
 /* calculator */
@@ -479,3 +483,41 @@ html.dlg-open .calc-mini{display:none!important}
 
 /* switching theme: colours ease instead of jumping (not on first paint) */
 html.theming body,html.theming .hd,html.theming .sec,html.theming .band,html.theming .card,html.theming .qform,html.theming .ch,html.theming .labels .lbl span,html.theming .scrim{transition:background-color .5s var(--ease),color .5s var(--ease),border-color .5s var(--ease)}
+
+/* ---------- forsíða: fyrir fyrirtæki (stutt kynning, nánar á /fyrirtaeki/) ---------- */
+.b2b{background:var(--fg);color:var(--bg);padding-block:clamp(72px,9vw,124px)}
+.b2b-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px 80px;align-items:end}
+.b2b .eyebrow{color:var(--pink)}
+.b2b .disp em{color:var(--pink)}
+.b2b .lead{color:rgba(var(--bgc),.78);margin-top:0}
+.b2b-list{list-style:none;margin:26px 0 30px;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.b2b-list li{font-size:.86rem;font-weight:650;font-stretch:85%;padding:8px 12px;border:1px solid rgba(var(--bgc),.28);color:rgba(var(--bgc),.92)}
+.b2b .row{display:flex;flex-wrap:wrap;gap:10px}
+.b2b .btn:hover{color:var(--pink)}
+.b2b .btn.line{color:var(--bg);border-color:rgba(var(--bgc),.35)}
+.b2b .btn.line:hover{border-color:var(--bg);color:var(--bg)}
+.b2b :focus-visible{outline-color:var(--pink)}
+@media (max-width:860px){.b2b-grid{grid-template-columns:1fr;align-items:start}}
+@media (max-width:520px){.b2b .row .btn{flex:1 1 100%}}
+
+/* ---------- forsíða: öryggi, gæði og umhverfi í þremur flokkum ---------- */
+.pillars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 40px;margin-bottom:34px}
+.pillar{border-top:2px solid var(--line2);padding-top:26px;display:flex;flex-direction:column;min-width:0}
+.pillar:first-child{border-top-color:var(--pink)}
+.pillar h3{margin:0 0 10px;font-size:1.4rem;font-weight:800;font-stretch:74%;text-transform:uppercase;line-height:1.05}
+.pillar>p{margin:0 0 18px;color:var(--mute);font-size:.98rem;line-height:1.55}
+.pillar .docs{margin:auto 0 0}
+.pillar .docs a{grid-template-columns:1fr auto;grid-template-areas:"s a" "b a";gap:2px 14px;padding:14px 0}
+.pillar .docs span{grid-area:s;font-size:.74rem}
+.pillar .docs b{grid-area:b;font-size:1.02rem}
+.pillar .docs a::after{grid-area:a}
+@media (max-width:900px){.pillars{grid-template-columns:1fr;gap:34px}}
+
+/* ---------- forsíða: um okkur ---------- */
+.about-txt{margin-top:22px;display:grid;gap:14px;max-width:56ch}
+.about-txt p{margin:0;color:var(--mute);font-size:1rem;line-height:1.65}
+.about-side{display:grid;gap:30px;align-content:start}
+.team{margin:0;display:grid;gap:12px}
+.team img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:var(--bg3)}
+.team figcaption{font-size:.92rem;color:var(--mute)}
+.team figcaption b{display:block;color:var(--fg);font-size:1.05rem;font-weight:760;font-stretch:85%;text-transform:uppercase;letter-spacing:.02em}
