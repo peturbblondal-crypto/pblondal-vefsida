@@ -360,12 +360,12 @@ html.lenis,html.lenis body{height:auto}
 .calc-sum .label{margin:0;font-size:.76rem;font-weight:750;font-stretch:76%;letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;gap:10px}
 .calc-sum .label::before{content:"";width:22px;height:2px;background:var(--on-pink)}
 .calc-range{font-size:clamp(1.9rem,3.2vw,2.6rem);font-weight:860;font-stretch:70%;letter-spacing:-.01em;line-height:1;font-variant-numeric:tabular-nums}
-.calc-sub{font-size:.92rem;opacity:.8;font-variant-numeric:tabular-nums}
+.calc-sub{font-size:.92rem;font-variant-numeric:tabular-nums}
 .calc-lines{display:grid;gap:8px;font-size:.9rem;border-top:1px solid rgba(12,13,15,.28);padding-top:14px;font-variant-numeric:tabular-nums}
 .calc-lines div{display:flex;justify-content:space-between;gap:12px}
-.calc-lines span:first-child{opacity:.82}
+.calc-lines span:first-child{font-weight:500}
 .calc-lines span:last-child{white-space:nowrap}
-.calc-note{font-size:.8rem;opacity:.78;margin:0;line-height:1.5}
+.calc-note{font-size:.8rem;margin:0;line-height:1.5}
 .calc-sum .btn{background:var(--on-pink);border-color:var(--on-pink);color:var(--cream);justify-content:center}
 .calc-sum .btn:hover{background:transparent;color:var(--on-pink)}
 .calc-sum .btn[aria-disabled="true"]{opacity:.45;pointer-events:none}
@@ -430,10 +430,10 @@ html.lenis,html.lenis body{height:auto}
 .calc-vat{margin:0;display:grid;gap:7px;font-size:.92rem;font-variant-numeric:tabular-nums;border-top:1px solid rgba(12,13,15,.28);padding-top:14px}
 .calc-vat[hidden]{display:none}
 .calc-vat div{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px}
-.calc-vat dt{opacity:.85}
+.calc-vat dt{font-weight:500}
 .calc-vat dd{margin:0 0 0 auto;white-space:nowrap;font-weight:650}
-.calc-vat .tot dt,.calc-vat .tot dd{font-weight:800;opacity:1}
-.calc-lh{font-size:.72rem;font-weight:750;font-stretch:78%;letter-spacing:.14em;text-transform:uppercase;opacity:.72}
+.calc-vat .tot dt,.calc-vat .tot dd{font-weight:800}
+.calc-lh{font-size:.72rem;font-weight:750;font-stretch:78%;letter-spacing:.14em;text-transform:uppercase}
 .calc-disc{margin:0;font-size:.82rem;line-height:1.5;padding-left:12px;border-left:2px solid currentColor}
 .calc-sum #calcCta{min-height:56px;padding:12px 20px;line-height:1.25;text-align:center}
 .calc-sum #calcCta[aria-disabled="true"]{cursor:default}
@@ -488,6 +488,9 @@ html.theming body,html.theming .hd,html.theming .sec,html.theming .band,html.the
 .b2b{background:var(--fg);color:var(--bg);padding-block:clamp(72px,9vw,124px)}
 .b2b-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px 80px;align-items:end}
 .b2b .eyebrow{color:var(--pink)}
+/* í dökku útliti er bandið ljóst: dekkri bleikur svo smátt letur nái 4,5:1 */
+:root[data-theme="dark"] .b2b .eyebrow{color:#c9004c}
+@media (prefers-color-scheme:dark){:root:not([data-theme]) .b2b .eyebrow{color:#c9004c}}
 .b2b .disp em{color:var(--pink)}
 .b2b .lead{color:rgba(var(--bgc),.78);margin-top:0}
 .b2b-list{list-style:none;margin:26px 0 30px;padding:0;display:flex;flex-wrap:wrap;gap:8px}
@@ -521,3 +524,4 @@ html.theming body,html.theming .hd,html.theming .sec,html.theming .band,html.the
 .team img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:var(--bg3)}
 .team figcaption{font-size:.92rem;color:var(--mute)}
 .team figcaption b{display:block;color:var(--fg);font-size:1.05rem;font-weight:760;font-stretch:85%;text-transform:uppercase;letter-spacing:.02em}
+@media (min-width:900px){.mnav{padding-left:max(48px,env(safe-area-inset-left,0px));padding-right:max(48px,env(safe-area-inset-right,0px))}}
