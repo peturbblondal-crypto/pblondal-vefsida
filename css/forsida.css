@@ -525,3 +525,4 @@ html.theming body,html.theming .hd,html.theming .sec,html.theming .band,html.the
 .team figcaption{font-size:.92rem;color:var(--mute)}
 .team figcaption b{display:block;color:var(--fg);font-size:1.05rem;font-weight:760;font-stretch:85%;text-transform:uppercase;letter-spacing:.02em}
 @media (min-width:900px){.mnav{padding-left:max(48px,env(safe-area-inset-left,0px));padding-right:max(48px,env(safe-area-inset-right,0px))}}
+.qform .msg a{color:inherit;font-weight:700;text-decoration:underline;text-decoration-color:var(--pink);text-decoration-thickness:2px;text-underline-offset:3px}
